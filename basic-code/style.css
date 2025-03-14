@@ -46,7 +46,7 @@ h1:hover{
 #description1{
     color:rgb(224, 245, 242);
     font-size: 30px;
-    margin-left:600px;
+    margin-left:590px;
     margin-top:40px;
     margin-bottom:50px;
 }
@@ -54,7 +54,8 @@ h1:hover{
     color: rgb(34, 37, 209);
     font-size:40px;
     margin-bottom:50px;
-    margin-left:90px;
+    margin-left:20px;
+    margin-right:10px;
 }
 #start-button{
     color:rgb(213, 109, 135);
