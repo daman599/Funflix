@@ -69,3 +69,30 @@ h1:hover{
     border-radius: 20px;
     border-color: rgb(251, 252, 253);
 }
+.nav-bar2{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-between;
+}
+#search-area{
+    display: flex;
+    margin-top:35px;
+    margin-left:300px;
+    height: 40px;
+    max-width:500px;
+    flex-grow: 1;
+    border:3px solid rgb(64, 59, 59) ;
+    border-radius:7px;
+}
+#search-area input{
+    min-width: 150px;
+    flex-grow: 1;
+    padding:10px;
+    background-color: rgb(237, 218, 224);
+    color:black;
+    font-size:x-large;
+}
+#search-area button{
+    cursor: pointer;
+}
