@@ -27,6 +27,7 @@ h1:hover{
     border-color: #5530e9;
 }
 .nav-bar{
+
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -70,6 +71,7 @@ h1:hover{
     border-color: rgb(251, 252, 253);
 }
 .nav-bar2{
+    margin-right:2px;
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -78,16 +80,18 @@ h1:hover{
 #search-area{
     display: flex;
     margin-top:35px;
-    margin-left:300px;
+    margin-left:1150px;
+    margin-right:10px;
+    position:fixed;
     height: 40px;
     max-width:500px;
-    flex-grow: 1;
+    flex-grow: 2;
     border:3px solid rgb(64, 59, 59) ;
     border-radius:7px;
 }
 #search-area input{
     min-width: 150px;
-    flex-grow: 1;
+    flex-grow: 2;
     padding:10px;
     background-color: rgb(237, 218, 224);
     color:black;
