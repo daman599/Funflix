@@ -100,3 +100,10 @@ h1:hover{
 #search-area button{
     cursor: pointer;
 }
+#trMovie{
+    width: 200px;
+    font-size: large;
+    font-style: oblique;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(232, 189, 225);
+}

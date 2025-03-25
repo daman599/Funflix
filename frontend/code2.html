@@ -12,28 +12,35 @@
         <h1>flixFusion</h1>
         <div id="search-area">
             <input id="do-search" type="text" placeholder="Search...">
-            <button class="fas fa-search" type="submit" onclick="movieData()"></button>
+            <button class="fas fa-search" type="submitaa"></button>
         </div>
 </div>
         
 <div style="color:white">
-    <button>Trending Movies</button>
+    <p id="trMovie">Trending Movies</p>
     <div id="movies"></div>
 </div>
 
 </body>
 <script>
     const apikey='69318cb897ca41bb2651034004fc0ed0';
-    const url=`https://api.themoviedb.org/3/movie/100/videos?api_key=${apikey}`;
+    const url=`https://api.themoviedb.org/3/trending/movie/day?api_key=${apikey}`
 
-   async function movieData(){
+async function movieData(){
    const response= await fetch(url);
    const data=await response.json();
-   console.log(data)
+   let arrMovie=data.results;
 
-   for(let i=0;i<data.results.length;i++){
-     const id=data.results[i].key;
-    document.getElementById("movies").innerHTML +="<iframe src='https://www.youtube.com/embed/${id}',' width='200px', height='200px', frameborder='1' ,allowfullscreen</iframe>";
+   for(let i=0;i<arrMovie.length;i++){
+     const poster_path=arrMovie[i].poster_path;
+    document.getElementById("movies").innerHTML +=
+    `<img
+     src=https://image.tmdb.org/t/p/original/${poster_path} , 
+     alt=${arrMovie[i].title},
+     width='200px', 
+     height='200px', 
+     frameborder='1', 
+     allowfullscreen >`
    }
 }
 movieData();
