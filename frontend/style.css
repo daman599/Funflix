@@ -26,8 +26,10 @@ h1:hover{
     border-radius:10px;
     border-color: #5530e9;
 }
+#signup-button{
+    cursor: pointer;
+}
 .nav-bar{
-
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -69,6 +71,23 @@ h1:hover{
     cursor:pointer;
     border-radius: 20px;
     border-color: rgb(251, 252, 253);
+}
+#start-button:hover{
+    cursor:pointer;
+}
+#or{
+    color:rgb(137, 141, 133);
+    font-size: 25px;
+    margin-left:800px;
+    margin-top:15px;
+    margin-bottom:15px;
+}
+#option{
+    color:rgb(224, 245, 242);
+    font-size: 30px;
+    margin-left:640px;
+    margin-top:5px;
+    margin-bottom:10px;
 }
 .nav-bar2{
     margin-right:2px;
