@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="signup">
+        Create a new Account
+    <input id="username-signup" type="text" placeholder="Username">
+    <input id="password-signup" type="password" placeholder="Password"> 
+    <button type="submit" onclick="signup()" >Submit</button>
+    <br>
+    Login to your Account
+    <input id="username-login" type="text" placeholder="Username">
+    <input id="password-login" type="password" placeholder="Password"> 
+    <button type="submit" onclick="login()" >Submit</button>
+    <br>
+    <button id="data" onclick="myinfo()">Get data</button>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+<script>
+   async function signup(){
+        const username=document.getElementById("username-signup").value;
+        const password=document.getElementById("password-signup").value;
+        const response= await axios.post("http://localhost:3000/signup",{
+            username:username,
+            password:password
+         })
+         alert("you are signed up");
+    }
+    async function login(){
+        const username=document.getElementById("username-login").value;
+        const password=document.getElementById("password-login").value;
+        const response= await axios.post("http://localhost:3000/login",{
+            username:username,
+            password:password
+         })
+         if(response.data=="wrong credantials")
+         {
+            alert("wrong credentials");
+         }
+         else{
+          const token= response.data.token 
+          localStorage.setItem("token",token);
+          alert("logged in successfully")
+         }
+    }
+    async function myinfo(){
+     const response=await axios.get("http://localhost:3000/me",{
+        headers:{
+        token:localStorage.getItem("token")
+        }
+     });
+     alert(response.data.username);
+    }
+</script>
+</html>

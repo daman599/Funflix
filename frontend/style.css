@@ -126,3 +126,13 @@ h1:hover{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: rgb(232, 189, 225);
 }
+
+#signup{
+    font-size:30px;
+    border-radius: 20px;
+    width: 350px;
+    height:350px;
+    background-color: rgb(119, 124, 124);
+    margin-left:600px;
+    margin-top:200px;
+}
