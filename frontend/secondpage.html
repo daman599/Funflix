@@ -22,14 +22,14 @@
 </div>
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
 <script>
     const apikey='69318cb897ca41bb2651034004fc0ed0';
     const url=`https://api.themoviedb.org/3/trending/movie/day?api_key=${apikey}`
 
 async function movieData(){
-   const response= await fetch(url);
-   const data=await response.json();
-   let arrMovie=data.results;
+   const response= await axios.get(url);
+   let arrMovie=response.data.results;
 
    for(let i=0;i<arrMovie.length;i++){
      const poster_path=arrMovie[i].poster_path;

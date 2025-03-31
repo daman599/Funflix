@@ -19,6 +19,7 @@
     <button type="submit" onclick="login()" >Submit</button>
     <br>
     <button id="data" onclick="myinfo()">Get data</button>
+    <button id="logout" onclick="logout()">Log Out</button>
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
@@ -55,7 +56,15 @@
         token:localStorage.getItem("token")
         }
      });
-     alert(response.data.username);
+     if(!response.data.username){
+        alert(response.data);
+     }
+     else{
+        alert(response.data.username)
+     };
+    }
+    function logout(){
+        localStorage.removeItem("token");
     }
 </script>
 </html>
