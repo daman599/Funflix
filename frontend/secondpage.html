@@ -12,37 +12,58 @@
         <h1>flixFusion</h1>
         <div id="search-area">
             <input id="do-search" type="text" placeholder="Search...">
-            <button class="fas fa-search" type="submit"></button>
+            <button class="fas fa-search" type="submit" onclick="search()"></button>
         </div>
 </div>
         
 <div style="color:white">
     <p id="trMovie">Trending Movies</p>
-    <div id="movies"></div>
+    <div id="movies" style="display:flex"></div>
 </div>
-
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.8.4/axios.min.js"></script>
 <script>
-    const apikey='69318cb897ca41bb2651034004fc0ed0';
-    const url=`https://api.themoviedb.org/3/trending/movie/day?api_key=${apikey}`
+    const apikey="69318cb897ca41bb2651034004fc0ed0";
+    async function movieData(){
+        const response=await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apikey}`);
+       const movieArr= response.data.results;
 
-async function movieData(){
-   const response= await axios.get(url);
-   let arrMovie=response.data.results;
-
-   for(let i=0;i<arrMovie.length;i++){
-     const poster_path=arrMovie[i].poster_path;
-     document.getElementById("movies").innerHTML +=
-    `<img
-     src=https://image.tmdb.org/t/p/original/${poster_path} , 
-     alt=${arrMovie[i].title},
-     width='200px', 
-     height='200px', 
-     frameborder='1', 
-     allowfullscreen >`
+       for(let i=0;i<movieArr.length; i++){
+       const poster_path= movieArr[i].poster_path;
+       document.getElementById("movies").innerHTML +=
+       `<img src=https://image.tmdb.org/t/p/original/${poster_path}
+        width='200px'
+        height='200px'
+        frameborder=1
+        allowfullscreen>`
+       }
+   }
+    movieData();
+    
+    async function search(){
+        try{
+            const movie=document.getElementById("do-search").value;
+        const response=await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${apikey}&query=${movie}`);
+        const movieArr=response.data.results;
+    
+        document.getElementById("movies").innerHTML=""
+      for(let i=0;i<movieArr.length;i++){
+       const poster_path= movieArr[i].poster_path;
+       document.getElementById("movies").innerHTML +=
+       `<div>
+       <img src=https://image.tmdb.org/t/p/original/${poster_path}
+        width='200px'
+        height='200px'
+        margin='3px'
+        frameborder=1
+        allowfullscreen>
+        <p>${movieArr[i].title}</p>
+        </div>`
+    }
+   }catch(error){
+    document.getElementById("movies").innerHTML =""
+    document.getElementById("movies").innerHTML ="<p>No movie available</p>"
    }
 }
-movieData();
 </script>
 </html>
