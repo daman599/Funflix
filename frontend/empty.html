@@ -7,19 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="signup">
+    <div class="auth">
         Create a new Account
     <input id="username-signup" type="text" placeholder="Username">
     <input id="password-signup" type="password" placeholder="Password"> 
     <button type="submit" onclick="signup()" >Submit</button>
-    <br>
-    Login to your Account
-    <input id="username-login" type="text" placeholder="Username">
-    <input id="password-login" type="password" placeholder="Password"> 
-    <button type="submit" onclick="login()" >Submit</button>
-    <br>
-    <button id="data" onclick="myinfo()">Get data</button>
-    <button id="logout" onclick="logout()">Log Out</button>
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
@@ -31,7 +23,15 @@
             username:username,
             password:password
          })
-         alert("you are signed up");
+         alert(response.data);
+         document.getElementsByClassName("auth")[0].innerHTML=""
+         document.getElementsByClassName("auth")[0].innerHTML=
+         `<br>
+        Login to your Account
+        <input id="username-login" type="text" placeholder="Username">
+        <input id="password-login" type="password" placeholder="Password"> 
+        <button type="submit" onclick="login()" >Submit</button>
+         <br>`
     }
     async function login(){
         const username=document.getElementById("username-login").value;
@@ -48,6 +48,9 @@
           const token= response.data.token 
           localStorage.setItem("token",token);
           alert("logged in successfully")
+         document.getElementsByClassName("auth")[0].innerHTML=`
+         <button id="data" onclick="myinfo()">Get data</button>
+         <button id="logout" onclick="logout()">Log Out</button>`
          }
     }
     async function myinfo(){

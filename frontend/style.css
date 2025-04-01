@@ -127,7 +127,7 @@ h1:hover{
     color: rgb(232, 189, 225);
 }
 
-#signup{
+.auth{
     font-size:30px;
     border-radius: 20px;
     width: 350px;
