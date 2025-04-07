@@ -11,8 +11,8 @@
 <div class="nav-bar2">
         <h1>flixFusion</h1>
         <div id="search-area">
-            <input id="do-search" type="text" placeholder="Search...">
             <button class="fas fa-search" type="submit" onclick="search()"></button>
+            <input id="do-search" type="text" placeholder="Search...">
         </div>
 </div>
         
@@ -42,12 +42,12 @@
     
     async function search(){
         try{
-            const movie=document.getElementById("do-search").value;
+        const movie=document.getElementById("do-search").value;
         const response=await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${apikey}&query=${movie}`);
         const movieArr=response.data.results;
     
         document.getElementById("movies").innerHTML=""
-      for(let i=0;i<movieArr.length;i++){
+    for(let i=0;i<movieArr.length;i++){
        const poster_path= movieArr[i].poster_path;
        document.getElementById("movies").innerHTML +=
        `<div>
@@ -59,8 +59,8 @@
         allowfullscreen>
         <p>${movieArr[i].title}</p>
         </div>`
-    }
-   }catch(error){
+     }
+        }catch(error){
     document.getElementById("movies").innerHTML =""
     document.getElementById("movies").innerHTML ="<p>No movie available</p>"
    }

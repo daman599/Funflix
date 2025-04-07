@@ -62,12 +62,12 @@ h1:hover{
 }
 #start-button{
     color:rgb(213, 109, 135);
-    font-size: 50px;
-    width:500px;
-    height:100px;
+    font-size: 30px;
+    width:450px;
+    height:70px;
     background-color: rgb(8, 2, 31);
     position: relative;
-    margin-left:570px;
+    margin-left:600px;
     cursor:pointer;
     border-radius: 20px;
     border-color: rgb(251, 252, 253);
@@ -99,17 +99,17 @@ h1:hover{
 #search-area{
     display: flex;
     margin-top:35px;
-    margin-left:1150px;
+    margin-left:500px;
     margin-right:10px;
     position:fixed;
     height: 40px;
     max-width:500px;
-    flex-grow: 2;
+    flex-grow: 1;
     border:3px solid rgb(64, 59, 59) ;
     border-radius:7px;
 }
 #search-area input{
-    min-width: 150px;
+    min-width: 200px;
     flex-grow: 2;
     padding:10px;
     background-color: rgb(237, 218, 224);
