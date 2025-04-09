@@ -1,16 +1,25 @@
 {
-  "name": "backend",
+  "name": "flixfusion",
   "version": "1.0.0",
-  "main": "auth.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daman599/flixFusion....git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daman599/flixFusion.../issues"
+  },
+  "homepage": "https://github.com/daman599/flixFusion...#readme",
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2"

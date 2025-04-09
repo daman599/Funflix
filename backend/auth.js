@@ -1,65 +1,49 @@
-import express, { json } from "express";
-import jwt from "jsonwebtoken";
-const JWT_KEY="daman@1234";
-const app=express();
-import cors from "cors";
-
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const UserModel = require("./db.js");
+const dotenv=require("dotenv").config();
+mongoose.connect(process.env.MONGOS);
+const jwt = require("jsonwebtoken");
+const JWT_KEY=process.env.JWT_KEY;
+const cors = require("cors");
 app.use(cors());
-app.use(json());
-import { connect } from "mongoose";
-await connect("mongodb+srv://admin:daman%401234@cluster0.ixobnmc.mongodb.net/flixFusion");
 
-import { UserModel } from "./db.js";
-// // function auth(req,res,next){
-// //     const token= req.headers.token;
-// //     if(!token){
-// //         return res.send("not logged in")
-// //     }
-// // try{
-// //     const verifiedData=verify(token,JWT_KEY);
-// //     const username=verifiedData.username;
-// //     req.username=username;
-// //     next();
-// // }
-// // catch(err){
-// //       return res.status(404).send("invalid token")
-// //  }        
-// // }
+app.use(express.json());
 
-app.post('/signup',async function (req,res){
-   const email=req.body.email;
-   const password=req.body.password;
-
-  await UserModel.create({
-      email:email,
-      password:password
-   })
-   res.send("You are signed up");
+app.post("/signup",async (req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+    
+    await UserModel.create({
+        email:email,
+        password:password
+    })
+    
+    res.send("You are signed up successfully");
 })
 
-// app.post('/login',function (req,res){
-//     const username=req.body.username;
-//     const password=req.body.password;
-    
-//     const foundUser=users.find((user) => user.username==username && user.password == password);
-//     if(foundUser){
-//       const token=sign({
-//         username
-//       },JWT_KEY);
-//       res.json({
-//         "token":token
-//       })
-//     }
-//     else{
-//         res.send("wrong credantials");
-//     }
-//  })
+app.post("/signin",async (req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
 
-// app.get('/me',auth ,function(req,res){
-//     res.json({
-//     username:req.username
-//   })
-// })
+   const foundUser =  await UserModel.findOne({
+        email:email,
+        password:password
+    })
+    if(foundUser){
+    const token = jwt.sign({
+       id:foundUser._id
+    },JWT_KEY);
+    res.json({
+        "token":token
+    })
+  }
+    else{
+     res.send("wrong credentials");
+    }
+})
+
 app.listen(3000,()=>{
-    console.log("server has started");
+    console.log("Server has started")
 })

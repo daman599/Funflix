@@ -8,66 +8,58 @@
 </head>
 <body>
     <div class="auth">
-        Create a new Account
-    <input id="username-signup" type="text" placeholder="Username">
-    <input id="password-signup" type="password" placeholder="Password"> 
-    <button type="submit" onclick="signup()" >Submit</button>
+       <div> Sign in 
+        <button onclick="loginOptions()"> >> </button> 
+       </div>
+                 or
+       <div> Create new Account 
+        <button onclick="signupInfo()"> >> </button> 
+       </div>
     </div>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.8.4/axios.min.js"></script>
 <script>
-   async function signup(){
-        const username=document.getElementById("username-signup").value;
-        const password=document.getElementById("password-signup").value;
-        const response= await axios.post("http://localhost:3000/signup",{
-            username:username,
+function loginOptions(){
+    document.getElementsByClassName("auth")[0].innerHTML=`<button onclick="loginInfo()">Login to your account<button>
+        OR
+        <button>Login with Google<button>`
+}
+ function loginInfo(){
+    document.getElementsByClassName("auth")[0].innerHTML=` <input id="email-signin" type="text" placeholder="Email">
+    <input id="password-signin" type="password" placeholder="Password"> 
+    <button type="submit" onclick="signin()">Submit</button>`
+ }
+  async function signin(){
+        const email=document.getElementById("email-signin").value;
+        const password=document.getElementById("password-signin").value;
+        const response= await axios.post("http://localhost:3000/signin",{
+            email:email,
             password:password
          })
-         alert(response.data);
-         document.getElementsByClassName("auth")[0].innerHTML=""
-         document.getElementsByClassName("auth")[0].innerHTML=
-         `<br>
-        Login to your Account
-        <input id="username-login" type="text" placeholder="Username">
-        <input id="password-login" type="password" placeholder="Password"> 
-        <button type="submit" onclick="login()" >Submit</button>
-         <br>`
-    }
-    async function login(){
-        const username=document.getElementById("username-login").value;
-        const password=document.getElementById("password-login").value;
-        const response= await axios.post("http://localhost:3000/login",{
-            username:username,
-            password:password
-         })
-         if(response.data=="wrong credantials")
-         {
-            alert("wrong credentials");
-         }
-         else{
+         if(response.data.token){
           const token= response.data.token 
           localStorage.setItem("token",token);
           alert("logged in successfully")
-         document.getElementsByClassName("auth")[0].innerHTML=`
-         <button id="data" onclick="myinfo()">Get data</button>
-         <button id="logout" onclick="logout()">Log Out</button>`
+         }
+         else{
+            alert(response.data)
          }
     }
-    async function myinfo(){
-     const response=await axios.get("http://localhost:3000/me",{
-        headers:{
-        token:localStorage.getItem("token")
-        }
-     });
-     if(!response.data.username){
-        alert(response.data);
-     }
-     else{
-        alert(response.data.username)
-     };
-    }
-    function logout(){
-        localStorage.removeItem("token");
-    }
+function signupInfo(){
+    document.getElementsByClassName("auth")[0].innerHTML=""
+      document.getElementsByClassName("auth")[0].innerHTML=` <input id="email-signup" type="text" placeholder="Email">
+    <input id="password-signup" type="password" placeholder="Password"> 
+    <button type="submit" onclick="signup()">Submit</button>`
+ }
+async function signup(){
+        const email=document.getElementById("email-signup").value;
+        const password=document.getElementById("password-signup").value;
+        const response= await axios.post("http://localhost:3000/signup",{
+            email:email,
+            password:password
+         })
+         
+          alert(response.data)
+}
 </script>
 </html>

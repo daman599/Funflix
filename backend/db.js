@@ -1,12 +1,37 @@
-const mongoose =require("mongoose")
+const mongoose = require("mongoose");
 const Schema=mongoose.Schema;
 
-const user=new Schema({
-    email:String,
-    password:String
+const User=new Schema({
+    auth:{
+       email:{
+          type:String,
+          unique:true,
+          required:true
+        },
+        password:String
+    },
+    profile:{
+      name:String,
+      avatar_URL:URL,
+      country:String,
+      language_preference:String
+    },
+    preferences:{
+        notification_setting:Boolean,
+    },
+    watchlist:{
+       favourite_movies:[String]
+    },
+    activity_log:{
+       login:Boolean,
+       logout:Boolean,
+       searches:[String]
+    }
 })
-const UserModel=mongoose.model("Users",user);
 
-module.exports={
-    UserModel
-}
+const UserModel=mongoose.model("UserInfo",User);
+
+module.exports= UserModel
+
+
+

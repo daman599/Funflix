@@ -23,7 +23,8 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.8.4/axios.min.js"></script>
 <script>
-    const apikey="69318cb897ca41bb2651034004fc0ed0";
+    const dotenv = require('dotenv').config();
+    const apikey=process.env.API_KEY;
     async function movieData(){
         const response=await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apikey}`);
        const movieArr= response.data.results;
