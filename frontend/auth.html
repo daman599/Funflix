@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="auth">
+  <div class="auth">
        <div> Sign in 
         <button onclick="loginOptions()"> >> </button> 
        </div>
@@ -15,14 +15,18 @@
        <div> Create new Account 
         <button onclick="signupInfo()"> >> </button> 
        </div>
-    </div>
+  </div>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <div id="g_id_onload" 
+  data-client_id="262988959509-6mkmceltauq8su95vqo4adas4n62qo15.apps.googleusercontent.com" 
+  data-login_uri="http://localhost:3000/auth/google/callback">
+  </div>
+  <div class="g_id_signin" data-theme="filled_blue"></div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.8.4/axios.min.js"></script>
 <script>
 function loginOptions(){
-    document.getElementsByClassName("auth")[0].innerHTML=`<button onclick="loginInfo()">Login to your account<button>
-        OR
-        <button>Login with Google<button>`
+    document.getElementsByClassName("auth")[0].innerHTML=`<button onclick="loginInfo()">Login to your account<button>`
 }
  function loginInfo(){
     document.getElementsByClassName("auth")[0].innerHTML=` <input id="email-signin" type="text" placeholder="Email">

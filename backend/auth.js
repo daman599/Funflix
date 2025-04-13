@@ -3,12 +3,11 @@ const app = express();
 const mongoose = require("mongoose");
 const UserModel = require("./db.js");
 const dotenv=require("dotenv").config();
-mongoose.connect(process.env.MONGOS);
+mongoose.connect(process.env.MONGODB_URL);
 const jwt = require("jsonwebtoken");
 const JWT_KEY=process.env.JWT_KEY;
 const cors = require("cors");
 app.use(cors());
-
 app.use(express.json());
 
 app.post("/signup",async (req,res)=>{
@@ -42,6 +41,9 @@ app.post("/signin",async (req,res)=>{
     else{
      res.send("wrong credentials");
     }
+})
+app.post("/auth/google",(req,res)=>{
+
 })
 
 app.listen(3000,()=>{
