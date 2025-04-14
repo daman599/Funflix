@@ -12,7 +12,7 @@ const User=new Schema({
     },
     profile:{
       name:String,
-      avatar_URL:URL,
+      avatar_URL:String,
       country:String,
       language_preference:String
     },

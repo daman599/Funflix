@@ -9,6 +9,26 @@ const JWT_KEY=process.env.JWT_KEY;
 const cors = require("cors");
 app.use(cors());
 app.use(express.json());
+//Oauth
+const { OAuth2Client } =require("google-auth-library");
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const REDIRECT_URI = process.env.REDIRECT_URI;
+
+const client = new OAuth2Client(GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,REDIRECT_URI);
+
+app.get("/auth/google",(req,res)=>{
+    const auth_url= client.generateAuthUrl({
+        access_type:"online",
+        scope:["profile","email"],
+        response_type:"code"
+    })
+    res.redirect(auth_url);
+})
+app.get("/callback",async (res,req)=>{
+    const auth_code= res.query.code;
+    const token = client.getToken(auth_code);
+})
 
 app.post("/signup",async (req,res)=>{
     const email = req.body.email;
@@ -42,10 +62,6 @@ app.post("/signin",async (req,res)=>{
      res.send("wrong credentials");
     }
 })
-app.post("/auth/google",(req,res)=>{
-
-})
-
 app.listen(3000,()=>{
     console.log("Server has started")
 })
