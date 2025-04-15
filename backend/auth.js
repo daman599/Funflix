@@ -1,3 +1,4 @@
+const axios = require("axios");
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 //Oauth
 const { OAuth2Client } =require("google-auth-library");
+const { GoogleAuthExceptionMessages } = require("google-auth-library/build/src/auth/googleauth.js");
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
@@ -25,11 +27,34 @@ app.get("/auth/google",(req,res)=>{
     })
     res.redirect(auth_url);
 })
-app.get("/callback",async (res,req)=>{
-    const auth_code= res.query.code;
-    const token = client.getToken(auth_code);
+app.get("/callback",async (req,res)=>{
+    const auth_code = req.query.code;
+   const params= {
+        "grant_type":"authorization_code",
+        "code":auth_code,
+        "redirect_uri":"http://localhost:3000/callback",
+        "client_id":GOOGLE_CLIENT_ID,
+        "client_secret":GOOGLE_CLIENT_SECRET
+    }
+    const response = await axios.post("https://oauth2.googleapis.com/token",params,{
+        Headers:{
+            "Content_Type": "application/x-www-form-urlencoded",
+            "Accept": "application/json" 
+        },
+    })
+    console.log("Response" ,response.data);
+    const accessToken= response.data.access_token;
+    const api_endpoint="https://www.googleapis.com/oauth2/v1/userinfo"
+    const respi = await axios.get(api_endpoint,{
+        headers:{
+            Authorization: `Bearer ${accessToken}`
+        }
+    })
+    console.log(respi.data)
+    res.send("okay good to go");
+    
 })
-
+//oauth
 app.post("/signup",async (req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
