@@ -1,4 +1,5 @@
 const axios = require("axios");
+const bcrypt = require("bcrypt");
 const express = require("express");
 const app = express();
 const session=require("express-session");
@@ -16,7 +17,7 @@ app.use(session({
    secret:process.env.SECRET_KEY,
    resave:false,
    uninitialized:false,
-   cookie:{maxAge:24*60*60*100}
+   cookie:{maxAge:24*60*60*1000}
 }))
 
 //Oauth
@@ -65,13 +66,15 @@ app.get("/callback",async (req,res)=>{
     }
     res.redirect("http://localhost:5500/frontend/secondpage.html");
 })
+
 app.post("/signup",async (req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
     
+    const hashedPassword=await bcrypt.hash(password,10);
     await UserModel.create({
         email:email,
-        password:password
+        password:hashedPassword
     })
     
     res.send("You are signed up successfully");
@@ -96,6 +99,28 @@ app.post("/signin",async (req,res)=>{
     else{
      res.send("wrong credentials");
     }
+})
+function token_auth(req,res,next){
+    const token = req.headers.token;
+    if(!token){
+        return res.send("log in first to get user info");
+    }
+    else{
+        try{
+           const obj= jwt.verify(token,JWT_KEY);
+           req.body.id=ob.id;
+           next();
+        }catch(error){
+            return res.send("invalid token");
+        }
+    }
+}
+app.get("/userinfo",token_auth,async(req,res)=>{
+   const userId= req.body.id;
+   const user=await UserModel.findById(userId);
+   res.json({
+    "email":user.email
+   })
 })
 app.listen(3000,()=>{
     console.log("Server has started")

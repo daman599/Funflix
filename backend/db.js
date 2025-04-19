@@ -2,14 +2,12 @@ const mongoose = require("mongoose");
 const Schema=mongoose.Schema;
 
 const User=new Schema({
-    auth:{
-       email:{
+    email:{
           type:String,
           unique:true,
           required:true
         },
-        password:String
-    },
+    password:String,
     profile:{
       name:String,
       avatar_URL:String,
