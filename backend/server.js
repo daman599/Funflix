@@ -1,5 +1,6 @@
 const axios = require("axios");
 const bcrypt = require("bcrypt");
+const { z } = require("zod");
 const express = require("express");
 const app = express();
 const session=require("express-session");
@@ -68,16 +69,34 @@ app.get("/callback",async (req,res)=>{
 })
 
 app.post("/signup",async (req,res)=>{
+    const requiredFormat=z.object({
+        email:z.string().min(5).max(50).email(),
+        password:z.string().min(8).max(15)
+        .regex(/[a-z]/,"put atleast one lowercase character")
+        .regex(/[A-Z]/,"put atleast one UPPERCASE character")
+        .regex(/[a-z0-9A-Z]/,"atleast one speacial character")
+    })
+    const parsedData = requiredFormat.safeParse(req.body);
+    if(!parsedData.success){
+        res.json({
+            "message":"incorrect format",
+            error:parsedData.error
+        })
+    }
     const email = req.body.email;
     const password = req.body.password;
-    
-    const hashedPassword=await bcrypt.hash(password,10);
+ try{
+    const hashedPassword = await bcrypt.hash(password,10);
     await UserModel.create({
         email:email,
         password:hashedPassword
     })
-    
     res.send("You are signed up successfully");
+ }catch(err){
+    res.json({
+        "message":"this user already exists in db"
+    })
+ }
 })
 
 app.post("/signin",async (req,res)=>{
@@ -86,9 +105,16 @@ app.post("/signin",async (req,res)=>{
 
    const foundUser =  await UserModel.findOne({
         email:email,
-        password:password
     })
-    if(foundUser){
+    if(!foundUser){
+        res.json({
+            "message":"no user with this email exists in the db"
+        })
+        return
+    }
+  const matchPassword= await bcrypt.compare(password,foundUser.password);
+
+    if(matchPassword){
     const token = jwt.sign({
        id:foundUser._id
     },JWT_KEY);
