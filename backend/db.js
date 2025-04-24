@@ -10,9 +10,10 @@ const User=new Schema({
 const Movie_TVshow = new Schema({
     title:{type:String,required:true},
     content_type:String,
+    id:String,
+    overview:String,
     release_year:Number,
     posterURL:String,
-    overview:String
 })
 const Streaming_Service = new Schema({
      serviceName:{type:String,required:true},
@@ -22,11 +23,10 @@ const Streaming_Service = new Schema({
 const Availability = new Schema({
     movieId:{type:ObjectId,Required:true},
     serviceId:{type:ObjectId,Required:true},
-    regionCode:String,
     availability_type:String,
 })
 
-Availability.index({ movieId: 1, regionCode: 1 }); 
+Availability.index({ movieId: 1 }); 
 
 const UserModel = mongoose.model("UserInfo",User);
 const MovieModel = mongoose.model("Movie_tvInfo",Movie_TVshow);
