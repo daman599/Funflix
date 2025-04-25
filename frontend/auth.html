@@ -24,12 +24,12 @@
 function loginOptions(){
     document.getElementsByClassName("auth")[0].innerHTML=`<button onclick="loginInfo()">Login to your account<button>`
 }
- function loginInfo(){
+function loginInfo(){
     document.getElementsByClassName("auth")[0].innerHTML=` <input id="email-signin" type="text" placeholder="Email">
     <input id="password-signin" type="password" placeholder="Password"> 
     <button type="submit" onclick="signin()">Submit</button>`
  }
-  async function signin(){
+async function signin(){
         const email=document.getElementById("email-signin").value;
         const password=document.getElementById("password-signin").value;
         const response= await axios.post("http://localhost:3000/signin",{

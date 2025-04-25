@@ -8,27 +8,35 @@ const axios = require("axios");
 require("dotenv").config();
 const JWT_KEY=process.env.JWT_KEY;
 const { Userauthentication } = require("../Middleware/user");
-const TMDB_API_KEY = process.env.API_KEY;
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const RAPID_API_KEY = process.env.RAPID_API_KEY;
 
 userRouter.get("/search",async (req,res)=>{
+
     const movieTitle = req.query.title;
-    
+
     const found = await MovieModel.find({
         title: { $regex: new RegExp(movieTitle, "i") }
     })
-    if(found.length == 0){
+    if(found.length > 0){
+        res.json({
+            movies:found
+        })
+    }
         const url="https://api.themoviedb.org/3/search/movie";
         const movieData = await axios.get(url,{
         params:{
-            api_key:API_KEY,
+            api_key:TMDB_API_KEY,
             query:movieTitle
-        }
+        },
+        timeout:5000
        })
+
        const results = movieData.data.results;
        for(let i = 0;i<results.length;i++){
          let movieObj = results[i];
          await MovieModel.create({
-            title:movieObj.original_title,
+            title:movieObj.title,
             overview:movieObj.overview,
             id:movieObj.id,
             release_year:movieObj.release_date,
@@ -36,12 +44,23 @@ userRouter.get("/search",async (req,res)=>{
             content_type:"movie",
          })
        }
-      
-      const data =await MovieModel.find({
-        title:{ $regex: new RegExp(movieTitle, "i") }
+        
+      const streamResponse = await axios.get( 'https://streaming-availability.p.rapidapi.com/shows/search/title',{
+        params:{
+             title:movieTitle,
+             country:"us"
+        },
+        headers:{
+                'x-rapidapi-key': RAPID_API_KEY,
+                'x-rapidapi-host': 'streaming-availability.p.rapidapi.com'
+        },
+        timeout:5000
       })
-    } 
+      res.json({
+        movies:streamResponse.data
+      })
 })
+
 userRouter.post("/signup",async (req,res)=>{
     const zodSchema = z.object({
        username:z.string().max(6),

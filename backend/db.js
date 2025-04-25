@@ -12,7 +12,7 @@ const Movie_TVshow = new Schema({
     content_type:String,
     id:String,
     overview:String,
-    release_year:Number,
+    release_year:String,
     posterURL:String,
 })
 const Streaming_Service = new Schema({
