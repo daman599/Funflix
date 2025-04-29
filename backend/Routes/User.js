@@ -18,11 +18,13 @@ userRouter.get("/search",async (req,res)=>{
     const found = await MovieModel.find({
         title: { $regex: new RegExp(movieTitle, "i") }
     })
+
     if(found.length > 0){
         res.json({
             movies:found
         })
-    }
+        return
+    }else{
         const url="https://api.themoviedb.org/3/search/movie";
         const movieData = await axios.get(url,{
         params:{
@@ -59,6 +61,8 @@ userRouter.get("/search",async (req,res)=>{
       res.json({
         movies:streamResponse.data
       })
+      return 
+    }
 })
 
 userRouter.post("/signup",async (req,res)=>{
