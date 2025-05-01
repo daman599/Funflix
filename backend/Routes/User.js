@@ -78,8 +78,15 @@ userRouter.post("/signin",async(req,res)=>{
 })
 
 userRouter.get("/signout",(req,res)=>{
-   res.clearCookie("cookie");
+   res.clearCookie("token");
    res.send("ok u are logged out")
+})
+userRouter.get("/profile",Userauthentication,async (req,res)=>{
+      const userId = req.body.userId;
+      const profileInfo = await UserModel.findById(userId).select('-password');
+      res.status(200).json({
+        profile_info:profileInfo
+      })
 })
 
 userRouter.delete("/account",Userauthentication,async (req,res)=>{

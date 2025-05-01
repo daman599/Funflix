@@ -3,7 +3,6 @@ require("dotenv").config();
 const JWT_KEY = process.env.JWT_KEY;
 
 function Userauthentication(req,res,next){
-    console.log(req.cookies)
    const token = req.cookies.token;
    if(!token){
     res.json({
