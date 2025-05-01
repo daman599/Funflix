@@ -82,6 +82,15 @@ userRouter.get("/signout",(req,res)=>{
    res.send("ok u are logged out")
 })
 
+userRouter.delete("/account",Userauthentication,async (req,res)=>{
+    const userId=req.body.userId;
+    res.clearCookie('token');
+    await UserModel.deleteOne( {_id : userId});
+    res.json({
+        message:"your account is deleted"
+    })
+})
+
 module.exports ={
    userRouter:userRouter
 }
