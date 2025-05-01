@@ -4,6 +4,8 @@ const { userRouter } = require("./Routes/User");
 const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
+const cookie_parser = require("cookie-parser") ;
+app.use(cookie_parser());
 app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URL);

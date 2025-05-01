@@ -7,65 +7,10 @@ const jwt = require("jsonwebtoken");
 const axios = require("axios");
 require("dotenv").config();
 const JWT_KEY=process.env.JWT_KEY;
-const { Userauthentication } = require("../Middleware/user");
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
-const RAPID_API_KEY = process.env.RAPID_API_KEY;
-
-userRouter.get("/search",async (req,res)=>{
-
-    const movieTitle = req.query.title;
-
-    const found = await MovieModel.find({
-        title: { $regex: new RegExp(movieTitle, "i") }
-    })
-
-    if(found.length > 0){
-        res.json({
-            movies:found
-        })
-        return
-    }else{
-        const url="https://api.themoviedb.org/3/search/movie";
-        const movieData = await axios.get(url,{
-        params:{
-            api_key:TMDB_API_KEY,
-            query:movieTitle
-        },
-        timeout:5000
-       })
-
-       const results = movieData.data.results;
-       for(let i = 0;i<results.length;i++){
-         let movieObj = results[i];
-         await MovieModel.create({
-            title:movieObj.title,
-            overview:movieObj.overview,
-            id:movieObj.id,
-            release_year:movieObj.release_date,
-            posterURL:movieObj.poster_path,
-            content_type:"movie",
-         })
-       }
-        
-      const streamResponse = await axios.get( 'https://streaming-availability.p.rapidapi.com/shows/search/title',{
-        params:{
-             title:movieTitle,
-             country:"us"
-        },
-        headers:{
-                'x-rapidapi-key': RAPID_API_KEY,
-                'x-rapidapi-host': 'streaming-availability.p.rapidapi.com'
-        },
-        timeout:5000
-      })
-      res.json({
-        movies:streamResponse.data
-      })
-      return 
-    }
-})
+const { Userauthentication } = require("../Middleware/auth");
 
 userRouter.post("/signup",async (req,res)=>{
+    //input validation
     const zodSchema = z.object({
        username:z.string().max(6),
        email:z.string().min(8).max(20).email(),
@@ -97,7 +42,8 @@ try{
     })
 }
 })
-userRouter.post("/login",async(req,res)=>{
+
+userRouter.post("/signin",async(req,res)=>{
     const { username,email,password } = req.body;
     const userFound = await UserModel.findOne({
         email:email,
@@ -117,21 +63,25 @@ userRouter.post("/login",async(req,res)=>{
         return 
     }
     const token = jwt.sign({
-        email,
-        username
+        "email":email,
+        "userId":userFound._id
     },JWT_KEY);
-    res.json({
-        token:token
-    })
-})
-userRouter.get("/fav",Userauthentication,(req,res)=>{
 
-})
-userRouter.delete("/logout",(req,res)=>{
-    res.json({
-        message:"token delete"
+    //cookie set
+    res.cookie("token",token,{
+        httpOnly:true,
+        secure:true,
+        sameSite:"strict",
+        maxAge:24 * 60 * 60 * 1000 * 7
     })
+    res.send("ok u are logged in ")
 })
+
+userRouter.get("/signout",(req,res)=>{
+   res.clearCookie("cookie");
+   res.send("ok u are logged out")
+})
+
 module.exports ={
    userRouter:userRouter
 }
