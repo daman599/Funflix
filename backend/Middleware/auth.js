@@ -12,7 +12,9 @@ function Userauthentication(req,res,next){
    }
 try{
   const obj = jwt.verify(token,JWT_KEY);
-  req.body.userId=obj.userId;
+  req.user={
+    userId :obj.userId
+  };
   next();
 }catch(err){
     res.json({
