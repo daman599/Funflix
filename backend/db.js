@@ -7,36 +7,38 @@ const User=new Schema({
     email:{type:String,unique:true,required:true},
     password:String,
 })
-const Movie_TVshow = new Schema({
+
+const Movie = new Schema({
     title:{type:String,required:true},
-    content_type:String,
-    id:String,
+    tmdb_id:{type:Number,unique:true},
+    type:String,
     overview:String,
-    release_year:String,
-    posterURL:String,
-})
-const Streaming_Service = new Schema({
-     serviceName:{type:String,required:true},
-     logoURL:String,
-     websiteURL:String
-})
-const Availability = new Schema({
-    movieId:{type:ObjectId,Required:true},
-    serviceId:{type:ObjectId,Required:true},
-    availability_type:String,
+    release_date:String,
+    poster_path:String,
+    rating:Number,
+    streaming:[{
+        provider_id:Number,
+        country:String,
+        type:String,
+        price:Number,
+        link:String
+    }]
 })
 
-Availability.index({ movieId: 1 }); 
+const Providers = new Schema({
+    name:String,
+    logo_url:String,
+    provider_id:Number,
+    countries:[String]
+})
 
 const UserModel = mongoose.model("UserInfo",User);
-const MovieModel = mongoose.model("Movie_tvInfo",Movie_TVshow);
-const ServiceModel = mongoose.model("Streaming_Service",Streaming_Service);
-const AvailabilityModel = mongoose.model("Availability",Availability);
+const MovieModel = mongoose.model("MovieInfo",Movie);
+const ProviderModel = mongoose.model("ProvidersInfo",Providers);
 
 module.exports={
-    UserModel:UserModel,
-    MovieModel:MovieModel,
-    ServiceModel:ServiceModel,
-    AvailabilityModel:AvailabilityModel
+   UserModel,
+   MovieModel,
+   ProviderModel
 }
 
