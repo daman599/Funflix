@@ -6,6 +6,8 @@ const User=new Schema({
     username:String,
     email:{type:String,unique:true,required:true},
     password:String,
+    favorites:[Number],
+    watchlater:[Number]
 })
 
 const Movie = new Schema({
