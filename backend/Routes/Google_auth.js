@@ -28,13 +28,12 @@ googleAuthRouter.get('/auth/callback',async (req,res)=>{
 
     const userInfo= await axios.get('https://www.googleapis.com/oauth2/v2/userinfo',{
         headers:{
-            Authorization:'Bearer ${access_token}'
+            Authorization:`Bearer ${access_token}`
         }
     })
     res.json({
         message:"Signed in with google successfully"
-    })
-    
+    }) 
 })
 
 module.exports = {
