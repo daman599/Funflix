@@ -1,6 +1,6 @@
 const express = require("express");
 const userRouter = express.Router();
-const {  UserModel, MovieModel } = require("../db");
+const {  UserModel } = require("../db");
 const bcrypt = require("bcrypt");
 const { z } = require("zod");
 const jwt = require("jsonwebtoken");
@@ -150,99 +150,6 @@ userRouter.delete("/account",Userauthentication,async (req,res)=>{
     res.json({
         message:"your account is deleted"
     })
-})
-
-userRouter.post('/favorites/movie',Userauthentication ,async (req,res)=>{
-    const movieId = req.body.movieId;
-    const userId = req.user.userId;
-
-    try{
-    await UserModel.updateOne({ _id : userId },{ $addToSet:{ favorites : movieId } });
-
-    res.json({
-        message:"This movie is added to favorites"
-    })
-   }catch(err){
-    return res.json({
-        Error:"Something went wrong"
-    })
-  }
-})
-
-userRouter.get('/favorites',Userauthentication,async (req,res)=>{
-    const userId = req.user.userId;
-    const user = await UserModel.findById(userId);
-  try{
-    const favMovies =await MovieModel.find({tmdb_id :{$in : user.favorites}});
-    return res.json({
-        favoriteMovies:favMovies
-    }) 
-  }catch(err){
-    return res.json({
-        Error:"There is no favorite movie"
-    })
-  }
-})
-
-userRouter.delete('/favorites/movie',Userauthentication,async (req,res)=>{
-     const movieId = req.body.movieId;
-     const userId = req.user.userId;
-     
-     try{
-     await UserModel.updateOne({ _id : userId}, {$pull :{ favorites:movieId}});
-    
-     res.json({
-        message:"Movie is removed from favorites"
-     })
-     }catch(err){
-        return res.json({
-            Error:"Something went wrong"
-        })
-     }
-})
-
-userRouter.get('/watchlater/list',Userauthentication,async (req,res)=>{
-   const userId =req.user.userId;
-   const user=await UserModel.findById(userId);
-try{
-   const list= MovieModel.find({tmdb_id:{$in : user.watchlater}});
-   return res.json({
-    watchlaterMovies:list
-   })
-}catch(err){
-    Error:"There is no movie in the watch later lsit "
-}
-})
-
-userRouter.post('/watchlater/add/movie',Userauthentication,async (req,res)=>{
-    const userId = req.user.userId;
-    const movieId = req.body.movieId;
-     
-    try{
-     await UserModel.updateOne({ _id:userId },{ $addToSet:{ watchlater:movieId }});
-     return res.json({
-        message:"Movie is added to watch later list"
-     })
-    }catch(err){
-        return res.json({
-            Error:"Something went wrong"
-        })
-    }
-})
-
-userRouter.delete('/watchlater/remove/movie',Userauthentication,async(req,res)=>{
-  const userId = req.user.id;
-  const movieId = req.body.movieId;
-  try{
-    await UserModel.updateOne({ _id :userId},{$pull:{watchlater:movieId}})
-    return res.json({
-    message:"The movie is removed from watch later list"
-   })
-  }catch(err){
-    return res.json({
-    Error:"Something went wrong"
-    })
-  }
 })
 
 module.exports ={
