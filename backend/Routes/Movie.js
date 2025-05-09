@@ -8,6 +8,9 @@ const { MovieModel } = require('../db');
 
 movieRouter.get('/trending',async (req,res)=>{
 
+ try{
+   await MovieModel.deleteMany({isTrending : "True"})
+
    const url='https://api.themoviedb.org/3/trending/movie/day';
    const response = await axios.get(url,{
       params:{
@@ -15,6 +18,7 @@ movieRouter.get('/trending',async (req,res)=>{
       },
       timeout:5000
    })
+
    const trendMovies =response.data.results;
 
    await Promise.all(trendMovies.map(async (movie)=>{
@@ -28,12 +32,19 @@ movieRouter.get('/trending',async (req,res)=>{
         release_date:movie.release_date,
         poster_path:movie.poster_path,
         rating:movie.vote_average,
+        isTrending:"True"
        })
       }
    }))
-    res.json({
-      trendmovies:trendMovies
+   const trending =await MovieModel.find({isTrending : "True"})
+   res.json({
+      trendmovies:trending
     })
+}catch(err){
+  return res.json({
+   ERROR:"Something went wrong ,try again after some time"
+  })
+}
 })
 
 movieRouter.get('/search',async(req,res)=>{
@@ -41,12 +52,14 @@ movieRouter.get('/search',async(req,res)=>{
    const found = await MovieModel.find({
       title: { $regex: title, $options: 'i' }
    })
-   if(found){
+
+   if(found.length >0){
       return res.json({
          movies:found
       })
    }
 
+   try{
    const url="https://api.themoviedb.org/3/search/movie"
    const response = await axios.get(url,{
       params:{
@@ -54,7 +67,9 @@ movieRouter.get('/search',async(req,res)=>{
          query:title
       }
    })
+
    const results=response.data.results;
+
    await Promise.all(results.map(async (movie)=>{
       const exist = await MovieModel.findOne({tmdb_id:movie.id});
       if(!exist){
@@ -69,23 +84,94 @@ movieRouter.get('/search',async(req,res)=>{
          })
       }
    }))
-   return res.json({
-     searchedContent:results
+   const foundArr = await MovieModel.find({
+      title: { $regex: title, $options: 'i' }
    })
+   return res.json({
+     searchedContent:foundArr
+   })
+}catch(err){
+   res.json({
+      message:"Something went wrong"
+   })
+}
 })
 
-movieRouter.get('/details/',async (req,res)=>{
+movieRouter.get('/details',async (req,res)=>{
   const movieId = req.query.movieId;
+  if(!movieId){
+   return res.json({
+      message:"Unable to get movie details"
+   })
+  }
   const movieDetails = await MovieModel.findOne({tmdb_id:movieId});
   res.json({
    moviedetails:movieDetails
   })
 })
 
-//movieRouter.get('/streaming/availability/',(req,res)=>{
-  // const movieId = req.query.movieId;
-   
-//})
+movieRouter.get('/streaming/availability',async(req,res)=>{
+
+  const movieId = req.query.movieId;
+  const movie = await MovieModel.findOne({tmdb_id:movieId});
+
+  if(!movie){
+   return res.json({
+      message:"Movie not found"
+   })
+  }
+
+  if(movie.streaming.length > 0){
+     return res.json({
+      streamingdetails:movie.streaming
+     })
+  }
+
+  try{
+  const response=await axios.get(`https://streaming-availability.p.rapidapi.com/shows/movie/${movieId}`,{
+   params: {
+     output_language: 'en'
+   },
+   headers: {
+     'x-rapidapi-key': RAPID_API_KEY,
+     'x-rapidapi-host': 'streaming-availability.p.rapidapi.com'
+   },
+   timeout: 5000
+   });
+
+  const streamData= response.data.streamingOptions;
+  const streaming_options=streamData.in;
+
+  console.log(streaming_options);
+
+  if(!streaming_options){
+   return res.json({
+      message:"This movie is not available in your region"
+   })
+  }
+
+  await MovieModel.updateOne({ tmdb_id : movieId },{ $push:{ streaming : {
+
+      provider_id:streaming_options.service.id,
+      service_name:streaming_options.service.name,
+      logo_url:streaming_options.service.imageSet.lightThemeImage,
+      type:streaming_options.type,
+      video_link:streaming_options.video_link,
+      quality:streaming_options.quality
+
+  }}})
+
+  const movie = await MovieModel.findOne({tmdb_id:movieId});
+  return res.json({
+    streamingdetails:movie.streaming
+  })
+  
+}catch(err){
+   return res.json({
+      message:"Something went wrong"
+   })
+} 
+})
 
 module.exports ={
     movieRouter : movieRouter

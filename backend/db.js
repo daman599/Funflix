@@ -18,29 +18,22 @@ const Movie = new Schema({
     release_date:String,
     poster_path:String,
     rating:Number,
+    isTrending:String,
     streaming:[{
-        provider_id:Number,
-        country:String,
+        provider_id:String,
+        service_name:String,
+        logo_url:String,
         type:String,
-        price:Number,
-        link:String
+        video_link:String,
+        quality:String
     }]
-})
-
-const Providers = new Schema({
-    name:String,
-    logo_url:String,
-    provider_id:Number,
-    countries:[String]
 })
 
 const UserModel = mongoose.model("UserInfo",User);
 const MovieModel = mongoose.model("MovieInfo",Movie);
-const ProviderModel = mongoose.model("ProvidersInfo",Providers);
 
 module.exports={
    UserModel,
    MovieModel,
-   ProviderModel
 }
 
