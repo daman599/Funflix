@@ -2,6 +2,7 @@ const express = require('express');
 const favoritesRouter = express.Router();
 const { Userauthentication } = require('../Middleware/auth');
 const { UserModel , MovieModel } = require('../db');
+const Movie = require('./Movie');
 
 favoritesRouter.get('/',Userauthentication,async (req,res)=>{
     const userId = req.user.userId;
@@ -24,6 +25,7 @@ favoritesRouter.post('/movie',Userauthentication ,async (req,res)=>{
 
     try{
     await UserModel.updateOne({ _id : userId },{ $addToSet:{ favorites : movieId } });
+    await MovieModel.updateOne({tmdb_id:movieId},{$set :{isUserAdded:"True"}});
 
     res.json({
         message:"This movie is added to favorites"
@@ -41,7 +43,7 @@ favoritesRouter.delete('/movie',Userauthentication,async (req,res)=>{
      
      try{
      await UserModel.updateOne({ _id : userId}, {$pull :{ favorites:movieId}});
-    
+
      res.json({
         message:"Movie is removed from favorites"
      })

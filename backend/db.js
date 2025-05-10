@@ -20,6 +20,8 @@ const Movie = new Schema({
     poster_path:String,
     rating:Number,
     isTrending:String,
+    isUserAdded:{type:String,default:"False"},
+    createdAt: { type: Date, default: Date.now },
     streaming:[Object]
 })
 

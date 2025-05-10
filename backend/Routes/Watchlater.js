@@ -22,6 +22,8 @@ watchlaterRouter.post('/watchlater/add/movie',Userauthentication,async (req,res)
       
      try{
       await UserModel.updateOne({ _id:userId },{ $addToSet:{ watchlater:movieId }});
+      await MovieModel.updateOne({tmdb_id:movieId},{$set :{isUserAdded:"True"}});
+      
       return res.json({
          message:"Movie is added to watch later list"
       })
@@ -37,6 +39,7 @@ watchlaterRouter.delete('/watchlater/remove/movie',Userauthentication,async(req,
    const movieId = req.body.movieId;
    try{
      await UserModel.updateOne({ _id :userId},{$pull:{watchlater:movieId}})
+     
      return res.json({
      message:"The movie is removed from watch later list"
     })
