@@ -4,7 +4,10 @@ require("dotenv").config()
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const RAPID_API_KEY = process.env.RAPID_API_KEY;
 const axios = require("axios");
+const axiosRetry = require("axios-retry").default;
 const { MovieModel } = require('../db');
+
+axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
 
 movieRouter.get('/trending',async (req,res)=>{
 
@@ -16,7 +19,7 @@ movieRouter.get('/trending',async (req,res)=>{
       params:{
          api_key:TMDB_API_KEY
       },
-      timeout:5000
+      timeout:10000
    })
 
    const trendMovies =response.data.results;
@@ -24,7 +27,7 @@ movieRouter.get('/trending',async (req,res)=>{
    await Promise.all(trendMovies.map(async (movie)=>{
       const oldMovie= await MovieModel.findOne({tmdb_id:movie.id })
       if(!oldMovie){
-       await MovieModel.create({
+      await MovieModel.create({
         title :movie.title,
         tmdb_id :movie.id,
         type :"movie",
@@ -65,7 +68,8 @@ movieRouter.get('/search',async(req,res)=>{
       params:{
          api_key:TMDB_API_KEY,
          query:title
-      }
+      },
+      timeout:10000
    })
 
    const results=response.data.results;
@@ -87,12 +91,15 @@ movieRouter.get('/search',async(req,res)=>{
    const foundArr = await MovieModel.find({
       title: { $regex: title, $options: 'i' }
    })
+
    return res.json({
      searchedContent:foundArr
    })
+
 }catch(err){
    res.json({
-      message:"Something went wrong"
+      message:"Something went wrong",
+      error:err
    })
 }
 })
@@ -105,6 +112,12 @@ movieRouter.get('/details',async (req,res)=>{
    })
   }
   const movieDetails = await MovieModel.findOne({tmdb_id:movieId});
+  if(!movieDetails){
+   return res.json({
+      ERROR:"No such movie in db"
+   })
+  }
+
   res.json({
    moviedetails:movieDetails
   })
@@ -140,26 +153,29 @@ movieRouter.get('/streaming/availability',async(req,res)=>{
    });
 
   const streamData= response.data.streamingOptions;
-  const streaming_options=streamData.in;
-
-  console.log(streaming_options);
-
+  const country_code="in";
+  const streaming_options=streamData[country_code];
+  console.log(streaming_options)
+  
   if(!streaming_options){
    return res.json({
       message:"This movie is not available in your region"
    })
   }
+   await Promise.all(streaming_options.map(async (option)=>{
+    return ( 
+      await MovieModel.updateOne({ tmdb_id : movieId },{ $push:{ streaming : {
 
-  await MovieModel.updateOne({ tmdb_id : movieId },{ $push:{ streaming : {
-
-      provider_id:streaming_options.service.id,
-      service_name:streaming_options.service.name,
-      logo_url:streaming_options.service.imageSet.lightThemeImage,
-      type:streaming_options.type,
-      video_link:streaming_options.video_link,
-      quality:streaming_options.quality
-
-  }}})
+      provider_id:option.service.id,
+      service_name:option.service.name,
+      logo_url:option.service.imageSet.lightThemeImage,
+      type:option.type,
+      video_link:option.link,
+      quality:option.quality
+     }}})
+     );
+   })
+)
 
   const movie = await MovieModel.findOne({tmdb_id:movieId});
   return res.json({
@@ -168,9 +184,10 @@ movieRouter.get('/streaming/availability',async(req,res)=>{
   
 }catch(err){
    return res.json({
-      message:"Something went wrong"
+      message:"Something went wrong",
+      error:err
    })
-} 
+   } 
 })
 
 module.exports ={

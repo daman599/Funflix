@@ -11,6 +11,7 @@ const User=new Schema({
 })
 
 const Movie = new Schema({
+
     title:{type:String,required:true},
     tmdb_id:{type:Number,unique:true},
     type:String,
@@ -26,7 +27,7 @@ const Movie = new Schema({
         type:String,
         video_link:String,
         quality:String
-    }]
+    }] 
 })
 
 const UserModel = mongoose.model("UserInfo",User);
