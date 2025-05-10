@@ -98,7 +98,7 @@ movieRouter.get('/search',async(req,res)=>{
    })
 
    return res.json({
-     searchedContent:foundArr
+     movies:foundArr
    })
 
 }catch(err){
