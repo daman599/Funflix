@@ -124,7 +124,6 @@ movieRouter.get('/details',async (req,res)=>{
 })
 
 movieRouter.get('/streaming/availability',async(req,res)=>{
-
   const movieId = req.query.movieId;
   const movie = await MovieModel.findOne({tmdb_id:movieId});
 
@@ -149,33 +148,33 @@ movieRouter.get('/streaming/availability',async(req,res)=>{
      'x-rapidapi-key': RAPID_API_KEY,
      'x-rapidapi-host': 'streaming-availability.p.rapidapi.com'
    },
-   timeout: 5000
+   timeout: 50000
    });
 
+  const geoResponse = await axios.get('https://ipwho.is/');
+
+  const userCountryCode = geoResponse.data.country_code?.toLowerCase();
+
   const streamData= response.data.streamingOptions;
-  const country_code="in";
-  const streaming_options=streamData[country_code];
-  console.log(streaming_options)
+  const streaming_options=streamData[userCountryCode];
   
   if(!streaming_options){
    return res.json({
       message:"This movie is not available in your region"
    })
   }
-   await Promise.all(streaming_options.map(async (option)=>{
-    return ( 
-      await MovieModel.updateOne({ tmdb_id : movieId },{ $push:{ streaming : {
-
-      provider_id:option.service.id,
-      service_name:option.service.name,
-      logo_url:option.service.imageSet.lightThemeImage,
-      type:option.type,
-      video_link:option.link,
-      quality:option.quality
-     }}})
-     );
-   })
-)
+  
+  await Promise.all(streaming_options.map(async (object)=>{
+    if (typeof object === 'string') {
+      object = JSON.parse(object);
+    }
+   return await MovieModel.updateOne({tmdb_id:movieId},
+      {
+         $addToSet :{
+            streaming:object
+         }})
+      })
+   )
 
   const movie = await MovieModel.findOne({tmdb_id:movieId});
   return res.json({

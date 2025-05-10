@@ -20,14 +20,7 @@ const Movie = new Schema({
     poster_path:String,
     rating:Number,
     isTrending:String,
-    streaming:[{
-        provider_id:String,
-        service_name:String,
-        logo_url:String,
-        type:String,
-        video_link:String,
-        quality:String
-    }] 
+    streaming:[Object]
 })
 
 const UserModel = mongoose.model("UserInfo",User);
