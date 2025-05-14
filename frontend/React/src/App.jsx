@@ -1,53 +1,48 @@
-import React from 'react';
-import { useState } from 'react';
-import { MovieComponent } from './Movie';
-import axios from 'axios'
+import React ,{ useState , useEffect } from "react";
+import axios from "axios"
 
-//movie ->Array of objects (movies)
 function App(){
-      const [ movies , setMovies ] = useState([]);
-      const [ movieName , setmovieName ] =useState('');
+    return (
+    <div>
+        <SearchBar />
+    </div>
+    );
+}
 
-      const MoviesCard = movies.map((movie)=>{
-        return (
-        <MovieComponent 
-           title={movie.title}
-           overview={movie.overview}
-           posterUrl={movie.posterUrl}
-           release_year={movie.release_year}
-        />
-        );
-      })
-
-      async function searchMovie(){
-        try{
-          const response= await axios.get("http://localhost:3000/user/search",{
-            params:{
-              title:movieName
-            }
-          })
-          const resArr = response.data;
-          console.log(resArr)
-      
-        }catch(err){
-          console.log("error")
+function SearchBar(){
+    const [ movieName , setMovieName ] = useState("");
+    useEffect(()=>{
+        if(movieName == ""){
+            return;
         }
+      const update = setTimeout(async()=>{
+         //api call
+         setLoading(true);
+         const response = await axios.get("http://localhost:3000/movie/search",{
+            params:{
+                title:movieName
+            }
+         })
+         setLoading(false);
+         const movies = response.data.movies
+          console.log(movies)
+      },5000)
+
+      return ()=>{
+        console.log("pishla wala delete")
+         clearTimeout(update)
       }
-      return (
+    },[movieName])
+
+    return (
         <div>
-          <input 
-          type='text' 
-          placeholder='Search movie'
-          onChange={(e) => setmovieName(e.target.value)}
-          ></input>
-          <button onClick={searchMovie} >Ok</button>
-          <div>
-             { MoviesCard }
-          </div>
+            <input 
+            type="text"
+            placeholder="Search Movies...."
+            onChange={(e)=>{setMovieName(e.target.value)}}
+            ></input>
+            
         </div>
-      );
-    }
-
+    );
+}
 export default App;
-
-
