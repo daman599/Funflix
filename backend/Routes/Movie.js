@@ -57,6 +57,11 @@ movieRouter.get('/trending',async (req,res)=>{
 
 movieRouter.get('/search',async(req,res)=>{
    const title=req.query.title;
+   if(!title){
+      return res.json({
+         message:"Type something to search for"
+      })
+   }
    const found = await MovieModel.find({
       title: { $regex: title, $options: 'i' }
    })

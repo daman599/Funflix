@@ -11,24 +11,27 @@ function App(){
 }
 
 function SearchBar(){
+
     const [ movieName , setMovieName ] = useState("");
     const [ movieList , setMovieList ] = useState([]);
+    const [ loading , setLoading ] = useState(false);
     
     useEffect(()=>{
         if(movieName == ""){
+            setLoading(false)
             setMovieList([]);
             return;
         }
         //loading
-      const update = setTimeout(async()=>{
+       setLoading(true);
+       const update = setTimeout(async()=>{
          //api call
-         //loading
         const response = await axios.get("http://localhost:3000/movie/search",{
             params:{
                 title:movieName
             }
          })
-         
+         setLoading(false);
          const data = response.data
          if(data.message){
             console.log(data.message)
@@ -40,7 +43,6 @@ function SearchBar(){
       },500)
 
       return ()=>{
-        console.log("pishla wala delete")
          clearTimeout(update)
       }
     },[movieName])
@@ -52,16 +54,23 @@ function SearchBar(){
             placeholder="Search Movies...."
             onChange={(e)=>{setMovieName(e.target.value)}}
             ></input>
-            <div style={{display:"flex"}}>
+            <br></br>
+            { loading ? <p>Loading ....</p> : (
+            <div style={{
+                display:"flex",
+                overflowX:"auto"
+            }}>
             { movieList.map((movie) =>{
                 return (
                 <MovieList 
                   poster_path = {movie.poster_path}
                   title={movie.title}
                 />
-                );
-             })}
-            </div>
+                   );
+             }) 
+            }
+            </div>)
+            }
         </div>
     );
 }
