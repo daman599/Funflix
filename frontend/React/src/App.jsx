@@ -13,6 +13,7 @@ function App(){
 function SearchBar(){
     const [ movieName , setMovieName ] = useState("");
     const [ movieList , setMovieList ] = useState([]);
+    
     useEffect(()=>{
         if(movieName == ""){
             setMovieList([]);
@@ -22,7 +23,7 @@ function SearchBar(){
       const update = setTimeout(async()=>{
          //api call
          //loading
-         const response = await axios.get("http://localhost:3000/movie/search",{
+        const response = await axios.get("http://localhost:3000/movie/search",{
             params:{
                 title:movieName
             }
@@ -55,7 +56,7 @@ function SearchBar(){
             { movieList.map((movie) =>{
                 return (
                 <MovieList 
-                  poster_path={movie.poster_path}
+                  poster_path = {movie.poster_path}
                   title={movie.title}
                 />
                 );
