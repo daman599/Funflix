@@ -1,5 +1,5 @@
-import { SearchBar } from "./Components/SearchBar"
 import { Landing } from "./Pages/Landing"
+import { Stream } from "./Pages/Stream"
 import { BrowserRouter ,Routes , Route , Outlet} from "react-router-dom"
 
 function App(){
@@ -9,7 +9,7 @@ function App(){
           <Routes>
              <Route path="/" element={<Layout />}>
                <Route path="/" element={<Landing />}></Route>
-               <Route path="/stream" element={<SearchBar />}></Route>
+               <Route path="/stream" element={<Stream />}></Route>
              </Route>
           </Routes>
        </BrowserRouter>

@@ -7,7 +7,11 @@ export function SearchBar(){
     const [ movieName , setMovieName ] = useState("");
     const [ movieList , setMovieList ] = useState([]);
     const [ loading , setLoading ] = useState(false);
-    
+    const [error , setError] =useState(false)
+
+    if(error){
+      throw new Error("error")
+    }
     useEffect(()=>{
         if(movieName == ""){
             setLoading(false)
@@ -17,7 +21,7 @@ export function SearchBar(){
         //loading
         setLoading(true);
         //side effect
-       const update = setTimeout(async()=>{
+        const update = setTimeout(async()=>{
          //api call
         const response = await axios.get("http://localhost:3000/movie/search",{
             params:{
@@ -27,7 +31,7 @@ export function SearchBar(){
          setLoading(false);
          const data = response.data
          if(data.message ){
-            console.log("Something went wrong")
+           setError(true)
          }
          else{
             const movies = data.movies;
