@@ -1,78 +1,37 @@
-import { useState , useEffect } from "react";
-import axios from "axios"
-import { MovieList } from "./MovieList"
+import { SearchBar } from "./Components/SearchBar"
+import { Landing } from "./Pages/Landing"
+import { BrowserRouter ,Routes , Route , Outlet} from "react-router-dom"
 
 function App(){
     return (
-    <>
-           <SearchBar />
-    </>
+    <div>
+       <BrowserRouter>
+          <Routes>
+             <Route path="/" element={<Layout />}>
+               <Route path="/" element={<Landing />}></Route>
+               <Route path="/stream" element={<SearchBar />}></Route>
+             </Route>
+          </Routes>
+       </BrowserRouter>
+    </div>
     );
 }
-
-function SearchBar(){
-
-    const [ movieName , setMovieName ] = useState("");
-    const [ movieList , setMovieList ] = useState([]);
-    const [ loading , setLoading ] = useState(false);
-    
-    useEffect(()=>{
-        if(movieName == ""){
-            setLoading(false)
-            setMovieList([]);
-            return;
-        }
-        //loading
-       setLoading(true);
-       //side effect
-       const update = setTimeout(async()=>{
-         //api call
-        const response = await axios.get("http://localhost:3000/movie/search",{
-            params:{
-                title:movieName
-            }
-         })
-         setLoading(false);
-         const data = response.data
-         if(data.message || data.movies.length == 0){
-          //  throw new Error("ERROR");
-         }
-         else{
-            const movies = data.movies;
-            setMovieList(movies);
-         }
-      },2000)
-
-      return ()=>{
-         clearTimeout(update)
-      }
-    },[movieName])
-
-    return (
-        <>
-            <input 
-            type="text"
-            placeholder="Search Movies...."
-            onChange={(e)=>{setMovieName(e.target.value)}}
-            ></input>
-            { loading ? <p>Loading ....</p> : (
-            <div style={{
-                display:"flex",
-                overflowX:"auto"
-            }}>
-            { movieList.map((movie) =>{
-                return (
-                <MovieList 
-                  key={movie._id}
-                  poster_path = {movie.poster_path}
-                  title={movie.title}
-                />
-                );
-             }) 
-            }
-            </div>)
-            }
-        </>
-    );
+function Layout(){
+  return <div>
+      <div style={{display:"flex",backgroundColor:"blue" , gap:900}}>
+        <div>flixFusion</div>
+        <div>
+          <button>Sign in</button>
+        </div>
+      </div>
+      <Outlet />
+  </div>
 }
+
 export default App;
+
+
+
+ 
+
+
