@@ -8,6 +8,5 @@ export function Stream(){
            <SearchBar />
            <Trending />
          </ErrorBoundary>
-      
     </div>
 }

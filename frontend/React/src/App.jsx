@@ -1,5 +1,6 @@
 import { Landing } from "./Pages/Landing"
 import { Stream } from "./Pages/Stream"
+import { MovieDetails } from "./Pages/MovieDetails"
 import { BrowserRouter ,Routes , Route , Outlet} from "react-router-dom"
 
 function App(){
@@ -10,7 +11,9 @@ function App(){
              <Route path="/" element={<Layout />}>
                <Route path="/" element={<Landing />}></Route>
                <Route path="/stream" element={<Stream />}></Route>
+               <Route path="/movie-details" element={<MovieDetails />}></Route>
              </Route>
+             <Route path="*" element={<Fallback />}></Route>
           </Routes>
        </BrowserRouter>
     </div>
@@ -25,6 +28,12 @@ function Layout(){
         </div>
       </div>
       <Outlet />
+  </div>
+}
+
+function Fallback(){
+  return <div>
+    <h2>No page found</h2>
   </div>
 }
 
