@@ -5,15 +5,15 @@ import { BrowserRouter ,Routes , Route , Outlet} from "react-router-dom"
 
 function App(){
     return (
-    <div>
+    <div style={{height:"100vh"}}>
        <BrowserRouter>
           <Routes>
              <Route path="/" element={<Layout />}>
                <Route path="/" element={<Landing />}></Route>
                <Route path="/stream" element={<Stream />}></Route>
-               <Route path="/movie-details" element={<MovieDetails />}></Route>
+               <Route path="/movie-details/:id" element={<MovieDetails />}></Route>
              </Route>
-             <Route path="*" element={<Fallback />}></Route>
+             <Route path="*" element={<PageNotFound />}></Route>
           </Routes>
        </BrowserRouter>
     </div>
@@ -31,7 +31,7 @@ function Layout(){
   </div>
 }
 
-function Fallback(){
+function PageNotFound(){
   return <div>
     <h2>No page found</h2>
   </div>

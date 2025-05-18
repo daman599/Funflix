@@ -192,7 +192,7 @@ movieRouter.get('/streaming/availability',async(req,res)=>{
   
 }catch(err){
    return res.json({
-      message:"Something went wrong,try after some time"
+      Error:"Something went wrong,try after some time"
    })
    } 
 })
