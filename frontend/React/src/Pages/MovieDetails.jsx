@@ -12,6 +12,7 @@ export function MovieDetails(){
   </>
 }
 function GetMovieDetails(){
+
   const { id } = useParams();
   const [ movieDetails ,setMovieDetails ] = useState({});
   const [streamingDetails , setStreamingDetails ] =useState([]);
@@ -24,13 +25,16 @@ function GetMovieDetails(){
   }
 
   useEffect(()=>{
+
    setLoading(true);
+
    async function apiCall(){
      const movieDetails=await axios.get("http://localhost:3000/movie/details",{
        params:{
          movieId:id
        }
      })
+
     setMovieDetails(movieDetails.data.moviedetails);
      const streamingDetails = await axios.get("http://localhost:3000/movie/streaming/availability",{
       params:{
@@ -39,21 +43,22 @@ function GetMovieDetails(){
     })
 
     if(streamingDetails.data.message){
-      setMessage(streamingDetails.data.message)
+      setMessage("Not Available on any streaming platform")
     }
     else if(streamingDetails.data.Error){
      setError(true);
-    }else{
-    const streamingOptions=streamingDetails.data.streamingdetails.map((movie)=>{
-        return {
+    }
+    else{
+     const streamingOptions=streamingDetails.data.streamingdetails.map((movie)=>{
+        return ({
          serviceName:movie.service.name,
          logo_url:movie.service.imageSet.lightThemeImage,
          type:movie.type,
          link:movie.link,
          quality:movie.quality
-        }    
+        });
     })
-    setStreamingDetails(streamingOptions)
+    setStreamingDetails(streamingOptions);
     }
     setLoading(false);
   }
@@ -63,7 +68,8 @@ function GetMovieDetails(){
   return <div>
     {loading && <p>Loading....</p>}
     
-    {!loading && message == "" ?<MovieCard 
+    {!loading && message == "" ? <MovieCard 
+
       poster_path={movieDetails.poster_path}
       title={movieDetails.title}
       overview={movieDetails.overview}

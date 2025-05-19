@@ -59,7 +59,7 @@ export function SearchBar(){
             onChange={(e)=>{setMovieName(e.target.value.trim())}}
           ></input>
 
-            {noMovieFound && <p>Oops! Sorry...no such movie found</p>}
+            {noMovieFound && <p>Oops! Sorry...no such movie found </p>}
 
             { loading ? <p>Loading ....</p> : (
             <div style={{
