@@ -70,7 +70,7 @@ userRouter.post("/signin",async(req,res)=>{
     //cookie set
     res.cookie("token",token,{
         httpOnly:true,
-        secure:true,
+        secure:false,
         sameSite:"strict",
         maxAge:24 * 60 * 60 * 1000 * 7
     })
@@ -79,6 +79,10 @@ userRouter.post("/signin",async(req,res)=>{
         message:"ok u are logged in "
     })
 })
+
+userRouter.get("/check-auth", Userauthentication, (req, res) => {
+  res.json({ status: "ok" });
+});
 
 userRouter.get("/signout",Userauthentication,(req,res)=>{
    res.clearCookie("token");

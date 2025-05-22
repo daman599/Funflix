@@ -3,7 +3,7 @@ const watchlaterRouter = express.Router();
 const { Userauthentication } = require("../Middleware/auth");
 const { UserModel ,MovieModel } = require("../db");
 
-watchlaterRouter.get('/watchlater/list',Userauthentication,async (req,res)=>{
+watchlaterRouter.get('/list',Userauthentication,async (req,res)=>{
     const userId =req.user.userId;
     const user=await UserModel.findById(userId);
  try{
@@ -16,7 +16,7 @@ watchlaterRouter.get('/watchlater/list',Userauthentication,async (req,res)=>{
  }
  })
  
-watchlaterRouter.post('/watchlater/add/movie',Userauthentication,async (req,res)=>{
+watchlaterRouter.post('/add/movie',Userauthentication,async (req,res)=>{
      const userId = req.user.userId;
      const movieId = req.body.movieId;
       
@@ -34,7 +34,7 @@ watchlaterRouter.post('/watchlater/add/movie',Userauthentication,async (req,res)
      }
  })
  
-watchlaterRouter.delete('/watchlater/remove/movie',Userauthentication,async(req,res)=>{
+watchlaterRouter.delete('/remove/movie',Userauthentication,async(req,res)=>{
    const userId = req.user.id;
    const movieId = req.body.movieId;
    try{

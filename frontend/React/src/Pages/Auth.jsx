@@ -27,7 +27,9 @@ function CheckAuthentication() {
         username:usernameRef.current.value,
         email:emailRef.current.value,
         password:passwordRef.current.value
-     })
+    },{
+      withCredentials: true
+    })
 
      if(response.data.message){
       alert(response.data.message)
