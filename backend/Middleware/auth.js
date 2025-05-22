@@ -6,7 +6,7 @@ function Userauthentication(req,res,next){
    const token = req.cookies.token;
    if(!token){
     res.json({
-        message:"you are not signed in"
+        message:"You are not signed in"
     })
     return
    }
@@ -18,7 +18,7 @@ try{
   next();
 }catch(err){
     res.json({
-        error:"invalid token"
+        error:"Invalid token"
     })
    }
 }
