@@ -36,25 +36,25 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
           setWatchLater("➕")
           alert(ismovieRemoved.data.message)
           setWatchCount(count => count + 1)
-          return ;
-        }
-      } 
-
-        const ismovieAdded = await axios.post("http://localhost:3000/watchlater/add/movie", {
-          movieId: id
-        }, {
-          withCredentials: true
-        })
-
-        if (ismovieAdded.data.message) {
-          setWatchLater("✔️")
-          setWatchCount(count => count + 1);
-          alert(ismovieAdded.data.message);
-        }
-        else {
-          alert(ismovieAdded.data.Error);
+          return;
         }
       }
+
+      const ismovieAdded = await axios.post("http://localhost:3000/watchlater/add/movie", {
+        movieId: id
+      }, {
+        withCredentials: true
+      })
+
+      if (ismovieAdded.data.message) {
+        setWatchLater("✔️")
+        setWatchCount(count => count + 1);
+        alert(ismovieAdded.data.message);
+      }
+      else {
+        alert(ismovieAdded.data.Error);
+      }
+    }
   }
 
   async function handleAddtoFavs() {
@@ -82,62 +82,62 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
           setAddTofavs("❤️")
           alert(ismovieRemoved.data.message)
           setFavsCount(count => count + 1)
-          return ;
+          return;
         }
       }
-        const ismovieAdded = await axios.post("http://localhost:3000/favorites/movie", {
-          movieId: id
-        },
-          {
-            withCredentials: true
-          }
-        )
+      const ismovieAdded = await axios.post("http://localhost:3000/favorites/movie", {
+        movieId: id
+      },
+        {
+          withCredentials: true
+        }
+      )
 
-        if (ismovieAdded.data.message) {
-          setAddTofavs("✔️");
-          setFavsCount(count => count + 1);
-          alert(ismovieAdded.data.message);
-        }
-        else {
-          alert(ismovieAdded.data.Error);
-        }
+      if (ismovieAdded.data.message) {
+        setAddTofavs("✔️");
+        setFavsCount(count => count + 1);
+        alert(ismovieAdded.data.message);
+      }
+      else {
+        alert(ismovieAdded.data.Error);
+      }
     }
   }
 
-    return <>
-      <div style={{ height: 500, width: 1000, backgroundColor: "grey", borderRadius: 20, padding: 10, display: "flex" }}>
-        <div><img src={url} style={{ height: 300, width: 300 }}></img></div>
-        <div style={{ marginLeft: 10 }}>
+  return <>
+    <div style={{ height: 500, width: 1000, backgroundColor: "grey", borderRadius: 20, padding: 10, display: "flex" }}>
+      <div><img src={url} style={{ height: 300, width: 300 }}></img></div>
+      <div style={{ marginLeft: 10 }}>
 
-          <button style={{ cursor: "pointer" }} onClick={handleWatchlater}>{watchLater}</button>
-          <button style={{ cursor: "pointer" }} onClick={handleAddtoFavs}>{addToFavs}</button>
+        <button style={{ cursor: "pointer" }} onClick={handleWatchlater}>{watchLater}</button>
+        <button style={{ cursor: "pointer" }} onClick={handleAddtoFavs}>{addToFavs}</button>
 
-          <div>Title : {title}</div>
-          <div>Overview : {overview}</div>
-          <div>Rating : {rating}</div>
-          <div>Release date : {release_date}</div>
-          <div>Trending : {isTrending ? <span>Yes</span> : <span>No</span>}</div>
-          <div>Available on:
+        <div>Title : {title}</div>
+        <div>Overview : {overview}</div>
+        <div>Rating : {rating}</div>
+        <div>Release date : {release_date}</div>
+        <div>Trending : {isTrending ? <span>Yes</span> : <span>No</span>}</div>
+        <div>Available on:
 
-            <div>
-              {streaming.map((platform) => {
-                return (
-                  <div style={{ display: "flex", gap: 10 }}>
-                    <div style={{ cursor: "pointer" }}>
-                      <a href={platform.link}>
-                        <img src={platform.logo_url}></img>
-                      </a>
-                    </div>
-                    <div>{platform.serviceName}</div>
-                    <div>{platform.type == "addon" ? (<p>Needs Subscription </p>) : platform.type}</div>
-                    <div>{platform.quality}</div>
+          <div>
+            {streaming.map((platform) => {
+              return (
+                <div style={{ display: "flex", gap: 10 }}>
+                  <div style={{ cursor: "pointer" }}>
+                    <a href={platform.link}>
+                      <img src={platform.logo_url}></img>
+                    </a>
                   </div>
-                );
-              })
-              }
-            </div>
+                  <div>{platform.serviceName}</div>
+                  <div>{platform.type == "addon" ? (<p>Needs Subscription </p>) : platform.type}</div>
+                  <div>{platform.quality}</div>
+                </div>
+              );
+            })
+            }
           </div>
         </div>
       </div>
-    </>
-  }
+    </div>
+  </>
+}

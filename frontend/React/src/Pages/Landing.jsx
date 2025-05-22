@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
-export function Landing(){
-    return <div style={{backgroundColor:"grey", height:"100vh"}}>
+export function Landing() {
+    return <div style={{ backgroundColor: "grey", height: "100vh" }}>
         <div>
             <h1>All streaming platforms</h1>
             <h3>One Hub</h3>
