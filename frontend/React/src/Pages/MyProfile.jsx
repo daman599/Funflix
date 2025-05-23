@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { useNavigate , Link} from "react-router-dom"
 import { useState, useEffect } from "react"
 import { MovieList } from "../Components/MovieList"
 
@@ -70,6 +70,7 @@ export function MyProfile() {
     }
     return <>
         <div>
+            <div>Hi there! {userInfo.username} </div>
             <div style={{ color: "violet" }}>
                 <div>Username: {userInfo.username}</div>
                 <div>User Email:{userInfo.email}</div>
@@ -101,6 +102,7 @@ export function MyProfile() {
             </div>
             <br />
             <div>
+                <Link to="/update-profile"><button>Update Profile</button></Link>
                 <button onClick={logout} style={{ cursor: "pointer" }}>Logout</button>
                 <button onClick={deleteAccount} style={{ cursor: "pointer" }}>Delete Account</button>
             </div>

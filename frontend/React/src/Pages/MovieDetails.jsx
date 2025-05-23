@@ -69,7 +69,8 @@ function GetMovieDetails() {
     {loading && <p>Loading....</p>}
 
     {!loading && message == "" ? <MovieCard
-
+    
+      key={movieDetails._id}
       poster_path={movieDetails.poster_path}
       title={movieDetails.title}
       overview={movieDetails.overview}
