@@ -157,7 +157,7 @@ userRouter.delete("/account",Userauthentication,async (req,res)=>{
     res.clearCookie('token');
     await UserModel.deleteOne( {_id : userId});
     res.json({
-        message:"your account is deleted"
+        message:"Your account is deleted"
     })
 })
 

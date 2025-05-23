@@ -3,7 +3,10 @@ import { Stream } from "./Pages/Stream"
 import { MovieDetails } from "./Pages/MovieDetails"
 import { Auth } from "./Pages/Auth"
 import { NewAccount } from "./Pages/NewAccount"
+import { MyProfile } from "./Pages/MyProfile"
 import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom"
+import axios from "axios"
+import { useState, useEffect } from "react"
 
 function App() {
   return (
@@ -15,6 +18,7 @@ function App() {
             <Route path="/stream" element={<Stream />}></Route>
             <Route path="/movie-details/:id" element={<MovieDetails />}></Route>
           </Route>
+          <Route path="/me" element={<MyProfile />}></Route>
           <Route path="/auth" element={<Auth />}></Route>
           <Route path="/new-account" element={<NewAccount />}></Route>
           <Route path="*" element={<PageNotFound />}></Route>
@@ -24,11 +28,27 @@ function App() {
   );
 }
 function Layout() {
+
+  const [userLoggedin, setUserLoggedin] = useState(false);
+  useEffect(() => {
+    async function checkUserAuth() {
+
+      const isuserLoggedin = await axios.get("http://localhost:3000/user/check-auth", {
+        withCredentials: true
+      })
+      if (isuserLoggedin.data.status) {
+        setUserLoggedin(true)
+      }
+    }
+    checkUserAuth();
+
+  }, [])
   return <div>
     <div style={{ display: "flex", backgroundColor: "blue", gap: 900 }}>
       <div>flixFusion</div>
       <div >
-        <Link to="/auth"><button style={{ cursor: "pointer" }}>Sign in</button></Link>
+        {userLoggedin ? (<Link to="/me"><button style={{ cursor: "pointer" }}>Profile</button></Link>) :
+          <Link to="/auth"><button style={{ cursor: "pointer" }}>Sign in</button></Link>}
       </div>
     </div>
     <Outlet />

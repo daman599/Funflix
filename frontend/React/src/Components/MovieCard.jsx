@@ -18,7 +18,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
       }
     )
 
-    if (isLoggedin.data.message || isLoggedin.data.error) {
+    if (isLoggedin.data.error) {
       navigate("/auth")
     }
     else {
@@ -35,7 +35,6 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
         else {
           setWatchLater("➕")
           alert(ismovieRemoved.data.message)
-          setWatchCount(count => count + 1)
           return;
         }
       }
@@ -48,12 +47,12 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
 
       if (ismovieAdded.data.message) {
         setWatchLater("✔️")
-        setWatchCount(count => count + 1);
         alert(ismovieAdded.data.message);
       }
       else {
         alert(ismovieAdded.data.Error);
       }
+      setWatchCount(count => count + 1);
     }
   }
 
@@ -64,7 +63,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
       }
     )
 
-    if (isLoggedin.data.message || isLoggedin.data.error) {
+    if (isLoggedin.data.error) {
       navigate("/auth")
     }
     else {

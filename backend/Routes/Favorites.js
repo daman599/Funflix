@@ -14,7 +14,7 @@ favoritesRouter.get('/',Userauthentication,async (req,res)=>{
     }) 
   }catch(err){
     return res.json({
-        Error:"There is no favorite movie"
+        error:"There is no favorite movie"
     })
   }
 })
@@ -32,7 +32,7 @@ favoritesRouter.post('/movie',Userauthentication ,async (req,res)=>{
     })
    }catch(err){
     return res.json({
-        Error:"Something went wrong"
+        error:"Something went wrong"
     })
   }
 })
@@ -49,7 +49,7 @@ favoritesRouter.delete('/movie',Userauthentication,async (req,res)=>{
      })
      }catch(err){
         return res.json({
-            Error:"Something went wrong"
+            error:"Something went wrong"
         })
      }
 })
