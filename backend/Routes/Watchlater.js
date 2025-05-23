@@ -33,9 +33,9 @@ watchlaterRouter.post('/add/movie',Userauthentication,async (req,res)=>{
          })
      }
  })
- 
+
 watchlaterRouter.delete('/remove/movie',Userauthentication,async(req,res)=>{
-   const userId = req.user.id;
+   const userId = req.user.userId;
    const movieId = req.body.movieId;
    try{
      await UserModel.updateOne({ _id :userId},{$pull:{watchlater:movieId}})
