@@ -8,13 +8,19 @@ favoritesRouter.get('/',Userauthentication,async (req,res)=>{
     const userId = req.user.userId;
     const user = await UserModel.findById(userId);
   try{
-    const favMovies =await MovieModel.find({tmdb_id :{$in : user.favorites}});
+    const favMovies = await MovieModel.find({tmdb_id :{$in : user.favorites}});
+     if(favMovies.length==0){
+      res.json({
+        message:"There is no movie added to favs list"
+      })
+      return ;
+     }
     return res.json({
         favoriteMovies:favMovies
     }) 
   }catch(err){
     return res.json({
-        error:"There is no favorite movie"
+        error:"Something went wrong"
     })
   }
 })

@@ -6,14 +6,21 @@ const { UserModel, MovieModel } = require("../db");
 watchlaterRouter.get('/list', Userauthentication, async (req, res) => {
   const userId = req.user.userId;
   const user = await UserModel.findById(userId);
+
   try {
-    const list = MovieModel.find({ tmdb_id: { $in: user.watchlater } });
+    const list = await MovieModel.find({ tmdb_id: { $in: user.watchlater } });
+    if(list.length==0){
+      res.json({
+        message:"There is no movie added to watchlater list"
+      })
+      return ;
+    }
     return res.json({
       watchlaterMovies: list
     })
   } catch (err) {
     return res.json({
-      error: "There is no movie in the watch later lsit "
+      error: "Something went wrong "
     })
   }
 })

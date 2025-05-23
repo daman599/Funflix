@@ -7,6 +7,7 @@ export function MyProfile() {
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState("")
     const [favMovies, setFavMovies] = useState([])
+    const [watchlaterMovies , setWatchLaterMovies] =useState([])
 
     useEffect(() => {
         async function getProfileInfo() {
@@ -24,8 +25,12 @@ export function MyProfile() {
         const favMovies = await axios.get("http://localhost:3000/favorites", {
             withCredentials: true
         })
+           
         if (favMovies.data.error) {
             alert(favMovies.data.error);
+        }
+        else if(favMovies.data.message){
+            alert(favMovies.data.message)
         }
         else {
             setFavMovies(favMovies.data.favoriteMovies)
@@ -36,11 +41,15 @@ export function MyProfile() {
         const watchLaterMovies = await axios.get("http://localhost:3000/watchlater/list", {
             withCredentials: true
         })
-        if (watchLaterMovies.data.error) {
+        
+        if (watchLaterMovies.data.error ) {
             alert(watchLaterMovies.data.error);
         }
+        else if(watchLaterMovies.data.message){
+            alert(watchLaterMovies.data.message)
+        }
         else {
-            console.log(watchLaterMovies.data.watchlaterMovies);
+            setWatchLaterMovies(watchLaterMovies.data.watchlaterMovies);
         }
     }
 
@@ -79,6 +88,16 @@ export function MyProfile() {
                     })}
                 </div>
                 <button onClick={getWatchLaterMovies} style={{ cursor: "pointer" }}>Watch later list </button>
+                 <div style={{ display: "flex" }}>
+                    {watchlaterMovies.map((movie) => {
+                        return <MovieList
+                            key={movie._id}
+                            poster_path={movie.poster_path}
+                            title={movie.title}
+                            tmdb_id={movie.tmdb_id}
+                        />
+                    })}
+                </div>
             </div>
             <br />
             <div>
