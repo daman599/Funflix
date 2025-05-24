@@ -33,17 +33,13 @@ function UpdateProfile() {
 
                 Update your Profile
 
-                <div><input type={"text"} placeholder={"New Username"} ref={newusernameRef}></input></div>
+                <div><input type={"text"} placeholder={"New Username"} ref={newusernameRef}></input><button onClick={Update}>Update username</button></div>
                 <br />
 
-                <div><input type={"email"} placeholder={"New Email"} ref={newemailRef}></input></div>
+                <div><input type={"email"} placeholder={"New Email"} ref={newemailRef}></input><button onClick={Update}>Update email</button></div>
                 <br />
 
-                <div><input type={"password"} placeholder={"New Password"} ref={newpasswordRef}></input></div>
-
-                <br />
-                <button style={{ cursor: "pointer" }} onClick={Update}>Update</button>
-
+                <div><input type={"password"} placeholder={"New Password"} ref={newpasswordRef}></input><button onClick={Update}>Update password</button></div>
             </div>
     </>
 }

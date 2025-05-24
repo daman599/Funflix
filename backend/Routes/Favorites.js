@@ -2,7 +2,6 @@ const express = require('express');
 const favoritesRouter = express.Router();
 const { Userauthentication } = require('../Middleware/auth');
 const { UserModel , MovieModel } = require('../db');
-const Movie = require('./Movie');
 
 favoritesRouter.get('/',Userauthentication,async (req,res)=>{
     const userId = req.user.userId;

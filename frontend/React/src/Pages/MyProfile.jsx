@@ -25,7 +25,6 @@ export function MyProfile() {
         const favMovies = await axios.get("http://localhost:3000/favorites", {
             withCredentials: true
         })
-           
         if (favMovies.data.error) {
             alert(favMovies.data.error);
         }

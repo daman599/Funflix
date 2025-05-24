@@ -11,8 +11,8 @@ const { Userauthentication } = require("../Middleware/auth");
 userRouter.post("/signup",async (req,res)=>{
     //input validation
     const zodSchema = z.object({
-       username:z.string().max(6),
-       email:z.string().min(8).max(20).email(),
+       username:z.string().max(20),
+       email:z.string().max(20).email(),
        password:z.string().regex(/[a-z]/,"Password must contain one lowercase character")
        .regex(/[A-Z]/,"Password must contain one uppercase character")
        .regex(/[^A-Z0-9a-z]/,"Password must contain one special character")
@@ -20,7 +20,7 @@ userRouter.post("/signup",async (req,res)=>{
     const parsedObj = zodSchema.safeParse(req.body);
     if(!parsedObj.success){
        res.json({
-           ERROR:parsedObj.error
+           errordetails:parsedObj.error
        })
        return
     }
