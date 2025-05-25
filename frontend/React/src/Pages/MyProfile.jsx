@@ -4,12 +4,15 @@ import { useState, useEffect } from "react"
 import { MovieList } from "../Components/MovieList"
 
 export function MyProfile() {
+    
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState("")
     const [favMovies, setFavMovies] = useState([])
     const [watchlaterMovies , setWatchLaterMovies] =useState([])
+    const [message , setMessage]=useState("")
 
     useEffect(() => {
+     try{
         async function getProfileInfo() {
             const response = await axios.get("http://localhost:3000/user/profile", {
                 withCredentials: true
@@ -19,6 +22,9 @@ export function MyProfile() {
             }
         }
         getProfileInfo();
+     }catch(err){
+        setMessage("Sorry! server is down please check your internet connection")
+     }
     }, [])
 
     async function getFavMovies() {
@@ -68,6 +74,7 @@ export function MyProfile() {
         navigate("/")
     }
     return <>
+    {message != "" ? <div>{message}</div> :
         <div>
             <div>Hi there! {userInfo.username} </div>
             <div style={{ color: "violet" }}>
@@ -106,5 +113,6 @@ export function MyProfile() {
                 <button onClick={deleteAccount} style={{ cursor: "pointer" }}>Delete Account</button>
             </div>
         </div>
+     }
     </>
 }

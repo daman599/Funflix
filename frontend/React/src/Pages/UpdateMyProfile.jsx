@@ -1,4 +1,4 @@
- import { useRef } from "react"
+ import { useRef ,useState} from "react"
  import { useNavigate } from "react-router-dom"
  import axios from "axios"
  export function UpdateMyProfile(){
@@ -13,8 +13,11 @@ function UpdateProfile() {
     const newusernameRef=useRef(null);
     const newemailRef=useRef(null);
     const newpasswordRef=useRef(null);
+
+    const [message ,setMessage]=useState("")
     
     async function Update(){
+      try{
           const response = await axios.put("http://localhost:3000/user/profile",{
              newUsername: newusernameRef.current?.value,
              newPassword: newpasswordRef.current?.value,
@@ -27,8 +30,12 @@ function UpdateProfile() {
             alert(response.data.message);
             navigate("/me")
           }
+        }catch (err) {
+            setMessage("Sorry! server is down please check your internet connection ");
+        }
     }
     return <>
+        {message  != "" ? <div>{message}</div>:
             <div style={{ height: 300, width: 300, backgroundColor: "grey", padding: 10, marginLeft: 200 }}>
 
                 Update your Profile
@@ -41,5 +48,6 @@ function UpdateProfile() {
 
                 <div><input type={"password"} placeholder={"New Password"} ref={newpasswordRef}></input><button onClick={Update}>Update password</button></div>
             </div>
+        }
     </>
 }

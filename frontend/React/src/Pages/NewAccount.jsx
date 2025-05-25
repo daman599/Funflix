@@ -63,7 +63,7 @@ function CreateNewAccount() {
             }
             setLoading(false)
         } catch (err) {
-            setMessage("Sorry server is down please check your internet connection ");
+            setMessage("Sorry! server is down please check your internet connection ");
         }
     }
 

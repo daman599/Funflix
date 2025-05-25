@@ -24,7 +24,7 @@ export function SearchBar() {
 
     setLoading(true);
     setNoMovieFound(false);
-
+    
     const update = setTimeout(async () => {
       const response = await axios.get("http://localhost:3000/movie/search", {
         params: {
