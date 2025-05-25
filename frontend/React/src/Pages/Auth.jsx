@@ -70,7 +70,9 @@ function CheckAuthentication() {
               <Link to="/new-account"><p>Create your Account</p></Link>
             </div>
 
-            <div>Signin with <img src={google_url} alt={"Google"} style={{ height: 20, width: 20, borderRadius: 20, cursor: "pointer" }}></img></div>
+            <div>Signin with 
+              <a href="http://localhost:3000/google/auth"><img src={google_url} alt={"Google"} style={{ height: 20, width: 20, borderRadius: 20, cursor: "pointer" }}></img></a>
+            </div>
           </div>)
     }
   </>

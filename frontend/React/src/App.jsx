@@ -53,7 +53,7 @@ function Layout() {
       checkUserAuth();
     }, [])
     } catch (err) {
-        setMessage("Sorry! server is down please check your internet connection")()
+        setMessage("Sorry! server is down please check your internet connection")
   }
   return <>
     <div>
@@ -74,13 +74,13 @@ function Layout() {
   </>
 }
 
-    function PageNotFound() {
+function PageNotFound() {
   return <div>
       <h2>No page found</h2>
     </div>
 }
 
-    export default App;
+export default App;
 
 
 
