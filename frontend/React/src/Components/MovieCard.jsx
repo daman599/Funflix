@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { useState } from "react"
 import axios from "axios"
+
 export function MovieCard({ poster_path, title, overview, rating, release_date, isTrending, streaming = [] }) {
 
   const url = `https://image.tmdb.org/t/p/w500${poster_path}`;

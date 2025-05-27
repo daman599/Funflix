@@ -1,6 +1,7 @@
-import { useState, useRef } from "react"
+import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
+
 export function NewAccount() {
     return <div>
         <CreateNewAccount />
@@ -8,13 +9,13 @@ export function NewAccount() {
 }
 
 function CreateNewAccount() {
+    const [loading ,setLoading ]=useState(false)
+    const [message,setMessage] = useState("");
 
     const usernameRef = useRef(null)
     const emailRef = useRef(null)
     const passwordRef = useRef(null)
 
-    const [loading, setLoading] = useState(false)
-    const [message, setMessage] = useState("")
     const navigate = useNavigate();
 
     async function signup() {

@@ -1,6 +1,7 @@
 import { Link , useNavigate } from "react-router-dom"
 import { useState, useRef } from "react"
 import axios from "axios"
+
 export function Auth() {
   return <div>
     <CheckAuthentication />
@@ -8,14 +9,14 @@ export function Auth() {
 }
 
 function CheckAuthentication() {
+  const [ loading ,setLoading ]=useState(false)
+  const [message ,setMessage ] = useState("")
   const google_url = "https://i0.wp.com/9to5google.com/wp-content/uploads/sites/4/2025/05/Google-2025-G-logo.webp?strip=info&w=460&ssl=1"
 
   const usernameRef = useRef(null)
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
 
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState("")
   const [serverMessage, setServerMessage] = useState("")
 
   const navigate = useNavigate();

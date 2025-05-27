@@ -4,16 +4,17 @@ import { MovieDetails } from "./Pages/MovieDetails"
 import { Auth } from "./Pages/Auth"
 import { NewAccount } from "./Pages/NewAccount"
 import { MyProfile } from "./Pages/MyProfile"
-import { UpdateMyProfile } from "./Pages/UpdateMyProfile"
 import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom"
 import axios from "axios"
 import { useState, useEffect } from "react"
 
 function App() {
+
   return (
     <div style={{ height: "100vh" }}>
       <BrowserRouter>
         <Routes>
+
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Landing />}></Route>
             <Route path="/stream" element={<Stream />}></Route>
@@ -21,7 +22,6 @@ function App() {
           </Route>
 
           <Route path="/me" element={<MyProfile />}></Route>
-          <Route path="/update-profile" element={<UpdateMyProfile />}></Route>
           <Route path="/auth" element={<Auth />}></Route>
           <Route path="/new-account" element={<NewAccount />}></Route>
           <Route path="*" element={<PageNotFound />}></Route>
@@ -31,11 +31,11 @@ function App() {
     </div>
   );
 }
-function Layout() {
 
+function Layout() {
+  const [ loading, setLoading  ] = useState(false)
+  const [ message, setMessage] = useState("")
   const [userLoggedin, setUserLoggedin] = useState(false);
-  const [message, setMessage] = useState("");
-  const [loading ,setLoading ] =useState(false);
     
   try{
     useEffect(() => {

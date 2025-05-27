@@ -1,55 +1,29 @@
 import { useState, useEffect } from "react";
-import axios from "axios"
 import { MovieList } from "./MovieList"
+import { useFetch } from "../Custom-hooks/useFetch";
 
 export function SearchBar() {
 
   const [movieName, setMovieName] = useState("");
-  const [movieList, setMovieList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false)
-  const [noMovieFound, setNoMovieFound] = useState(false)
-
-  if (error) {
-    throw new Error("error")
-  }
+  const [actualTitle, setTitle] = useState("");
 
   useEffect(() => {
-    if (movieName == "") {
-      setLoading(false);
-      setMovieList([]);
-      setNoMovieFound(false);
-      return;
-    }
-
-    setLoading(true);
-    setNoMovieFound(false);
-    
-    const update = setTimeout(async () => {
-      const response = await axios.get("http://localhost:3000/movie/search", {
-        params: {
-          title: movieName
-        }
-      })
-      setLoading(false);
-      const data = response.data
-      if (data.message) {
-        setError(true)
-      }
-      else if (data.movies.length == 0) {
-        setNoMovieFound(true);
-      }
-      else {
-        const movies = data.movies;
-        setMovieList(movies);
-      }
-    }, 500)
+    const delay = setTimeout(async () => {
+      setTitle(movieName);
+    }, 1000)
 
     return () => {
-      clearTimeout(update)
+      clearTimeout(delay)
     }
-
   }, [movieName])
+
+  const { loading, isError, data:movieList ,noMovieFound } = useFetch("http://localhost:3000/movie/search", 
+    { title: actualTitle },
+    actualTitle !== ""
+  )
+  if (isError) {
+    throw new Error("error")
+  }
 
   return (
     <>

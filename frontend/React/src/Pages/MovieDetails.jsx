@@ -11,17 +11,18 @@ export function MovieDetails() {
     </ErrorBoundary>
   </>
 }
+
 function GetMovieDetails() {
+  const [loading ,setLoading ]=useState(false)
+  const [isError ,setError ] =useState(false)
+  const [message ,setMessage ]=useState("")
 
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState({});
   const [streamingDetails, setStreamingDetails] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState(false);
   const [servermessage, setServerMessage] = useState("");
 
-  if (error) {
+  if (isError) {
     throw new Error("Error");
   }
 

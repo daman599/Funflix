@@ -1,36 +1,13 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import { MovieList } from "../Components/MovieList"
+import { useFetch } from "../Custom-hooks/useFetch";
 
 export function Trending() {
-  const [trendMovies, setTrendMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [isError, setError] = useState(false);
+  
+  const { loading ,isError ,data:trendMovies } = useFetch("http://localhost:3000/movie/trending");
 
   if (isError) {
     throw new Error("Error");
   }
-
-  useEffect(() => {
-
-    async function makeApiCall() {
-
-      setLoading(true);
-      const gotMovies = await axios.get("http://localhost:3000/movie/trending");
-
-      const moviesArray = gotMovies.data.trendmovies;
-
-      if (Array.isArray(moviesArray)) {
-        setTrendMovies(moviesArray);
-      }
-      else {
-        setError(true);
-      }
-      setLoading(false);
-    }
-    makeApiCall();
-
-  }, [])
 
   return <>
     <div style={{ backgroundColor: "yellowgreen" }}>Trending Movies </div>
