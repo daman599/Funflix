@@ -4,8 +4,10 @@ import { ErrorBoundary } from "../Components/ErrorBoundary";
 
 export function Stream() {
     return <div>
+         <ErrorBoundary>
+            <SearchBar/>
+        </ErrorBoundary>
         <ErrorBoundary>
-            <SearchBar />
             <Trending />
         </ErrorBoundary>
     </div>

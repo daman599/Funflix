@@ -1,8 +1,7 @@
 import { useParams } from "react-router-dom"
 import { MovieCard } from "../Components/MovieCard"
-import { useState, useEffect } from "react";
-import axios from "axios"
 import { ErrorBoundary } from "../Components/ErrorBoundary";
+import { useFetch } from "../Custom-hooks/useFetch"
 
 export function MovieDetails() {
   return <>
@@ -13,69 +12,29 @@ export function MovieDetails() {
 }
 
 function GetMovieDetails() {
-  const [loading ,setLoading ]=useState(false)
-  const [isError ,setError ] =useState(false)
-  const [message ,setMessage ]=useState("")
 
   const { id } = useParams();
-  const [movieDetails, setMovieDetails] = useState({});
-  const [streamingDetails, setStreamingDetails] = useState([]);
-  const [servermessage, setServerMessage] = useState("");
+  const { loading: detailsLoading, data: movieDetails, isError } = useFetch("http://localhost:3000/movie/details", { movieId: id })
+  const { loading: streamingLoading, data: streamingDetails, message } = useFetch("http://localhost:3000/movie/streaming/availability", { movieId: id })
 
   if (isError) {
     throw new Error("Error");
   }
 
-  useEffect(() => {
-
-    setLoading(true);
-
-    async function apiCall() {
-      try {
-        const movieDetails = await axios.get("http://localhost:3000/movie/details", {
-          params: {
-            movieId: id
-          }
-        })
-
-        setMovieDetails(movieDetails.data.moviedetails);
-        const streamingDetails = await axios.get("http://localhost:3000/movie/streaming/availability", {
-          params: {
-            movieId: id
-          }
-        })
-
-        if (streamingDetails.data.message) {
-          setMessage("Not Available on any streaming platform")
-        }
-        else if (streamingDetails.data.Error) {
-          setError(true);
-        }
-        else {
-          const streamingOptions = streamingDetails.data.streamingdetails.map((movie) => {
-            return ({
-              serviceName: movie.service.name,
-              logo_url: movie.service.imageSet.lightThemeImage,
-              type: movie.type,
-              link: movie.link,
-              quality: movie.quality
-            });
-          })
-          setStreamingDetails(streamingOptions);
-        }
-        setLoading(false);
-      } catch (err) {
-        setServerMessage("Sorry! server is down please check your internet connection ");
-      }
-    }
-    apiCall();
-  }, [])
+  const streamingOptions = streamingDetails.map((movie) => {
+    return ({
+      serviceName: movie.service.name,
+      logo_url: movie.service.imageSet.lightThemeImage,
+      type: movie.type,
+      link: movie.link,
+      quality: movie.quality
+    });
+  })
 
   return <div>
-    {servermessage != "" ? <div>{servermessage}</div> :
-      loading ? <p>Loading....</p> :
-        message == "" ? <MovieCard
-
+    {detailsLoading || streamingLoading ? <p>loading....</p> :
+      message !== "" ? message :
+        <MovieCard
           key={movieDetails._id}
           poster_path={movieDetails.poster_path}
           title={movieDetails.title}
@@ -83,10 +42,8 @@ function GetMovieDetails() {
           rating={movieDetails.rating}
           release_date={movieDetails.release_date}
           isTrending={movieDetails.isTrending}
-          streaming={streamingDetails}
-
-        /> : null}
-
-    {message != "" && message}
+          streaming={streamingOptions}
+        />
+    }
   </div>
 }

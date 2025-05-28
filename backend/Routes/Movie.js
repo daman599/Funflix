@@ -50,7 +50,7 @@ movieRouter.get('/trending',async (req,res)=>{
     })
 }catch(err){
   return res.json({
-   ERROR:"Something went wrong ,try again after some time"
+   error:"Something went wrong ,try again after some time"
   })
 }
 })
@@ -108,7 +108,7 @@ movieRouter.get('/search',async(req,res)=>{
 
 }catch(err){
    res.json({
-      message:"Something went wrong ,try again after some time"
+      error:"Something went wrong ,try again after some time"
    })
 }
 })
@@ -123,7 +123,7 @@ movieRouter.get('/details',async (req,res)=>{
   const movieDetails = await MovieModel.findOne({tmdb_id:movieId});
   if(!movieDetails){
    return res.json({
-      ERROR:"No such movie in db"
+      error:"No such movie in db"
    })
   }
 
@@ -169,7 +169,7 @@ movieRouter.get('/streaming/availability',async(req,res)=>{
   
   if(!streaming_options){
    return res.json({
-      message:"This movie is not available in your region"
+      message:"Not Available on any streaming platform"
    })
   }
   
@@ -192,7 +192,7 @@ movieRouter.get('/streaming/availability',async(req,res)=>{
   
 }catch(err){
    return res.json({
-      Error:"Something went wrong,try after some time"
+      error:"Something went wrong,try after some time"
    })
    } 
 })
