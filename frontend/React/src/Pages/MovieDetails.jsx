@@ -14,6 +14,7 @@ export function MovieDetails() {
 function GetMovieDetails() {
 
   const { id } = useParams();
+
   const { loading: detailsLoading, data: movieDetails, isError } = useFetch("http://localhost:3000/movie/details", { movieId: id })
   const { loading: streamingLoading, data: streamingDetails, message } = useFetch("http://localhost:3000/movie/streaming/availability", { movieId: id })
 

@@ -10,7 +10,7 @@ const { MovieModel } = require('../db');
 
 axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
 
-cron.schedule('0 * * * *', async () => {
+cron.schedule('0 0 * * * ', async () => {
   await MovieModel.deleteMany({isUserAdded:"False"});
 });
 

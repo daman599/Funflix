@@ -17,7 +17,7 @@ export function SearchBar() {
     }
   }, [movieName])
 
-  const { loading, isError, data:movieList ,noMovieFound } = useFetch("http://localhost:3000/movie/search", 
+  const { loading, isError, data: movieList, noMovieFound } = useFetch("http://localhost:3000/movie/search",
     { title: actualTitle },
     actualTitle !== ""
   )

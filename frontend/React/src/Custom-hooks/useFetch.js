@@ -7,6 +7,7 @@ export function useFetch(url, params = {}, shouldFetch = true) {
     const [data, setData] = useState([]);
     const [noMovieFound, setNoMovieFound] = useState(false);
     const [message, setMessage] = useState("")
+    const [userInfo, setUserInfo] = useState("")
 
     async function makeApiCall() {
         if (!shouldFetch) {
@@ -17,12 +18,12 @@ export function useFetch(url, params = {}, shouldFetch = true) {
         setError(false);
         setNoMovieFound(false);
 
-        const response = await axios.get(url, { params });
-
-        console.log(response.data)
-
+        const response = await axios.get(url, { params, withCredentials: true });
         if (response.data.error) {
             setError(true);
+        }
+        else if (response.data.profile_info) {
+            setUserInfo(response.data.profile_info);
         }
         else if (response.data.message) {
             setMessage(response.data.message)
@@ -58,6 +59,7 @@ export function useFetch(url, params = {}, shouldFetch = true) {
         isError: isError,
         data: data,
         noMovieFound: noMovieFound,
-        message: message
+        message: message,
+        userInfo: userInfo
     }
 }

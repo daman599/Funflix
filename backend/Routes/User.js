@@ -37,7 +37,7 @@ try{
     })
 }catch(err){
     res.json({
-        error:"A user with this email already exists "
+        message:"A user with this email already exists "
     })
 }
 })
@@ -51,7 +51,7 @@ userRouter.post("/signin",async(req,res)=>{
 
     if(!userFound){
        res.json({
-        error:"wrong credentials"
+        message:"wrong credentials"
        })
        return
     }
@@ -59,7 +59,7 @@ userRouter.post("/signin",async(req,res)=>{
     const hashedPassword = bcrypt.compare(password,userFound.password);
     if(!hashedPassword){
         res.json({
-            error:"wrong password"
+            message:"wrong password"
         })
         return 
     }
@@ -76,7 +76,7 @@ userRouter.post("/signin",async(req,res)=>{
     })
 
     res.json({
-        message:"ok u are logged in "
+        okmessage:"ok u are logged in "
     })
 })
 

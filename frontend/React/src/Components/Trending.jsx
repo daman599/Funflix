@@ -2,8 +2,8 @@ import { MovieList } from "../Components/MovieList"
 import { useFetch } from "../Custom-hooks/useFetch";
 
 export function Trending() {
-  
-  const { loading ,isError ,data:trendMovies } = useFetch("http://localhost:3000/movie/trending");
+
+  const { loading, isError, data: trendMovies } = useFetch("http://localhost:3000/movie/trending");
 
   if (isError) {
     throw new Error("Error");

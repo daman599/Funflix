@@ -19,6 +19,6 @@ export class ErrorBoundary extends React.Component {
             return <h1>Something went wrong.Try again after some time</h1>;
         }
 
-        return this.props.children; 
+        return this.props.children;
     }
 }

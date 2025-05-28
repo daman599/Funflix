@@ -1,31 +1,15 @@
 import axios from "axios"
-import { useNavigate , Link} from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 import { MovieList } from "../Components/MovieList"
+import { useFetch } from "../Custom-hooks/useFetch"
 
 export function MyProfile() {
-    const [message,setMessage]=useState("");
-
     const navigate = useNavigate();
-    const [userInfo, setUserInfo] = useState("")
     const [favMovies, setFavMovies] = useState([])
-    const [watchlaterMovies , setWatchLaterMovies] =useState([])
+    const [watchlaterMovies, setWatchLaterMovies] = useState([])
 
-    useEffect(() => {
-     try{
-        async function getProfileInfo() {
-            const response = await axios.get("http://localhost:3000/user/profile", {
-                withCredentials: true
-            })
-            if (response.data.profile_info) {
-                setUserInfo(response.data.profile_info);
-            }
-        }
-        getProfileInfo();
-     }catch(err){
-        setMessage("Sorry! server is down please check your internet connection")
-     }
-    }, [])
+    const { userInfo } = useFetch("http://localhost:3000/user/profile")
 
     async function getFavMovies() {
         const favMovies = await axios.get("http://localhost:3000/favorites", {
@@ -34,7 +18,7 @@ export function MyProfile() {
         if (favMovies.data.error) {
             alert(favMovies.data.error);
         }
-        else if(favMovies.data.message){
+        else if (favMovies.data.message) {
             alert(favMovies.data.message)
         }
         else {
@@ -46,11 +30,11 @@ export function MyProfile() {
         const watchLaterMovies = await axios.get("http://localhost:3000/watchlater/list", {
             withCredentials: true
         })
-        
-        if (watchLaterMovies.data.error ) {
+
+        if (watchLaterMovies.data.error) {
             alert(watchLaterMovies.data.error);
         }
-        else if(watchLaterMovies.data.message){
+        else if (watchLaterMovies.data.message) {
             alert(watchLaterMovies.data.message)
         }
         else {
@@ -74,7 +58,6 @@ export function MyProfile() {
         navigate("/")
     }
     return <>
-    {message != "" ? <div>{message}</div> :
         <div>
             <div>Hi there! {userInfo.username} </div>
             <div style={{ color: "violet" }}>
@@ -95,7 +78,7 @@ export function MyProfile() {
                     })}
                 </div>
                 <button onClick={getWatchLaterMovies} style={{ cursor: "pointer" }}>Watch later list </button>
-                 <div style={{ display: "flex" }}>
+                <div style={{ display: "flex" }}>
                     {watchlaterMovies.map((movie) => {
                         return <MovieList
                             key={movie._id}
@@ -108,11 +91,10 @@ export function MyProfile() {
             </div>
             <br />
             <div>
-                
+
                 <button onClick={logout} style={{ cursor: "pointer" }}>Logout</button>
                 <button onClick={deleteAccount} style={{ cursor: "pointer" }}>Delete Account</button>
             </div>
         </div>
-     }
     </>
 }
