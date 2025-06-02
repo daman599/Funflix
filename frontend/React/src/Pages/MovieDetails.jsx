@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { MovieCard } from "../Components/MovieCard"
 import { ErrorBoundary } from "../Components/ErrorBoundary";
-import { useFetch } from "../Custom-hooks/useFetch"
+import { useFetch } from "../Custom-hook/useFetch"
 
 export function MovieDetails() {
   return <>
@@ -22,13 +22,13 @@ function GetMovieDetails() {
     throw new Error("Error");
   }
 
-  const streamingOptions = streamingDetails.map((movie) => {
+  const streamingOptions = streamingDetails.map((platform) => {
     return ({
-      serviceName: movie.service.name,
-      logo_url: movie.service.imageSet.lightThemeImage,
-      type: movie.type,
-      link: movie.link,
-      quality: movie.quality
+      serviceName: platform.service.name,
+      logo_url: platform.service.imageSet.lightThemeImage,
+      type: platform.type,
+      link: platform.link,
+      quality: platform.quality
     });
   })
 
@@ -36,7 +36,6 @@ function GetMovieDetails() {
     {detailsLoading || streamingLoading ? <p>loading....</p> :
       message !== "" ? message :
         <MovieCard
-          key={movieDetails._id}
           poster_path={movieDetails.poster_path}
           title={movieDetails.title}
           overview={movieDetails.overview}

@@ -122,7 +122,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
           <div>
             {streaming.map((platform) => {
               return (
-                <div style={{ display: "flex", gap: 10 }}>
+               <div style={{ display: "flex", gap: 10 }}>
                   <div style={{ cursor: "pointer" }}>
                     <a href={platform.link}>
                       <img src={platform.logo_url}></img>

@@ -2,7 +2,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { MovieList } from "../Components/MovieList"
-import { useFetch } from "../Custom-hooks/useFetch"
+import { useFetch } from "../Custom-hook/useFetch"
 
 export function MyProfile() {
     const navigate = useNavigate();

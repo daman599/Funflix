@@ -1,5 +1,5 @@
 import { MovieList } from "../Components/MovieList"
-import { useFetch } from "../Custom-hooks/useFetch";
+import { useFetch } from "../Custom-hook/useFetch";
 
 export function Trending() {
 

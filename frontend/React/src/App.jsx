@@ -33,11 +33,9 @@ function App() {
 }
 
 function Layout() {
-  const [ loading, setLoading  ] = useState(false)
-  const [ message, setMessage] = useState("")
+  const [ loading, setLoading  ] = useState(true)
   const [userLoggedin, setUserLoggedin] = useState(false);
     
-  try{
     useEffect(() => {
       setLoading(true);
        async function checkUserAuth() {
@@ -52,23 +50,20 @@ function Layout() {
        }
       checkUserAuth();
     }, [])
-    } catch (err) {
-        setMessage("Sorry! server is down please check your internet connection")
-  }
+
   return <>
     <div>
-      {message != "" ? <div>{message}</div> :
-        loading ? <p>loading...</p>:
-        (<div>
-          <div style={{ display: "flex", backgroundColor: "blue", gap: 900 }}>
-            <div>flixFusion</div>
-            <div >
-              {userLoggedin ? (<Link to="/me"><button style={{ cursor: "pointer" }}>Profile</button></Link>) :
-                <Link to="/auth"><button style={{ cursor: "pointer" }}>Sign in</button></Link>}
+       { loading ? <p>loading...</p>:
+        (<>
+          <div class="flex justify-between px-30 py-4">
+            <div class="text-2xl">Funflix</div>
+            <div class="bg-[#373D90] rounded-lg px-2 text-xl">
+              {userLoggedin ? (<Link to="/me"><button class="cursor-pointer">Profile</button></Link>) :
+                <Link to="/auth"><button >Sign in</button></Link>}
             </div>
           </div>
           <Outlet />
-        </div>)
+        </>)
      }
   </div>
   </>

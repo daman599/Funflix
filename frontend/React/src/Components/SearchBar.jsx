@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { MovieList } from "./MovieList"
-import { useFetch } from "../Custom-hooks/useFetch";
+import { useFetch } from "../Custom-hook/useFetch";
 
 export function SearchBar() {
 
@@ -10,7 +10,7 @@ export function SearchBar() {
   useEffect(() => {
     const delay = setTimeout(async () => {
       setTitle(movieName);
-    }, 1000)
+    }, 500)
 
     return () => {
       clearTimeout(delay)
