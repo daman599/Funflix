@@ -35,7 +35,9 @@ export function SearchBar() {
 
       {noMovieFound && <p>Oops! Sorry...no such movie found </p>}
 
-      {loading ? <p>Loading ....</p> : (
+      {loading ? <div class="flex justify-center items-center h-screen">
+        <div class="w-12 h-12 border-4 border-round rounded-full animate-spin border-white"></div>
+      </div> : (
         <div style={{
           display: "flex",
           overflowX: "auto"

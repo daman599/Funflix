@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export function useFetch(url, params = {}, shouldFetch = true) {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [isError, setError] = useState(false);
     const [data, setData] = useState([]);
     const [noMovieFound, setNoMovieFound] = useState(false);

@@ -33,11 +33,9 @@ function App() {
 }
 
 function Layout() {
-  const [ loading, setLoading  ] = useState(true)
   const [userLoggedin, setUserLoggedin] = useState(false);
     
     useEffect(() => {
-      setLoading(true);
        async function checkUserAuth() {
 
         const isuserLoggedin = await axios.get("http://localhost:3000/user/check-auth", {
@@ -46,16 +44,14 @@ function Layout() {
         if (isuserLoggedin.data.status) {
           setUserLoggedin(true)
         }
-        setLoading(false)
        }
       checkUserAuth();
     }, [])
 
   return <>
     <div>
-       { loading ? <p>loading...</p>:
-        (<>
-          <div class="flex justify-between px-30 py-4">
+        <>
+          <div class="flex justify-between px-30 py-7">
             <div class="text-2xl">Funflix</div>
             <div class="bg-[#373D90] rounded-lg px-2 text-xl">
               {userLoggedin ? (<Link to="/me"><button class="cursor-pointer">Profile</button></Link>) :
@@ -63,8 +59,7 @@ function Layout() {
             </div>
           </div>
           <Outlet />
-        </>)
-     }
+        </>
   </div>
   </>
 }

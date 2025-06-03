@@ -8,10 +8,11 @@ export function Trending() {
   if (isError) {
     throw new Error("Error");
   }
-
   return <>
     <div style={{ backgroundColor: "yellowgreen" }}>Trending Movies </div>
-    {loading ? <p>loading....</p> :
+    {loading ? <div class="flex justify-center items-center h-screen">
+      <div class="w-12 h-12 border-4 border-round rounded-full animate-spin border-white"></div>
+    </div> :
       <div style={{ display: "flex" }}>
         {trendMovies.map((movie) => {
           if (movie.poster_path) {
