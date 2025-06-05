@@ -105,38 +105,88 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
   }
 
   return <>
-    <div style={{ height: 500, width: 1000, backgroundColor: "grey", borderRadius: 20, padding: 10, display: "flex" }}>
-      <div><img src={url} style={{ height: 300, width: 300 }}></img></div>
-      <div style={{ marginLeft: 10 }}>
+    <div className="max-w-5xl mx-auto my-10 p-6 bg-[#0C0516] rounded-xl shadow-lg flex flex-col md:flex-row gap-6 border border-[#ffffff1a]">
+      <img
+        src={url}
+        alt={title}
+        className="w-full md:w-80 h-auto rounded-lg object-cover shadow-md"
+      />
 
-        <button style={{ cursor: "pointer" }} onClick={handleWatchlater}>{watchLater}</button>
-        <button style={{ cursor: "pointer" }} onClick={handleAddtoFavs}>{addToFavs}</button>
+      <div className="flex-1 space-y-4">
+        <div className="flex justify-between items-start flex-wrap">
+          <h1 className="text-3xl font-bold text-white">{title}</h1>
+          <div className="flex gap-2 mt-2 md:mt-0">
+            <div className="flex gap-4">
+              <div className="relative group flex flex-col items-center">
+                <span className="absolute bottom-full mb-2 text-sm text-white bg-[#373D90] px-2 py-1 rounded shadow opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                  Watch Later
+                </span>
+                <button
+                  className="text-2xl cursor-pointer text-white hover:text-[#4ADE80] transition"
+                  onClick={handleWatchlater}
+                >
+                  {watchLater}
+                </button>
+              </div>
 
-        <div>Title : {title}</div>
-        <div>Overview : {overview}</div>
-        <div>Rating : {rating}</div>
-        <div>Release date : {release_date}</div>
-        <div>Trending : {isTrending ? <span>Yes</span> : <span>No</span>}</div>
-        <div>Available on:
+              <div className="relative group flex flex-col items-center">
+                <span className="absolute bottom-full mb-2 text-sm text-white bg-[#373D90] px-2 py-1 rounded shadow opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                  Add to Favs
+                </span>
+                <button
+                  className="text-2xl cursor-pointer text-white hover:text-[#FF4D6D] transition"
+                  onClick={handleAddtoFavs}
+                >
+                  {addToFavs}
+                </button>
+              </div>
+            </div>
 
-          <div>
-            {streaming.map((platform) => {
-              return (
-               <div style={{ display: "flex", gap: 10 }}>
-                  <div style={{ cursor: "pointer" }}>
-                    <a href={platform.link}>
-                      <img src={platform.logo_url}></img>
-                    </a>
-                  </div>
-                  <div>{platform.serviceName}</div>
-                  <div>{platform.type == "addon" ? (<p>Needs Subscription </p>) : platform.type}</div>
-                  <div>{platform.quality}</div>
-                </div>
-              );
-            })
-            }
           </div>
         </div>
+
+        <p className="text-white/80 text-sm md:text-base">{overview}</p>
+
+        <div className="text-white/60 text-sm space-y-1">
+          <p><strong className="text-white">Rating:</strong> ⭐ {rating || "N/A"}</p>
+          <p><strong className="text-white">Release Date:</strong> {release_date || "Unknown"}</p>
+          <p><strong className="text-white">Trending:</strong> {isTrending ? "Yes" : "No"}</p>
+        </div>
+
+        {streaming.length > 0 ? (
+          <div className="mt-6">
+            <h3 className="text-2xl font-semibold text-white mb-4">Available On :</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+              {streaming.map((platform, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-4 bg-[#151028]/80 backdrop-blur-sm border border-[#ffffff1a] rounded-xl p-4 hover:shadow-[0_0_10px_#373D90] transition duration-300"
+                >
+                  <a href={platform.link} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={platform.logo_url}
+                      alt={platform.serviceName}
+                      className="w-12 h-12 object-contain hover:scale-105 transition-transform"
+                    />
+                  </a>
+                  <div className="flex flex-col">
+                    <p className="text-white text-lg font-semibold">{platform.serviceName}</p>
+                    <div className="flex flex-wrap items-center gap-2 text-sm mt-1">
+                      <span className="bg-[#373D90]/30 text-white px-2 py-0.5 rounded-full text-xs font-medium">
+                        {platform.type === "addon" ? "Subscription Needed" : platform.type}
+                      </span>
+                      <span className="bg-[#373D90]/30 text-white px-2 py-0.5 rounded-full text-xs font-medium">
+                        {platform.quality}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="text-white/60 mt-4">Not available on any platform to watch.</p>
+        )}
       </div>
     </div>
   </>

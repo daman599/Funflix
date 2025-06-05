@@ -11,7 +11,7 @@ import { useState, useEffect } from "react"
 function App() {
 
   return (
-    <div style={{ height: "100vh" }}>
+    <div class="h-screen scroll-smooth">
       <BrowserRouter>
         <Routes>
 
@@ -49,18 +49,16 @@ function Layout() {
     }, [])
 
   return <>
-    <div>
-        <>
-          <div class="flex justify-between px-30 py-7">
-            <div class="text-2xl">Funflix</div>
-            <div class="bg-[#373D90] rounded-lg px-2 text-xl">
+    <>
+          <div class="flex justify-between items-center py-6 px-6 sm:px-20 sm:py-10 md:px-24 md:py-8">
+            <div class="md:text-3xl sm:text-2xl text-2xl font-semibold">Funflix</div>
+            <div class="bg-[#373D90] rounded-lg text-white px-3 pb-1 sm:text-base md:text-xl  hover:scale-105 transition duration-300 ease-in-outease-in-out">
               {userLoggedin ? (<Link to="/me"><button class="cursor-pointer">Profile</button></Link>) :
-                <Link to="/auth"><button >Sign in</button></Link>}
+                <Link to="/auth"><button class="cursor-pointer">Sign in</button></Link>}
             </div>
           </div>
           <Outlet />
-        </>
-  </div>
+    </>
   </>
 }
 

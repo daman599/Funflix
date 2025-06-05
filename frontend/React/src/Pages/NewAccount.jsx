@@ -65,20 +65,32 @@ function CreateNewAccount() {
     }
 
     return <>
-        {loading ? <p>Loading....</p> :
-            (<div style={{ height: 300, width: 300, backgroundColor: "grey", padding: 10, marginLeft: 200 }}>
-                Create new Account
+        {loading ? 
+        <div class="h-screen flex justify-center items-center py-9">
+           <div class="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin border-[#373D90]"></div>
+        </div>:
+            (<div class="w-[90%] sm:w-[400px] bg-[#B0B1C4] p-6 mx-auto mt-10 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold text-center mb-6 text-[#373D90]">Create new Account</h2>
 
-                <div><input type={"text"} placeholder={"Username"} ref={usernameRef}></input></div>
-                <br />
+                <div class="mb-4"><input 
+                type={"text"} 
+                placeholder={"Username"} 
+                ref={usernameRef} 
+                class="w-full px-4 py-2 rounded border border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#373D90]"></input></div>
 
-                <div><input type={"email"} placeholder={"Email"} ref={emailRef}></input></div>
+                <div class="mb-4"><input 
+                type={"email"} 
+                placeholder={"Email"} 
+                ref={emailRef} 
+                class="w-full px-4 py-2 rounded border border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#373D90]"></input></div>
 
-                <br />
-                <div><input type={"password"} placeholder={"Password"} ref={passwordRef}></input></div>
+                <div class="mb-6"><input 
+                type={"password"} 
+                placeholder={"Password"} 
+                ref={passwordRef} 
+                class="w-full px-4 py-2 rounded border border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#373D90]"></input></div>
 
-                <br />
-                <button style={{ cursor: "pointer" }} onClick={signup}>Signup</button>
+                <button class="w-full bg-[#373D90] text-white py-2 rounded hover:bg-[#2f3475] transition duration-200" onClick={signup}>Signup</button>
             </div>)
         }
     </>

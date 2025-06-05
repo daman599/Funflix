@@ -36,12 +36,9 @@ export function SearchBar() {
       {noMovieFound && <p>Oops! Sorry...no such movie found </p>}
 
       {loading ? <div class="flex justify-center items-center h-screen">
-        <div class="w-12 h-12 border-4 border-round rounded-full animate-spin border-white"></div>
+        <div class="w-12 h-12 border-4 border-round rounded-full border-t-transparent animate-spin border-white"></div>
       </div> : (
-        <div style={{
-          display: "flex",
-          overflowX: "auto"
-        }}>
+        <div class="flex flex-wrap justify-center p-6 gap-6 max-w-7xl">
           {movieList.map((movie) => {
             if (movie.poster_path) {
               return (
