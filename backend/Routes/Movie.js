@@ -5,14 +5,9 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const RAPID_API_KEY = process.env.RAPID_API_KEY;
 const axios = require("axios");
 const axiosRetry = require("axios-retry").default;
-const cron = require("node-cron");
 const { MovieModel } = require('../db');
 
 axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
-
-cron.schedule('0 0 * * * ', async () => {
-  await MovieModel.deleteMany({isUserAdded:"False"});
-});
 
 movieRouter.get('/trending',async (req,res)=>{
 
