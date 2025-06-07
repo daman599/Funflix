@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom"
+import { StarsBackground } from "../Components/ui/stars-background"
+import { ShootingStars } from "../Components/ui/shooting-stars"
 
 export function Landing() {
     return <div class="min-h-screen  bg-[#0C0516] text-center px-4 sm:px-6 md:px-12 py-8 sm:py-6 md:py-8">
-
+    
         <div class="text-[#B0B1C4] text-2xl sm:text-3xl md:text-4xl font-medium py-2">
             Your Universal Streaming Guide
         </div>
@@ -12,9 +14,8 @@ export function Landing() {
         </div>
 
         <div class="text-[#817F8B] text-xl sm:text-2xl md:text-3xl py-2">Let Funflix find it for you - instantly.</div>
-
         <div class="py-4">
-            <Link to="/stream"><button class="animate-pulse pb-1.5 text-center bg-[#4A4E86] text-white px-6 font-semibold rounded-xl text-2xl sm:text-3xl md:text-4xl cursor-pointer">Search now</button></Link>
+            <Link to="/stream"><button class="relative z-10 animate-pulse pb-1.5 text-center bg-[#4A4E86] text-white px-6 font-semibold rounded-xl text-2xl sm:text-3xl md:text-4xl cursor-pointer">Search now</button></Link>
         </div>
 
         <div class="text-[#3D3C43] text-xl sm:text-2xl md:text-3xl opacity-75">Or</div>
@@ -22,7 +23,7 @@ export function Landing() {
         <div class="text-[#B9A7A7] py-3 text-lg sm:text-xl md:text-2xl">Sign in for better experience</div>
 
         <div class=" gap-6 sm:gap-8 md:gap-10 text-lg sm:text-xl md:text-2xl text-[#4A4E86] py-6">Supported platforms</div>
-        <div class="py-4 flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto">
+        <div class=" relative z-10  py-4 flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto">
             {[
                 "https://imgs.search.brave.com/PB5yRAMMx9Zj5K0-moZiBh554HkkVHgi5HAVctvv8c4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/YnJhbmRmZXRjaC5p/by9pZE5yYW5rOEpZ/L3cvNDAwL2gvNDAw/L3RoZW1lL2Rhcmsv/aWNvbi5qcGVnP2M9/MWJ4aWQ2NE11cDdh/Y3pld1NBWU1YJnQ9/MTc0NDM4MjE4MjQ2/Mg",
                 "https://imgs.search.brave.com/UH_CrWPUGvtC0Gu7AYURnPzXaZF7N5KNLCZ1qID5L68/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzY2Lzg3/L2Y2LzY2ODdmNmU5/MWE5YWM3Y2RiZmM1/ZTE4YTllNWFhMjU2/LmpwZw",
@@ -42,5 +43,7 @@ export function Landing() {
                 </div>
             ))}
         </div>
+          <StarsBackground/>
+          <ShootingStars/>
     </div>
 }

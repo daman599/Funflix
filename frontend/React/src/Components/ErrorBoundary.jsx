@@ -16,9 +16,19 @@ export class ErrorBoundary extends React.Component {
 
     render() {
         if (this.state.hasError) {
-            return <h1>Something went wrong.Try again after some time</h1>;
+          <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white text-center px-4">
+        <div>
+          <h1 className="text-3xl sm:text-4xl font-bold text-red-400 mb-4">
+            Something went wrong 😢
+          </h1>
+          <p className="text-base sm:text-lg text-gray-300">
+            Please try again after some time.
+          </p>
+        </div>
+      </div>
         }
 
         return this.props.children;
     }
 }
+

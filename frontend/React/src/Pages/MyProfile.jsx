@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { MovieList } from "../Components/MovieList"
 import { useFetch } from "../Custom-hook/useFetch"
+import { StarsBackground } from "../Components/ui/stars-background"
 
 export function MyProfile() {
     const navigate = useNavigate();
@@ -131,6 +132,7 @@ export function MyProfile() {
           </button>
         </div>
       </div>
+      <StarsBackground/>
     </div>
     </>
 }

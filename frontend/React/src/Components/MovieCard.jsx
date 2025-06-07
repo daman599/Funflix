@@ -105,7 +105,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
   }
 
   return <>
-    <div class="max-w-5xl mx-auto  mt-2 mb-10 my-10 p-6 bg-[#0C0516] rounded-xl shadow-lg flex flex-col md:flex-row gap-6 border border-[#ffffff1a]">
+    <div class="max-w-7xl mx-auto  mt-2 mb-10 my-10 p-6 bg-[#0C0516] rounded-xl shadow-lg flex flex-col md:flex-row gap-6 border border-[#ffffff1a]">
       <img
         src={url}
         alt={title}
@@ -173,7 +173,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
                     <p class="text-white text-lg font-semibold">{platform.serviceName}</p>
                     <div class="flex flex-wrap items-center gap-2 text-sm mt-1">
                       <span class="bg-[#373D90]/30 text-white px-2 py-0.5 rounded-full text-xs font-medium">
-                        {platform.type === "addon" ? "Subscription Needed" : platform.type}
+                        {platform.type === "addon" ? "Subscription" : platform.type}
                       </span>
                       <span class="bg-[#373D90]/30 text-white px-2 py-0.5 rounded-full text-xs font-medium">
                         {platform.quality}
