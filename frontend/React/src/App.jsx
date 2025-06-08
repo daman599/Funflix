@@ -70,7 +70,7 @@ function Layout() {
               type="text"
               placeholder="Search Movies..."
               onChange={(e) => setMovieName(e.target.value.trim())}
-              className="pl-9 pr-3 py-1 w-full text-white placeholder-[#999494] bg-[#0C0516] border border-[#373D90] rounded-md text-sm md:text-xl sm:text-base focus:outline-none focus:ring-2 focus:ring-[#373D90] transition"
+              className="pl-9 pr-3 py-1 w-full text-white placeholder-[#999494] bg-[#0C0516] border border-[#373D90] rounded-md text-sm md:text-xl sm:text-base focus:outline-none focus:ring-2 focus:ring-[#291e36] transition"
             />
           </div>
         )}

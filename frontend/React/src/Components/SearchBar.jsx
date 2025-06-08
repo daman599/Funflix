@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { SearchMovieCard } from "./SearchMovieCard"
 import { useFetch } from "../Custom-hook/useFetch"
 
-export function SearchBar({movieName}) {
+export function SearchBar({ movieName }) {
 
   const [actualTitle, setTitle] = useState("");
 
@@ -26,34 +26,38 @@ export function SearchBar({movieName}) {
 
   return (
     <div class="relative z-10">
-
-      {noMovieFound && (
-             <div className="min-h-[200px] flex items-center justify-center text-center">
-               <p className="text-white text-lg sm:text-xl md:text-2xl font-semibold">
-                 Oops! Sorry... no such movie found
+      {actualTitle && (
+        <>
+          {noMovieFound && (
+            <div className="min-h-[200px] flex items-center justify-center text-center">
+              <p className="text-white text-lg sm:text-xl md:text-2xl font-semibold">
+                Oops! Sorry... no such movie found
               </p>
             </div>
           )}
 
-      {loading ? <div class="flex justify-center items-center h-screen">
-        <div class="w-12 h-12 border-4 border-round rounded-full border-t-transparent animate-spin border-[#373D90]"></div>
-      </div> : (
-        <div className="flex flex-wrap justify-center items-center p-6 gap-6 max-w-7xl mx-auto">
-          {movieList.map((movie) => {
-            if (movie.poster_path) {
-              return (
-                <SearchMovieCard
-                  key={movie._id}
-                  poster_path={movie.poster_path}
-                  title={movie.title}
-                  tmdb_id={movie.tmdb_id}
-                />
-              );
-            }
-          })
-          }
-        </div>)
-      }
+          {loading ? (
+            <div className="flex justify-center items-center h-screen">
+              <div className="w-12 h-12 border-4 rounded-full border-t-transparent animate-spin border-[#373D90]"></div>
+            </div>
+          ) : (
+            <div className="flex flex-wrap justify-center items-center p-6 gap-6 max-w-7xl mx-auto">
+              {movieList.map((movie) =>
+                movie.poster_path ? (
+                  <SearchMovieCard
+                    key={movie._id}
+                    poster_path={movie.poster_path}
+                    title={movie.title}
+                    tmdb_id={movie.tmdb_id}
+                  />
+                ) : null
+              )}
+            </div>
+          )}
+        </>
+      )}
+
     </div>
-  );
+  )
+
 }
