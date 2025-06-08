@@ -38,7 +38,7 @@ export function SearchBar({movieName}) {
       {loading ? <div class="flex justify-center items-center h-screen">
         <div class="w-12 h-12 border-4 border-round rounded-full border-t-transparent animate-spin border-[#373D90]"></div>
       </div> : (
-        <div class="flex flex-wrap justify-center p-6 gap-6 max-w-7xl">
+        <div className="flex flex-wrap justify-center items-center p-6 gap-6 max-w-7xl mx-auto">
           {movieList.map((movie) => {
             if (movie.poster_path) {
               return (
