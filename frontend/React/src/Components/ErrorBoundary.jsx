@@ -16,16 +16,11 @@ export class ErrorBoundary extends React.Component {
 
     render() {
         if (this.state.hasError) {
-          <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white text-center px-4">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-red-400 mb-4">
-            Something went wrong 😢
-          </h1>
-          <p className="text-base sm:text-lg text-gray-300">
-            Please try again after some time.
-          </p>
-        </div>
-      </div>
+         return <div className="flex items-center justify-center text-center min-h-[50vh] px-4">
+                  <p className="text-white text-lg sm:text-xl font-medium">
+                    Something went wrong, please try again later.
+                 </p>
+                </div>
         }
 
         return this.props.children;

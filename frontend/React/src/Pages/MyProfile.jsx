@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import { MovieList } from "../Components/MovieList"
+import { MovieList } from "../Components/TrendingMovieCard"
 import { useFetch } from "../Custom-hook/useFetch"
 import { StarsBackground } from "../Components/ui/stars-background"
 

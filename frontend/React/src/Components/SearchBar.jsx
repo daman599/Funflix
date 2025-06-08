@@ -2,9 +2,8 @@ import { useState, useEffect } from "react"
 import { SearchMovieCard } from "./SearchMovieCard"
 import { useFetch } from "../Custom-hook/useFetch"
 
-export function SearchBar() {
+export function SearchBar({movieName}) {
 
-  const [movieName, setMovieName] = useState("");
   const [actualTitle, setTitle] = useState("");
 
   useEffect(() => {
@@ -27,13 +26,14 @@ export function SearchBar() {
 
   return (
     <div class="relative z-10">
-      <input
-        type="text"
-        placeholder="Search Movies...."
-        onChange={(e) => { setMovieName(e.target.value.trim()) }}
-      ></input>
 
-      {noMovieFound && <p>Oops! Sorry...no such movie found </p>}
+      {noMovieFound && (
+             <div className="min-h-[200px] flex items-center justify-center text-center">
+               <p className="text-white text-lg sm:text-xl md:text-2xl font-semibold">
+                 Oops! Sorry... no such movie found
+              </p>
+            </div>
+          )}
 
       {loading ? <div class="flex justify-center items-center h-screen">
         <div class="w-12 h-12 border-4 border-round rounded-full border-t-transparent animate-spin border-[#373D90]"></div>

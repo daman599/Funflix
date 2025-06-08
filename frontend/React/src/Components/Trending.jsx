@@ -1,4 +1,4 @@
-import { MovieList } from "../Components/MovieList"
+import { MovieList } from "./TrendingMovieCard"
 import { useFetch } from "../Custom-hook/useFetch"
 
 export function Trending() {
@@ -9,8 +9,8 @@ export function Trending() {
     throw new Error("Error");
   }
   return <>
-    <div class="text-[#373D90] w-80 h-9 text-xl sm:text-2xl md:text-3xl font-medium px-4 pt-2 pb-5 sm:px-8 sm:pt-6 ml-4 sm:ml-8 md:ml-16">
-      Trending Movies 
+    <div className="text-[#373D90] w-72 sm:w-80 text-xl sm:text-2xl md:text-3xl font-medium px-4 sm:px-8 pt-4 sm:pt-5 pb-3 sm:pb-4 ml-4 sm:ml-8 md:ml-16 -mt-2 sm:-mt-4">
+       Trending Movies
     </div>
 
     {loading ? 
