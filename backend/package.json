@@ -1,5 +1,5 @@
 {
-  "name": "flixfusion",
+  "name": "funflix",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -7,15 +7,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/daman599/flixFusion....git"
+    "url": "git+https://github.com/daman599/Funflix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/daman599/flixFusion.../issues"
+    "url": "https://github.com/daman599/Funflix/issues"
   },
-  "homepage": "https://github.com/daman599/flixFusion...#readme",
+  "homepage": "https://github.com/daman599/Funflix#readme",
   "description": "",
   "dependencies": {
     "axios": "^1.8.4",
@@ -29,7 +29,6 @@
     "google-auth-library": "^9.15.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
-    "node-cron": "^4.0.0",
     "zod": "^3.24.3"
   }
 }

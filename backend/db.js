@@ -21,7 +21,6 @@ const Movie = new Schema({
     rating:Number,
     isTrending:String,
     isUserAdded:{type:String,default:"False"},
-    createdAt: { type: Date, default: Date.now ,expires: 0},
     streaming:[Object]
 })
 
