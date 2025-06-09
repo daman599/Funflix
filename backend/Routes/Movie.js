@@ -1,22 +1,12 @@
-const express = require("express");
-const movieRouter = express.Router();
+const express = require("express")
+const movieRouter = express.Router()
 require("dotenv").config()
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
-const RAPID_API_KEY = process.env.RAPID_API_KEY;
-const axios = require("axios");
-const axiosRetry = require("axios-retry").default;
-const { MovieModel } = require('../db');
-const cron = require("node-cron");
-axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
-
-cron.schedule('0 * * * *', async () => {
-    const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000); 
-
-     await Movie.deleteMany({
-      isUserAdded: false,
-      createdAt: { $lt: cutoff }
-     })
-})
+const TMDB_API_KEY = process.env.TMDB_API_KEY
+const RAPID_API_KEY = process.env.RAPID_API_KEY
+const axios = require("axios")
+const axiosRetry = require("axios-retry").default
+const { MovieModel } = require('../db')
+axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay })
 
 movieRouter.get('/trending',async (req,res)=>{
 

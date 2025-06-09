@@ -10,6 +10,7 @@ import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import { SearchBar } from "./Components/SearchBar"
 import { Search } from "lucide-react"
+import { ErrorBoundary } from "./Components/ErrorBoundary"
 
 function App() {
 
@@ -62,7 +63,7 @@ function Layout() {
       </div>
 
       <div className="flex items-center gap-3 flex-grow min-w-0 overflow-hidden justify-end">
-
+         
         {isStreamPage && (
           <div className="relative flex-grow min-w-[150px] max-w-[400px] lg:max-w-[480px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#999494] w-4 h-4" />
@@ -90,8 +91,11 @@ function Layout() {
       </div>
     </div>
 
-    {isStreamPage && <SearchBar movieName={movieName} />}
-
+    {isStreamPage && (
+     <ErrorBoundary>
+       <SearchBar movieName={movieName} />
+      </ErrorBoundary>
+     )}
     <Outlet />
 
   </>

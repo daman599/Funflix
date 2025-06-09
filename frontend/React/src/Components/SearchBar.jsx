@@ -3,7 +3,6 @@ import { SearchMovieCard } from "./SearchMovieCard"
 import { useFetch } from "../Custom-hook/useFetch"
 
 export function SearchBar({ movieName }) {
-
   const [actualTitle, setTitle] = useState("");
 
   useEffect(() => {
@@ -28,20 +27,18 @@ export function SearchBar({ movieName }) {
     <div class="relative z-10">
       {actualTitle && (
         <>
-          {noMovieFound && (
+          {noMovieFound ? (
             <div className="min-h-[200px] flex items-center justify-center text-center">
-              <p className="text-white text-lg sm:text-xl md:text-2xl font-semibold">
+              <p className="text-[#655e5e] text-lg sm:text-xl md:text-2xl font-semibold">
                 Oops! Sorry... no such movie found
               </p>
             </div>
-          )}
-
-          {loading ? (
+          ) : loading ? (
             <div className="flex justify-center items-center h-screen">
               <div className="w-12 h-12 border-4 rounded-full border-t-transparent animate-spin border-[#373D90]"></div>
             </div>
           ) : (
-            <div className="flex flex-wrap justify-center items-center p-6 gap-6 max-w-7xl mx-auto">
+       <div className="mt-10 mb-10 px-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-3 gap-y-6">
               {movieList.map((movie) =>
                 movie.poster_path ? (
                   <SearchMovieCard
