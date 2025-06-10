@@ -21,7 +21,7 @@ export function Trending() {
       <div class="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin border-[#373D90]"></div>
     </div> :
       <div className="grid grid-cols-2 sm:grid-cols-3    
-        md:grid-cols-4 lg:grid-cols-5  gap-4 p-4"
+        md:grid-cols-4 lg:grid-cols-5  gap-4 p-4 flex-wrap justify-center px-8 py-6 max-w-7xl sm:px-8 mx-auto"
     >
         {trendMovies.map((movie) => {
           if (movie.poster_path) {
