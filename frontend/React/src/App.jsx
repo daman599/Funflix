@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom"
 import { SearchBar } from "./Components/SearchBar"
 import { Search } from "lucide-react"
 import { ErrorBoundary } from "./Components/ErrorBoundary"
+const Backend_url = "https://funflix-backend-j5wb.onrender.com"
 
 function App() {
 
@@ -45,7 +46,7 @@ function Layout() {
   useEffect(() => {
     async function checkUserAuth() {
 
-      const isuserLoggedin = await axios.get("http://localhost:3000/user/check-auth", {
+      const isuserLoggedin = await axios.get(`${Backend_url}/user/check-auth`, {
         withCredentials: true
       })
       if (isuserLoggedin.data.status) {

@@ -3,6 +3,7 @@ import { MovieCard } from "../Components/MovieDetailsCard"
 import { ErrorBoundary } from "../Components/ErrorBoundary"
 import { useFetch } from "../Custom-hook/useFetch"
 import { BackgroundBeamsWithCollision } from "../Components/ui/background-beams-with-collision"
+const Backend_url = "https://funflix-backend-j5wb.onrender.com"
 
 export function MovieDetails() {
   return <>
@@ -16,8 +17,8 @@ function GetMovieDetails() {
 
   const { id } = useParams();
 
-  const { loading: detailsLoading, data: movieDetails, isError } = useFetch("http://localhost:3000/movie/details", { movieId: id })
-  const { loading: streamingLoading, data: streamingDetails, message } = useFetch("http://localhost:3000/movie/streaming/availability", { movieId: id })
+  const { loading: detailsLoading, data: movieDetails, isError } = useFetch(`${Backend_url}/movie/details`, { movieId: id })
+  const { loading: streamingLoading, data: streamingDetails, message } = useFetch(`${Backend_url}/movie/streaming/availability`, { movieId: id })
 
   if (isError) {
     throw new Error("Error");

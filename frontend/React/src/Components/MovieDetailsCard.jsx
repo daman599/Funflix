@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { useState } from "react"
 import axios from "axios"
+const Backend_url = "https://funflix-backend-j5wb.onrender.com"
 
 export function MovieCard({ poster_path, title, overview, rating, release_date, isTrending, streaming = [] }) {
 
@@ -13,7 +14,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
   const [favsCount, setFavsCount] = useState(1);
 
   async function handleWatchlater() {
-    const isLoggedin = await axios.get("http://localhost:3000/user/check-auth",
+    const isLoggedin = await axios.get(`${Backend_url}/user/check-auth`,
       {
         withCredentials: true
       }
@@ -25,7 +26,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
     else {
       if (watchCount % 2 == 0) {
         //api call to remove 
-        const ismovieRemoved = await axios.delete("http://localhost:3000/watchlater/remove/movie", {
+        const ismovieRemoved = await axios.delete(`${Backend_url}/watchlater/remove/movie`, {
           data: { movieId: id },
           withCredentials: true
         })
@@ -40,7 +41,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
         }
       }
 
-      const ismovieAdded = await axios.post("http://localhost:3000/watchlater/add/movie", {
+      const ismovieAdded = await axios.post(`${Backend_url}/watchlater/add/movie`, {
         movieId: id
       }, {
         withCredentials: true
@@ -58,7 +59,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
   }
 
   async function handleAddtoFavs() {
-    const isLoggedin = await axios.get("http://localhost:3000/user/check-auth",
+    const isLoggedin = await axios.get(`${Backend_url}/user/check-auth`,
       {
         withCredentials: true
       }
@@ -70,7 +71,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
     else {
       if (favsCount % 2 == 0) {
         //api call to remove 
-        const ismovieRemoved = await axios.delete("http://localhost:3000/favorites/movie", {
+        const ismovieRemoved = await axios.delete(`${Backend_url}/favorites/movie`, {
           data: { movieId: id },
           withCredentials: true
         })
@@ -85,7 +86,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
           return;
         }
       }
-      const ismovieAdded = await axios.post("http://localhost:3000/favorites/movie", {
+      const ismovieAdded = await axios.post(`${Backend_url}/favorites/movie`, {
         movieId: id
       },
         {

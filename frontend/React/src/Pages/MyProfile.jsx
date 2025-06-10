@@ -4,16 +4,17 @@ import { useState } from "react"
 import { MovieList } from "../Components/TrendingMovieCard"
 import { useFetch } from "../Custom-hook/useFetch"
 import { StarsBackground } from "../Components/ui/stars-background"
+const Backend_url = "https://funflix-backend-j5wb.onrender.com"
 
 export function MyProfile() {
     const navigate = useNavigate();
     const [favMovies, setFavMovies] = useState([])
     const [watchlaterMovies, setWatchLaterMovies] = useState([])
 
-    const { userInfo } = useFetch("http://localhost:3000/user/profile")
+    const { userInfo } = useFetch(`${Backend_url}/user/profile`)
 
     async function getFavMovies() {
-        const favMovies = await axios.get("http://localhost:3000/favorites", {
+        const favMovies = await axios.get(`${Backend_url}/favorites`, {
             withCredentials: true
         })
       
@@ -29,7 +30,7 @@ export function MyProfile() {
     }
 
     async function getWatchLaterMovies() {
-        const watchLaterMovies = await axios.get("http://localhost:3000/watchlater/list", {
+        const watchLaterMovies = await axios.get(`${Backend_url}/watchlater/list`, {
             withCredentials: true
         })
 
@@ -45,7 +46,7 @@ export function MyProfile() {
     }
 
     async function logout() {
-        const response = await axios.get("http://localhost:3000/user/signout", {
+        const response = await axios.get(`${Backend_url}/user/signout`, {
             withCredentials: true
         })
         alert(response.data.message)
@@ -53,12 +54,13 @@ export function MyProfile() {
     }
 
     async function deleteAccount() {
-        const response = await axios.delete("http://localhost:3000/user/account", {
+        const response = await axios.delete(`${Backend_url}/user/account`, {
             withCredentials: true
         })
         alert(response.data.message)
         navigate("/")
     }
+    
     return <>
     <div class="min-h-screen relative bg-[#0C0516] overflow-hidden flex items-center justify-center px-4 py-10">
       <div class="absolute inset-0 bg-gradient-to-br from-[#1a1338] via-[#0C0516] to-[#1c1c3b] animate-gradient-slow opacity-20 z-0" />

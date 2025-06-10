@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { SearchMovieCard } from "./SearchMovieCard"
 import { useFetch } from "../Custom-hook/useFetch"
+const Backend_url = "https://funflix-backend-j5wb.onrender.com"
 
 export function SearchBar({ movieName }) {
   const [actualTitle, setTitle] = useState("");
@@ -15,7 +16,7 @@ export function SearchBar({ movieName }) {
     }
   }, [movieName])
 
-  const { loading, isError, data: movieList, noMovieFound } = useFetch("http://localhost:3000/movie/search",
+  const { loading, isError, data: movieList, noMovieFound } = useFetch(`${Backend_url}/movie/search`,
     { title: actualTitle },
     actualTitle !== ""
   )

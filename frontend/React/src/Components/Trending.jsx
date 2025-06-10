@@ -1,10 +1,11 @@
 import { MovieList } from "./TrendingMovieCard"
 import { useFetch } from "../Custom-hook/useFetch"
 import { TextGenerateEffect } from "../Components/ui/text-generate-effect"
+const Backend_url = "https://funflix-backend-j5wb.onrender.com"
 
 export function Trending() {
-
-  const { loading, isError, data: trendMovies } = useFetch("http://localhost:3000/movie/trending");
+  
+  const { loading, isError, data: trendMovies } = useFetch(`${Backend_url}/movie/trending`);
 
   if (isError) {
     throw new Error("Error");
