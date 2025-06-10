@@ -62,7 +62,7 @@ googleAuthRouter.get('/auth/callback', async (req, res) => {
         sameSite: "strict",
         maxAge: 24 * 60 * 60 * 1000 * 7
     })
-    res.redirect("http://localhost:5173/stream");
+    res.redirect("https://funflix-frontend.onrender.com/stream");
 })
 
 module.exports = {
