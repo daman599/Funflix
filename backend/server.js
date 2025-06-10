@@ -14,7 +14,7 @@ const cookie_parser = require("cookie-parser");
 
 app.use(cookie_parser());
 app.use(cors({
-  origin: "http://localhost:5173",  
+  origin: "https://funflix-frontend.onrender.com",  
   credentials: true                
 }));
 
