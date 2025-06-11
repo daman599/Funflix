@@ -23,7 +23,7 @@ app.use(express.json());
 
 app.use("/user",userRouter);
 app.use("/movie",movieRouter);
-//app.use("/google",googleAuthRouter);
+app.use("/google",googleAuthRouter);
 app.use("/favorites",favoritesRouter);
 app.use("/watchlater",watchlaterRouter);
 
