@@ -14,6 +14,11 @@ const JWT_KEY = process.env.JWT_KEY;
 const client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, REDIRECT_URI);
 
 googleAuthRouter.get('/auth', (req, res) => {
+    console.log("hi there")
+     console.log(GOOGLE_CLIENT_ID);
+     console.log(GOOGLE_CLIENT_SECRET);
+    console.log(REDIRECT_URI);
+    
     const url = client.generateAuthUrl({
         access_type: 'offline',
         prompt: 'consent',
@@ -24,6 +29,7 @@ googleAuthRouter.get('/auth', (req, res) => {
 })
 
 googleAuthRouter.get('/auth/callback', async (req, res) => {
+    console.log("welcome")
     const auth_code = req.query.code;
     const { tokens } = await client.getToken(auth_code);
 
