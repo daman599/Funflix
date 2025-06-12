@@ -28,6 +28,7 @@ function App() {
             <Route path="/movie-details/:id" element={<MovieDetails />}></Route>
           </Route>
 
+          <Route path="/oauth" element={<OAuthCallback />}></Route>
           <Route path="/me" element={<MyProfile />}></Route>
           <Route path="/auth" element={<Auth />}></Route>
           <Route path="/new-account" element={<NewAccount />}></Route>
