@@ -10,12 +10,9 @@ const { watchlaterRouter } = require("./Routes/Watchlater");
 require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
-const cookie_parser = require("cookie-parser");
-
-app.use(cookie_parser());
 app.use(cors({
   origin: "https://funflix-frontend.onrender.com",  
-  credentials: true                
+  credentials: false                
 }));
 
 mongoose.connect(process.env.MONGODB_URL);
