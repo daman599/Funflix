@@ -13,11 +13,15 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
   const [watchCount, setWatchCount] = useState(1);
   const [favsCount, setFavsCount] = useState(1);
 
+  const token = localStorage.getItem('token');
+  
   async function handleWatchlater() {
     const isLoggedin = await axios.get(`${Backend_url}/user/check-auth`,
-      {
-        withCredentials: true
-      }
+        {  
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }
     )
 
     if (isLoggedin.data.error) {
@@ -28,7 +32,11 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
         //api call to remove 
         const ismovieRemoved = await axios.delete(`${Backend_url}/watchlater/remove/movie`, {
           data: { movieId: id },
-          withCredentials: true
+          {  
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+         }
         })
 
         if (ismovieRemoved.data.Error) {
@@ -44,7 +52,10 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
       const ismovieAdded = await axios.post(`${Backend_url}/watchlater/add/movie`, {
         movieId: id
       }, {
-        withCredentials: true
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }
       })
 
       if (ismovieAdded.data.message) {
@@ -60,9 +71,11 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
 
   async function handleAddtoFavs() {
     const isLoggedin = await axios.get(`${Backend_url}/user/check-auth`,
-      {
-        withCredentials: true
-      }
+        {  
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }
     )
 
     if (isLoggedin.data.error) {
@@ -73,7 +86,11 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
         //api call to remove 
         const ismovieRemoved = await axios.delete(`${Backend_url}/favorites/movie`, {
           data: { movieId: id },
-          withCredentials: true
+          {  
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }
         })
 
         if (ismovieRemoved.data.Error) {
@@ -89,8 +106,10 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
       const ismovieAdded = await axios.post(`${Backend_url}/favorites/movie`, {
         movieId: id
       },
-        {
-          withCredentials: true
+         {  
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         }
       )
 
