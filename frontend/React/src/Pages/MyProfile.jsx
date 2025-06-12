@@ -12,9 +12,9 @@ export function MyProfile() {
     const [watchlaterMovies, setWatchLaterMovies] = useState([])
 
     const { userInfo } = useFetch(`${Backend_url}/user/profile`)
+    const token = localStorage.getItem('token');
 
     async function getFavMovies() {
-        const token = localStorage.getItem('token');
         const favMovies = await axios.get(`${Backend_url}/favorites`,{  
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -33,7 +33,6 @@ export function MyProfile() {
     }
 
     async function getWatchLaterMovies() {
-        const token = localStorage.getItem('token');
         const watchLaterMovies = await axios.get(`${Backend_url}/watchlater/list`, {
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -52,16 +51,23 @@ export function MyProfile() {
     }
 
     async function logout() {
-        const response = await axios.get(`${Backend_url}/user/signout`)
+        const response = await axios.get(`${Backend_url}/user/signout`,  {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         localStorage.removeItem('token')
         alert(response.data.message)
         navigate("/")
     }
 
     async function deleteAccount() {
-        const response = await axios.delete(`${Backend_url}/user/account`, {
-            withCredentials: true
+        const response = await axios.delete(`${Backend_url}/user/account`,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         })
+        localStorage.removeItem('token')
         alert(response.data.message)
         navigate("/")
     }
