@@ -12,6 +12,7 @@ import { SearchBar } from "./Components/SearchBar"
 import { Search } from "lucide-react"
 import { ErrorBoundary } from "./Components/ErrorBoundary"
 const Backend_url = "https://funflix-backend-j5wb.onrender.com"
+import { OAuthCallback } from "./Pages/OAuthCallback"
 
 function App() {
 
