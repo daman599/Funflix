@@ -31,10 +31,12 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
       if (watchCount % 2 == 0) {
         //api call to remove 
         const ismovieRemoved = await axios.delete(`${Backend_url}/watchlater/remove/movie`, {
-          data: { movieId: id },
+          data: { movieId: id }
+        },{
           headers: {
                 'Authorization': `Bearer ${token}`
             }
+        }
         })
 
         if (ismovieRemoved.data.Error) {
@@ -48,10 +50,12 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
       }
 
       const ismovieAdded = await axios.post(`${Backend_url}/watchlater/add/movie`, {
-        movieId: id,
-        headers: {
+        movieId: id },
+        { 
+          headers: {
                 'Authorization': `Bearer ${token}`
             }
+        }
       })
 
       if (ismovieAdded.data.message) {
@@ -81,10 +85,12 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
       if (favsCount % 2 == 0) {
         //api call to remove 
         const ismovieRemoved = await axios.delete(`${Backend_url}/favorites/movie`, {
-          data: { movieId: id },
+          data: { movieId: id }
+        }.{
           headers: {
                 'Authorization': `Bearer ${token}`
             }
+        }
         })
 
         if (ismovieRemoved.data.Error) {
@@ -98,11 +104,13 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
         }
       }
       const ismovieAdded = await axios.post(`${Backend_url}/favorites/movie`, {
-        movieId: id,
-        headers: {
+        movieId: id },
+        {
+          headers: {
                 'Authorization': `Bearer ${token}`
             }
         }
+      }
       )
 
       if (ismovieAdded.data.message) {
