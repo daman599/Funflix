@@ -30,15 +30,12 @@ function CheckAuthentication() {
       username: usernameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value
-    }, {
-      withCredentials: true
     })
-
-    if (response.data.okmessage) {
-      alert(response.data.okmessage)
-      navigate("/stream")
-    }
-
+    if (response.data.token) {
+       localStorage.setItem('token', response.data.token); 
+       alert("Login successful");
+       navigate("/stream");
+   }
     if (response.data.message) {
       alert("Wrong credentials")
     }
