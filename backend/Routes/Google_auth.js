@@ -60,7 +60,7 @@ googleAuthRouter.get('/auth/callback', async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
-        domain: ".onrender.com",
+        domain: "funflix-frontend.onrender.com",
         path:"/",
         maxAge: 24 * 60 * 60 * 1000 * 7
     })
