@@ -36,7 +36,7 @@ function CheckAuthentication() {
        alert("Login successful");
        navigate("/stream");
    }
-    if (response.data.message) {
+   else if (response.data.message) {
       alert("Wrong credentials")
     }
     setLoading(false);
