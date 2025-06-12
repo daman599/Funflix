@@ -8,6 +8,7 @@ export function useFetch(url, params = {}, shouldFetch = true) {
     const [noMovieFound, setNoMovieFound] = useState(false);
     const [message, setMessage] = useState("")
     const [userInfo, setUserInfo] = useState("")
+    const token = localStorage.getItem('token');
 
     async function makeApiCall() {
         if (!shouldFetch) {
@@ -18,7 +19,11 @@ export function useFetch(url, params = {}, shouldFetch = true) {
         setError(false);
         setNoMovieFound(false);
 
-        const response = await axios.get(url, { params, withCredentials: true });
+        const response = await axios.get(url, { params,  headers: {
+                'Authorization': `Bearer ${token}`
+            } 
+        });
+        
         if (response.data.error) {
             setError(true);
         }
