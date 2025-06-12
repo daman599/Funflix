@@ -14,8 +14,11 @@ export function MyProfile() {
     const { userInfo } = useFetch(`${Backend_url}/user/profile`)
 
     async function getFavMovies() {
-        const favMovies = await axios.get(`${Backend_url}/favorites`, {
-            withCredentials: true
+        const token = localStorage.getItem('token');
+        const favMovies = await axios.get(`${Backend_url}/favorites`,{  
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         })
       
         if (favMovies.data.error) {
@@ -30,8 +33,11 @@ export function MyProfile() {
     }
 
     async function getWatchLaterMovies() {
+        const token = localStorage.getItem('token');
         const watchLaterMovies = await axios.get(`${Backend_url}/watchlater/list`, {
-            withCredentials: true
+              headers: {
+                'Authorization': `Bearer ${token}`
+            }
         })
 
         if (watchLaterMovies.data.error) {
@@ -46,9 +52,8 @@ export function MyProfile() {
     }
 
     async function logout() {
-        const response = await axios.get(`${Backend_url}/user/signout`, {
-            withCredentials: true
-        })
+        const response = await axios.get(`${Backend_url}/user/signout`)
+        localStorage.removeItem('token')
         alert(response.data.message)
         navigate("/")
     }
