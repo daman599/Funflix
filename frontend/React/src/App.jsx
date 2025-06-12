@@ -45,10 +45,13 @@ function Layout() {
 
   useEffect(() => {
     async function checkUserAuth() {
+     const token = localStorage.getItem('token');
 
-      const isuserLoggedin = await axios.get(`${Backend_url}/user/check-auth`, {
-        withCredentials: true
-      })
+   const isuserLoggedin = await axios.get(`${Backend_url}/user/check-auth`, {
+      headers: {
+       'Authorization': `Bearer ${token}`
+      }
+   });
       if (isuserLoggedin.data.status) {
         setUserLoggedin(true)
       }
