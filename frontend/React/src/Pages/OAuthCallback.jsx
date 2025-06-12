@@ -10,6 +10,7 @@ export function OAuthCallback() {
     if (token) {
       localStorage.setItem("token", token);
       navigate("/stream"); 
+    }
   }, [navigate]);
 
   return <div>Signing you in...</div>;
