@@ -56,7 +56,7 @@ googleAuthRouter.get('/auth/callback', async (req, res) => {
         "userId": user._id
     }, JWT_KEY);
 
-    res.redirect(`https://funflix-frontend.onrender.com/?token=${token}`);
+   res.redirect(`https://funflix-frontend.onrender.com/oauth?token=${token}`);
 })
 
 module.exports = {
