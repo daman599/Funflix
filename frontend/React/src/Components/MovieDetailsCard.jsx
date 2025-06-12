@@ -37,7 +37,7 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
                 'Authorization': `Bearer ${token}`
             }
         }
-        })
+        )
 
         if (ismovieRemoved.data.Error) {
           alert(ismovieRemoved.data.Error)
@@ -50,13 +50,14 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
       }
 
       const ismovieAdded = await axios.post(`${Backend_url}/watchlater/add/movie`, {
-        movieId: id },
+        movieId: id 
+      },
         { 
           headers: {
                 'Authorization': `Bearer ${token}`
             }
         }
-      })
+      )
 
       if (ismovieAdded.data.message) {
         setWatchLater("✔️")
@@ -86,12 +87,12 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
         //api call to remove 
         const ismovieRemoved = await axios.delete(`${Backend_url}/favorites/movie`, {
           data: { movieId: id }
-        }.{
+        },{
           headers: {
                 'Authorization': `Bearer ${token}`
             }
         }
-        })
+        )
 
         if (ismovieRemoved.data.Error) {
           alert(ismovieRemoved.data.Error)
@@ -104,13 +105,12 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
         }
       }
       const ismovieAdded = await axios.post(`${Backend_url}/favorites/movie`, {
-        movieId: id },
-        {
+        movieId: id 
+      }, {
           headers: {
                 'Authorization': `Bearer ${token}`
-            }
+         }
         }
-      }
       )
 
       if (ismovieAdded.data.message) {
