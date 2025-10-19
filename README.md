@@ -1,3 +1,5 @@
-Hi there!
-I have created this Funflix (movie availability search engine) with MERN tech stack .
-I have also used aceternity component library for animation .
+Funflix 
+
+It is MERN tech-stack based web app which tells where to watch the searched movie, which platforms it is availble on.
+
+
