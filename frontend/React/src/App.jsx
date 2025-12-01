@@ -1,26 +1,28 @@
-import { Landing } from "./Pages/Landing"
-import { Stream } from "./Pages/Stream"
-import { MovieDetails } from "./Pages/MovieDetails"
-import { Auth } from "./Pages/Auth"
-import { NewAccount } from "./Pages/NewAccount"
-import { MyProfile } from "./Pages/MyProfile"
-import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom"
-import axios from "axios"
-import { useState, useEffect } from "react"
-import { useLocation } from "react-router-dom"
-import { SearchBar } from "./Components/SearchBar"
-import { Search } from "lucide-react"
-import { ErrorBoundary } from "./Components/ErrorBoundary"
-const Backend_url = "https://funflix-backend-j5wb.onrender.com"
-import { OAuthCallback } from "./Pages/OAuthCallback"
+import { Landing } from "./Pages/Landing";
+import { Stream } from "./Pages/Stream";
+import { MovieDetails } from "./Pages/MovieDetails";
+import { Auth } from "./Pages/Auth";
+import { NewAccount } from "./Pages/NewAccount";
+import { MyProfile } from "./Pages/MyProfile";
+import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
 
-function App() {
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { SearchBar } from "./Components/SearchBar";
+import { Search } from "lucide-react";
 
+import { ErrorBoundary } from "./Components/ErrorBoundary";
+import { OAuthCallback } from "./Pages/OAuthCallback";
+import { PageNotFound } from "./Components/helper/PageNotFound";
+
+const Backend_url = "https://funflix-backend-j5wb.onrender.com";
+
+export const App = () => {
   return (
-    <div class=" min-h-screen bg-[#0C0516] scroll-smooth">
+    <div class="min-h-screen bg-[#0C0516] scroll-smooth">
       <BrowserRouter>
         <Routes>
-
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Landing />}></Route>
             <Route path="/stream" element={<Stream />}></Route>
@@ -32,7 +34,6 @@ function App() {
           <Route path="/auth" element={<Auth />}></Route>
           <Route path="/new-account" element={<NewAccount />}></Route>
           <Route path="*" element={<PageNotFound />}></Route>
-
         </Routes>
       </BrowserRouter>
     </div>
@@ -47,13 +48,13 @@ function Layout() {
 
   useEffect(() => {
     async function checkUserAuth() {
-     const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token');
 
-   const isuserLoggedin = await axios.get(`${Backend_url}/user/check-auth`, {
-      headers: {
-       'Authorization': `Bearer ${token}`
-      }
-   });
+      const isuserLoggedin = await axios.get(`${Backend_url}/user/check-auth`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       if (isuserLoggedin.data.status) {
         setUserLoggedin(true)
       }
@@ -69,7 +70,7 @@ function Layout() {
       </div>
 
       <div className="flex items-center gap-3 flex-grow min-w-0 overflow-hidden justify-end">
-         
+
         {isStreamPage && (
           <div className="relative flex-grow min-w-[150px] max-w-[400px] lg:max-w-[480px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#999494] w-4 h-4" />
@@ -98,34 +99,14 @@ function Layout() {
     </div>
 
     {isStreamPage && (
-     <ErrorBoundary>
-       <SearchBar movieName={movieName} />
+      <ErrorBoundary>
+        <SearchBar movieName={movieName} />
       </ErrorBoundary>
-     )}
+    )}
     <Outlet />
 
   </>
 }
-
-function PageNotFound() {
-  return <>
-    <div class="min-h-screen flex flex-col items-center justify-center text-white px-4">
-      <h1 class="text-7xl font-extrabold text-[#2b085c]  mb-4">404</h1>
-      <p class="text-xl sm:text-2xl text-gray-300 mb-6">
-        Sorry,the page you're looking for doesn't exist.
-      </p>
-      <Link
-        to="/"
-        class="bg-[#2b085c] hover:bg-[#4a3864] transition-all duration-300 text-white font-semibold py-2 px-6 rounded-full shadow-lg"
-      >
-        Go Back Home
-      </Link>
-    </div>
-  </>
-}
-
-export default App;
-
 
 
 
