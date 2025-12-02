@@ -12,13 +12,13 @@ const platformsImages = [
 
 export const Hero = () => {
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center gap-28 text-center px-4 sm:px-6 md:px-12 relative overflow-hidden">
+        <div className="min-h-screen flex flex-col items-center justify-center gap-10 md:gap-20 text-center px-4 sm:px-6 md:px-12 relative overflow-hidden">
             <StarsBackground />
             <ShootingStars />
 
-            <div className="flex flex-col items-center justify-center z-10 max-w-4xl mx-auto space-y-4 sm:space-y-5">
+            <div className="flex flex-col items-center justify-center z-10 max-w-4xl mx-auto space-y-3 lg:space-y-5">
                 <h1 className="bg-gradient-to-r from-blue-100 via-gray-500 to-blue-600 bg-clip-text p-1 text-transparent 
-                              text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide animate-pulse">
+                              text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide animate-pulse">
                     Your Universal Streaming Guide
                 </h1>
 
@@ -26,36 +26,36 @@ export const Hero = () => {
                     Sick of switching between apps just to find a movie? We get it.
                 </p>
 
-                <p className="text-gray-300 text-sm sm:text-base md:text-lg font-medium mb-2">
+                <p className="text-gray-300 text-sm sm:text-base md:text-lg font-medium">
                     Let Funflix find it for you instantly.
                 </p>
 
-                <Link to="/stream" className="group relative inline-flex items-center justify-center my-2">
+                <Link to="/stream" className="group relative inline-flex items-center justify-center my-1 md:my-2">
                     <span className="absolute inset-0 rounded-xl bg-gradient-to-l from-blue-600 to-gray-600 opacity-75 blur-md 
                                     group-hover:opacity-100 group-hover:blur-lg transition-all duration-300"></span>
                     <span className="relative z-10 bg-gradient-to-l from-blue-600 to-gray-600 text-white 
                                     px-6 py-2.5 sm:px-8 sm:py-3 font-semibold rounded-xl text-base sm:text-lg md:text-xl 
-                                    cursor-pointer transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl">
+                                    cursor-pointer transition-all duration-300 transform shadow-lg hover:shadow-2xl">
                         Search now
                     </span>
                 </Link>
 
-                <div className="text-gray-400 text-xs sm:text-sm font-medium mt-2">
+                <div className="text-gray-400 text-xs sm:text-sm font-medium mt-2 md:mt-3">
                     <span className="transition-colors hover:text-purple-300 cursor-pointer">
                         Sign in for better experience.
                     </span>
                 </div>
             </div>
 
-            <div className="flex flex-col items-center justify-center z-10 mt-10 sm:mt-12 md:mt-16">
+            <div className="flex flex-col items-center justify-center z-10 mt-10 md:mt-16">
                 <h2 className="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wider mb-3 sm:mb-4">
                     Supported platforms
                 </h2>
 
-                <div className="flex flex-wrap justify-center items-center gap-4 md:gap-5 max-w-4xl mx-auto">
+                <div className="flex flex-wrap justify-center items-center gap-2 md:gap-5 max-w-4xl mx-auto">
                     {platformsImages.map((src, i) => (
                         <div key={i}
-                            className="group flex items-center justify-center bg-black w-24 h-14 p-1 rounded-xl overflow-hidden transition-all duration-300 hover:scale-110 hover:rotate-2 
+                            className="group flex items-center justify-center bg-black w-20 h-10 md:w-20 md:h-12 lg:w-24 lg:h-14 md:p-1 p-0.5 rounded-xl overflow-hidden transition-all duration-300 hover:scale-110 hover:rotate-2 
                             backdrop-blur-sm border-1 border-blue-800/30 hover:border-blue-400/50"
                         >
                             <img src={src}
