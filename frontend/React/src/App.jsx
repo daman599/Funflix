@@ -63,14 +63,13 @@ function Layout() {
   }, [])
 
   return <>
-    <div className="flex items-center gap-3 px-4 py-4 sm:px-8 md:px-16 bg-[#0C0516] z-10 relative w-full overflow-x-auto flex-nowrap">
+    <div className="flex items-center justify-between px-4 py-2 lg:py-4 sm:px-8 md:px-16 lg:px-28 z-10 relative w-full">
 
-      <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-white whitespace-nowrap shrink-0">
+      <span className="text-lg md:text-2xl font-medium text-gray-400 pointer-events-none">
         Funflix
-      </div>
+      </span>
 
-      <div className="flex items-center gap-3 flex-grow min-w-0 overflow-hidden justify-end">
-
+      <div className="flex items-center gap-3 flex-grow overflow-hidden justify-end">
         {isStreamPage && (
           <div className="relative flex-grow min-w-[150px] max-w-[400px] lg:max-w-[480px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#999494] w-4 h-4" />
@@ -83,14 +82,16 @@ function Layout() {
           </div>
         )}
 
-        <div className="bg-[#373D90] rounded-lg text-white px-3 py-1 text-sm sm:text-base shrink-0 hover:scale-105 transition duration-300 ease-in-out whitespace-nowrap">
+        <div className="bg-blue-950 hover:bg-blue-900 cursor-pointer flex items-center justify-center rounded-lg text-gray-300 hover:text-gray-100 
+         font-medium px-2 py-1 md:px-3 md:py-2 text-xs sm:text-sm 
+        transition-all duration-300">
           {userLoggedin ? (
             <Link to="/me">
-              <button className="cursor-pointer">Profile</button>
+              <div >Profile</div>
             </Link>
           ) : (
             <Link to="/auth">
-              <button className="cursor-pointer">Sign in</button>
+              <div >Sign in</div>
             </Link>
           )}
         </div>
