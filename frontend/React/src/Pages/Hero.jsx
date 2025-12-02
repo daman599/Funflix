@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { StarsBackground } from "../Components/ui/stars-background"
 import { ShootingStars } from "../Components/ui/shooting-stars"
+import { motion } from "motion/react";
 
 const platformsImages = [
     "https://imgs.search.brave.com/PB5yRAMMx9Zj5K0-moZiBh554HkkVHgi5HAVctvv8c4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/YnJhbmRmZXRjaC5p/by9pZE5yYW5rOEpZ/L3cvNDAwL2gvNDAw/L3RoZW1lL2Rhcmsv/aWNvbi5qcGVnP2M9/MWJ4aWQ2NE11cDdh/Y3pld1NBWU1YJnQ9/MTc0NDM4MjE4MjQ2/Mg  ",
@@ -16,7 +17,11 @@ export const Hero = () => {
             <StarsBackground />
             <ShootingStars />
 
-            <div className="flex flex-col items-center justify-center z-10 max-w-4xl mx-auto space-y-3 lg:space-y-5">
+            <motion.div
+                initial={{ opacity: 0, filter: "blur(2px)", }}
+                whileInView={{ opacity: 1, filter: "blur(0px)" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="flex flex-col items-center justify-center z-10 max-w-4xl mx-auto space-y-3 lg:space-y-5">
                 <h1 className="bg-gradient-to-r from-blue-100 via-gray-500 to-blue-600 bg-clip-text p-1 text-transparent 
                               text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide animate-pulse">
                     Your Universal Streaming Guide
@@ -45,7 +50,7 @@ export const Hero = () => {
                         Sign in for better experience.
                     </span>
                 </div>
-            </div>
+            </motion.div>
 
             <div className="flex flex-col items-center justify-center z-10 mt-10 md:mt-16">
                 <h2 className="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wider mb-3 sm:mb-4">
@@ -54,7 +59,10 @@ export const Hero = () => {
 
                 <div className="flex flex-wrap justify-center items-center gap-2 md:gap-5 max-w-4xl mx-auto">
                     {platformsImages.map((src, i) => (
-                        <div key={i}
+                        <motion.div key={i}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, ease: "easeIn", delay: i * 0.2 }}
                             className="group flex items-center justify-center bg-black w-20 h-10 md:w-20 md:h-12 lg:w-24 lg:h-14 md:p-1 p-0.5 rounded-xl overflow-hidden transition-all duration-300 hover:scale-110 hover:rotate-2 
                             backdrop-blur-sm border-1 border-blue-800/30 hover:border-blue-400/50"
                         >
@@ -62,10 +70,10 @@ export const Hero = () => {
                                 alt={`platform-${i}`}
                                 className="object-contain w-full h-full transition-transform duration-300 group-hover:scale-110"
                             />
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
