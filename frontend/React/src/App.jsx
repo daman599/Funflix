@@ -1,4 +1,4 @@
-import { Landing } from "./Pages/Landing";
+import { Hero } from "./Pages/Hero";
 import { Stream } from "./Pages/Stream";
 import { MovieDetails } from "./Pages/MovieDetails";
 import { Auth } from "./Pages/Auth";
@@ -20,11 +20,11 @@ const Backend_url = "https://funflix-backend-j5wb.onrender.com";
 
 export const App = () => {
   return (
-    <div class="min-h-screen bg-[#0C0516] scroll-smooth">
+    <div class="max-h-screen bg-[#0C0516] scroll-smooth overflow-hidden">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Landing />}></Route>
+            <Route path="/" element={<Hero />}></Route>
             <Route path="/stream" element={<Stream />}></Route>
             <Route path="/movie-details/:id" element={<MovieDetails />}></Route>
           </Route>

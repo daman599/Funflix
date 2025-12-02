@@ -1,2 +1,8 @@
 @import "tailwindcss";
 
+@layer base {
+    body {
+        font-family: "Roboto Variable", system-ui, sans-serif;
+        font-family: "Inter Variable", system-ui, sans-serif;
+    }
+}
