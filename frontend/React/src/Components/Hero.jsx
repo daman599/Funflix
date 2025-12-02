@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { StarsBackground } from "../Components/ui/stars-background"
-import { ShootingStars } from "../Components/ui/shooting-stars"
+import { StarsBackground } from "./ui/stars-background"
+import { ShootingStars } from "./ui/shooting-stars"
 import { motion } from "motion/react";
 
 const platformsImages = [
