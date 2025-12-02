@@ -5,17 +5,17 @@ import { Auth } from "./Pages/Auth";
 import { NewAccount } from "./Pages/NewAccount";
 import { MyProfile } from "./Pages/MyProfile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Layout } from "./Components/Layout";
+import { Layout } from "./Layout";
 import { OAuthCallback } from "./Pages/OAuthCallback";
 import { PageNotFound } from "./Components/helper/PageNotFound";
 
 export const App = () => {
   return (
-    <div class="max-h-screen bg-[#0C0516] scroll-smooth overflow-hidden">
+    <div class="max-h-screen bg-[#0C0516] scroll-smooth">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="/" element={<LandingPage />}></Route>
+            <Route index element={<LandingPage />}></Route>
             <Route path="/stream" element={<Stream />}></Route>
             <Route path="/movie-details/:id" element={<MovieDetails />}></Route>
           </Route>

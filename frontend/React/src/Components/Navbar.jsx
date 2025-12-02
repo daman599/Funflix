@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
-import { SearchBar } from "../Components/SearchBar";
-import { ErrorBoundary } from "../Components/ErrorBoundary";
+import { SearchBar } from "./SearchBar";
+import { ErrorBoundary } from "../Components/helper/ErrorBoundary";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useLocation, Outlet } from "react-router-dom";
-import { Navbar } from "./Navbar";
+import { Navbar } from "./Components/Navbar";
 
 const Backend_url = "https://funflix-backend-j5wb.onrender.com";
 
@@ -20,7 +20,7 @@ export const Layout = () => {
                 }
             });
             if (isuserLoggedin.data.status) {
-                setUserLoggedin(true)
+                setUserLoggedin(true);
             }
         }
         checkUserAuth();
