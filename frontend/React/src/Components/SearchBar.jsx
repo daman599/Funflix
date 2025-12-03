@@ -1,61 +1,24 @@
-import { useState, useEffect } from "react"
-import { SearchMovieCard } from "./SearchMovieCard"
-import { useFetch } from "../Custom-hook/useFetch"
-const Backend_url = "https://funflix-backend-j5wb.onrender.com"
+import { Search } from "lucide-react";
+import { motion } from "motion/react";
 
-export function SearchBar({ movieName }) {
-  const [actualTitle, setTitle] = useState("");
+export const SearchBar = ({ movieName, setMovieName }) => {
 
-  useEffect(() => {
-    const delay = setTimeout(async () => {
-      setTitle(movieName);
-    }, 500)
-
-    return () => {
-      clearTimeout(delay)
-    }
-  }, [movieName])
-
-  const { loading, isError, data: movieList, noMovieFound } = useFetch(`${Backend_url}/movie/search`,
-    { title: actualTitle },
-    actualTitle !== ""
-  )
-  if (isError) {
-    throw new Error("error")
-  }
-
-  return (
-    <div class="relative z-10">
-      {actualTitle && (
-        <>
-          {noMovieFound ? (
-            <div className="min-h-[200px] flex items-center justify-center text-center">
-              <p className="text-[#655e5e] text-lg sm:text-xl md:text-2xl font-semibold">
-                Oops! Sorry... no such movie found
-              </p>
-            </div>
-          ) : loading ? (
-            <div className="flex justify-center items-center h-screen">
-              <div className="w-12 h-12 border-4 rounded-full border-t-transparent animate-spin border-[#373D90]"></div>
-            </div>
-          ) : (
-       <div className="mt-10 mb-10 px-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-3 gap-y-6">
-              {movieList.map((movie) =>
-                movie.poster_path ? (
-                  <SearchMovieCard
-                    key={movie._id}
-                    poster_path={movie.poster_path}
-                    title={movie.title}
-                    tmdb_id={movie.tmdb_id}
-                  />
-                ) : null
-              )}
-            </div>
-          )}
-        </>
-      )}
-
-    </div>
-  )
-
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 5, filter: "blur(3px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 1, ease: "easeIn" }}
+            className="relative min-w-[290px] max-w-full  md:max-w-[300px] lg:max-w-[380px] xl:max-w-[600px]">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-300 pointer-events-none" />
+            <input
+                type="text"
+                value={movieName}
+                onChange={(e) => setMovieName(e.target.value.trim())}
+                placeholder="Search Movies..."
+                className="w-full pl-10 pr-4 py-1 text-white placeholder-gray-500 border-2 border-blue-900/90 
+                    rounded-md text-sm sm:text-base focus:outline-none focus:border-blue-500 transition-colors"
+                aria-label="Search movies"
+            />
+        </motion.div>
+    );
 }

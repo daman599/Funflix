@@ -1,14 +1,16 @@
-import { MovieList } from "./TrendingMovieCard";
+import { MovieCard } from "./MovieCard";
 import { useFetch } from "../Custom-hook/useFetch";
 import { TextGenerateEffect } from "../Components/ui/text-generate-effect";
-import { SearchBar } from "./SearchBar1";
+import { SearchBar } from "./SearchBar";
 import { Loader } from "./helper/Loader";
 import { motion, stagger } from "motion/react";
+import { useState } from "react";
 
 const Backend_url = "https://funflix-backend-j5wb.onrender.com";
 
 export const Trending = () => {
   const { loading, isError, data: trendMovies } = useFetch(`${Backend_url}/movie/trending`);
+  const [movieName, setMovieName] = useState("");
 
   if (isError) {
     throw new Error("Error");
@@ -21,7 +23,7 @@ export const Trending = () => {
         className="text-blue-900 hidden md:inline-block text-base md:text-xl lg:text-2xl font-medium"
         words="Trending Movies"
       />
-      <SearchBar />
+      <SearchBar setMovieName={setMovieName} movieName={movieName} />
     </div>
 
     {loading ? <Loader /> :
@@ -32,10 +34,11 @@ export const Trending = () => {
               <motion.div
                 initial={{ opacity: 0, filter: "blur(2px)" }}
                 whileInView={{ opacity: 1, filter: "blur(0px)" }}
-                transition={{ duration: 1, ease: "easeInOut", dealy: stagger(0.05) }}
+                transition={{ duration: 1.5, ease: "easeInOut", dealy: stagger(0.05) }}
                 viewport={{ once: true }}
-                key={movie._id}>
-                <MovieList
+                key={movie._id}
+              >
+                <MovieCard
                   poster_path={movie.poster_path}
                   title={movie.title}
                   tmdb_id={movie.tmdb_id}
