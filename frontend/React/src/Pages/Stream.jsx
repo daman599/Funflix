@@ -1,16 +1,16 @@
 import { SearchBar } from "../Components/SearchBar"
 import { Trending } from "../Components/Trending"
-import { ErrorBoundary } from "../Components/ErrorBoundary"
+import { ErrorBoundary } from "../Components/helper/ErrorBoundary"
 
 export function Stream() {
     return <>
-    <div class="min-h-screen bg-[#0C0516] overflow-x-hidden">
-        <ErrorBoundary>
-            <SearchBar />
-        </ErrorBoundary>
-        <ErrorBoundary>
-            <Trending />
-        </ErrorBoundary>
-    </div>
+        <div class="min-h-screen bg-[#0C0516] overflow-x-hidden">
+            <ErrorBoundary>
+                <SearchBar />
+            </ErrorBoundary>
+            <ErrorBoundary>
+                <Trending />
+            </ErrorBoundary>
+        </div>
     </>
 }

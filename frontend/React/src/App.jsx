@@ -11,7 +11,7 @@ import { PageNotFound } from "./Components/helper/PageNotFound";
 
 export const App = () => {
   return (
-    <div class="max-h-screen bg-[#0C0516] scroll-smooth">
+    <div class="min-h-screen bg-[#0C0516] scroll-smooth">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>

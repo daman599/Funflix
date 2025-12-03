@@ -8,7 +8,7 @@ export const Navbar = ({ userLoggedin, isStreamPage }) => {
     const [movieName, setMovieName] = useState("");
 
     return (
-        <div className="flex items-center justify-between px-4 py-2 lg:py-4 sm:px-8 md:px-16 lg:px-28 z-10 relative w-full">
+        <div className="flex items-center justify-between px-4 py-2 sm:px-8 md:px-16 lg:px-24 xl:px-40 z-10 relative w-full">
             <span className="text-lg md:text-2xl font-medium text-gray-400 pointer-events-none">
                 Funflix
             </span>
