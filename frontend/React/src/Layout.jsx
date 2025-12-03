@@ -1,13 +1,11 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useLocation, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Navbar } from "./Components/Navbar";
 
 const Backend_url = "https://funflix-backend-j5wb.onrender.com";
 
 export const Layout = () => {
-    const location = useLocation();
-    const isStreamPage = location.pathname === "/stream";
     const [userLoggedin, setUserLoggedin] = useState(false);
 
     useEffect(() => {
@@ -27,7 +25,7 @@ export const Layout = () => {
     }, [])
 
     return <>
-        <Navbar userLoggedin={userLoggedin} isStreamPage={isStreamPage} />
+        <Navbar userLoggedin={userLoggedin} />
         <Outlet />
     </>
 }
