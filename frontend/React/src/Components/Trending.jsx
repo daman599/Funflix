@@ -25,8 +25,8 @@ export const Trending = () => {
     </div>
 
     {loading ? <Loader /> :
-      <div className="flex flex-wrap justify-center gap-6 px-8 py-6 max-w-7xl sm:px-8 mx-auto">
-        {trendMovies.map((movie, i) => {
+      <div className="flex flex-wrap justify-center gap-6 py-6 mx-auto">
+        {trendMovies.map((movie) => {
           if (movie.poster_path) {
             return (
               <motion.div
