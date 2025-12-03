@@ -2,24 +2,29 @@ import { MovieList } from "./TrendingMovieCard"
 import { useFetch } from "../Custom-hook/useFetch"
 import { TextGenerateEffect } from "../Components/ui/text-generate-effect"
 const Backend_url = "https://funflix-backend-j5wb.onrender.com"
+import { SearchBar } from "./SearchBar1";
 
-export function Trending() {
-  
+export const Trending = () => {
   const { loading, isError, data: trendMovies } = useFetch(`${Backend_url}/movie/trending`);
 
   if (isError) {
     throw new Error("Error");
   }
-  return <>
-    <TextGenerateEffect
-       className="text-[#373D90] w-72 sm:w-80 text-xl sm:text-2xl md:text-3xl font-medium px-4 sm:px-8 pt-4 sm:pt-5 pb-3 sm:pb-4 ml-4 sm:ml-8 md:ml-16 -mt-2 sm:-mt-4"
-       words="Trending Movies"
-    />
 
-    {loading ? 
-    <div class="min-h-screen flex justify-center items-center py-9">
-      <div class="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin border-[#373D90]"></div>
-    </div> :
+  return <div className="flex flex-col items-center justify-center mt-4 px-40">
+
+    <div className="flex items-center justify-between w-full">
+      <TextGenerateEffect
+        className="text-blue-900 inline-block text-xl sm:text-2xl font-medium"
+        words="Trending Movies"
+      />
+      <SearchBar />
+    </div>
+
+    {loading ?
+      <div class="min-h-screen flex justify-center items-center py-9">
+        <div class="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin border-[#373D90]"></div>
+      </div> :
       <div className="flex flex-wrap justify-center gap-6 px-8 py-6 max-w-7xl sm:px-8 mx-auto">
         {trendMovies.map((movie) => {
           if (movie.poster_path) {
@@ -36,5 +41,5 @@ export function Trending() {
         }
       </div>
     }
-  </>
+  </div>
 }

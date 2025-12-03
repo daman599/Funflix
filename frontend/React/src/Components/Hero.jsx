@@ -46,11 +46,9 @@ export const Hero = () => {
                 </Link>
 
                 <div className="text-gray-400 text-xs sm:text-sm font-medium mt-2 md:mt-3">
-                    <span className="transition-colors hover:text-purple-300 cursor-pointer">
-                        Sign in for better experience.
-                    </span>
+                    Sign in for better experience.
                 </div>
-            </motion.div>
+            </motion.div >
 
             <div className="flex flex-col items-center justify-center z-10 mt-10 md:mt-16">
                 <h2 className="text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-wider mb-3 sm:mb-4">
