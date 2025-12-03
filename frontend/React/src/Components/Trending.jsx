@@ -3,7 +3,7 @@ import { useFetch } from "../Custom-hook/useFetch";
 import { TextGenerateEffect } from "../Components/ui/text-generate-effect";
 import { SearchBar } from "./SearchBar1";
 import { Loader } from "./helper/Loader";
-import { motion } from "motion/react";
+import { motion, stagger } from "motion/react";
 
 const Backend_url = "https://funflix-backend-j5wb.onrender.com";
 
@@ -14,7 +14,7 @@ export const Trending = () => {
     throw new Error("Error");
   }
 
-  return <div className="flex flex-col items-center justify-center mt-4 px-4 md:px-16 lg:px-24 xl:px-40">
+  return <div className="flex flex-col items-center justify-center mt-6 px-4 md:px-16 lg:px-24 xl:px-40">
 
     <div className="flex items-center justify-between w-full">
       <TextGenerateEffect
@@ -32,7 +32,7 @@ export const Trending = () => {
               <motion.div
                 initial={{ opacity: 0, filter: "blur(2px)" }}
                 whileInView={{ opacity: 1, filter: "blur(0px)" }}
-                transition={{ duration: 1.5, ease: "easeInOut", dealy: i * 0.05 }}
+                transition={{ duration: 1, ease: "easeInOut", dealy: stagger(0.05) }}
                 viewport={{ once: true }}
                 key={movie._id}>
                 <MovieList
