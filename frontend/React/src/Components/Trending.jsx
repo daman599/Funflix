@@ -6,10 +6,10 @@ import { Loader } from "./helper/Loader";
 import { motion, stagger } from "motion/react";
 import { useState } from "react";
 
-const Backend_url = "https://funflix-backend-j5wb.onrender.com";
+const backend_url = process.env.backend_url;
 
 export const Trending = () => {
-  const { loading, isError, data: trendMovies } = useFetch(`${Backend_url}/movie/trending`);
+  const { loading, isError, data: trendMovies } = useFetch(`${backend_url}/movie/trending`);
   const [movieName, setMovieName] = useState("");
 
   if (isError) {

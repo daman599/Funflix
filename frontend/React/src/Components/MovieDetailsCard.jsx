@@ -1,7 +1,7 @@
-import { useNavigate, useParams } from "react-router-dom"
-import { useState } from "react"
-import axios from "axios"
-const Backend_url = "https://funflix-backend-j5wb.onrender.com"
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+const backend_url = process.env.backend_url;
 
 export function MovieCard({ poster_path, title, overview, rating, release_date, isTrending, streaming = [] }) {
 
@@ -14,14 +14,14 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
   const [favsCount, setFavsCount] = useState(1);
 
   const token = localStorage.getItem('token');
-  
+
   async function handleWatchlater() {
-    const isLoggedin = await axios.get(`${Backend_url}/user/check-auth`,
-        {  
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+    const isLoggedin = await axios.get(`${backend_url}/user/check-auth`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
+      }
     )
 
     if (isLoggedin.data.error) {
@@ -30,12 +30,12 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
     else {
       if (watchCount % 2 == 0) {
         //api call to remove 
-        const ismovieRemoved = await axios.delete(`${Backend_url}/watchlater/remove/movie`, {
+        const ismovieRemoved = await axios.delete(`${backend_url}/watchlater/remove/movie`, {
           data: { movieId: id }
-        },{
+        }, {
           headers: {
-                'Authorization': `Bearer ${token}`
-            }
+            'Authorization': `Bearer ${token}`
+          }
         }
         )
 
@@ -49,13 +49,13 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
         }
       }
 
-      const ismovieAdded = await axios.post(`${Backend_url}/watchlater/add/movie`, {
-        movieId: id 
+      const ismovieAdded = await axios.post(`${backend_url}/watchlater/add/movie`, {
+        movieId: id
       },
-        { 
+        {
           headers: {
-                'Authorization': `Bearer ${token}`
-            }
+            'Authorization': `Bearer ${token}`
+          }
         }
       )
 
@@ -71,12 +71,12 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
   }
 
   async function handleAddtoFavs() {
-    const isLoggedin = await axios.get(`${Backend_url}/user/check-auth`,
-        {  
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+    const isLoggedin = await axios.get(`${backend_url}/user/check-auth`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
+      }
     )
 
     if (isLoggedin.data.error) {
@@ -85,12 +85,12 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
     else {
       if (favsCount % 2 == 0) {
         //api call to remove 
-        const ismovieRemoved = await axios.delete(`${Backend_url}/favorites/movie`, {
+        const ismovieRemoved = await axios.delete(`${backend_url}/favorites/movie`, {
           data: { movieId: id }
-        },{
+        }, {
           headers: {
-                'Authorization': `Bearer ${token}`
-            }
+            'Authorization': `Bearer ${token}`
+          }
         }
         )
 
@@ -104,13 +104,13 @@ export function MovieCard({ poster_path, title, overview, rating, release_date, 
           return;
         }
       }
-      const ismovieAdded = await axios.post(`${Backend_url}/favorites/movie`, {
-        movieId: id 
+      const ismovieAdded = await axios.post(`${backend_url}/favorites/movie`, {
+        movieId: id
       }, {
-          headers: {
-                'Authorization': `Bearer ${token}`
-         }
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
+      }
       )
 
       if (ismovieAdded.data.message) {

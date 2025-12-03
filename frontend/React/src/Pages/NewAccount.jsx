@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Loader } from "../Components/helper/Loader";
 
-const Backend_url = "https://funflix-backend-j5wb.onrender.com"
+const backend_url = process.env.backend_url;
 
 export function NewAccount() {
   return <div><CreateNewAccount /></div>
@@ -31,7 +31,7 @@ function CreateNewAccount() {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${Backend_url}/user/signup`, {
+      const response = await axios.post(`${backend_url}/user/signup`, {
         username: usernameRef.current.value,
         email: emailRef.current.value,
         password: passwordRef.current.value,

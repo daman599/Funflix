@@ -1,9 +1,9 @@
-import { Link, useNavigate } from "react-router-dom"
-import { useState, useRef } from "react"
-import axios from "axios"
-import { Loader } from "../Components/helper/Loader"
-const Backend_url = "https://funflix-backend-j5wb.onrender.com"
-const path = `${Backend_url}/google/auth`
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
+import axios from "axios";
+import { Loader } from "../Components/helper/Loader";
+
+const backend_url = process.env.backend_url;
 
 export function Auth() {
   return <div>
@@ -27,7 +27,7 @@ function CheckAuthentication() {
       return;
     }
     setLoading(true);
-    const response = await axios.post(`${Backend_url}/user/signin`, {
+    const response = await axios.post(`${backend_url}/user/signin`, {
       username: usernameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value
@@ -91,7 +91,7 @@ function CheckAuthentication() {
 
             <div class="text-center">
               <p class="text-white/70 mb-2">Sign in with</p>
-              <a href={path}>
+              <a href={`${backend_url}/google/auth`}>
                 <img
                   src={google_url}
                   alt="Google"

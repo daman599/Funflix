@@ -1,78 +1,79 @@
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
-import { useState } from "react"
-import { MovieList } from "../Components/TrendingMovieCard"
-import { useFetch } from "../Custom-hook/useFetch"
-import { StarsBackground } from "../Components/ui/stars-background"
-const Backend_url = "https://funflix-backend-j5wb.onrender.com"
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { MovieCard } from "../Components/MovieCard";
+import { useFetch } from "../Custom-hook/useFetch";
+import { StarsBackground } from "../Components/ui/stars-background";
+
+const backend_url = process.env.backend_url;
 
 export function MyProfile() {
-    const navigate = useNavigate();
-    const [favMovies, setFavMovies] = useState([])
-    const [watchlaterMovies, setWatchLaterMovies] = useState([])
+  const navigate = useNavigate();
+  const [favMovies, setFavMovies] = useState([])
+  const [watchlaterMovies, setWatchLaterMovies] = useState([])
 
-    const { userInfo } = useFetch(`${Backend_url}/user/profile`)
-    const token = localStorage.getItem('token');
+  const { userInfo } = useFetch(`${backend_url}/user/profile`)
+  const token = localStorage.getItem('token');
 
-    async function getFavMovies() {
-        const favMovies = await axios.get(`${Backend_url}/favorites`,{  
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-      
-        if (favMovies.data.error) {
-            alert(favMovies.data.error);
-        }
-        else if (favMovies.data.message) {
-            alert(favMovies.data.message)
-        }
-        else {
-            setFavMovies(favMovies.data.favoriteMovies)
-        }
+  async function getFavMovies() {
+    const favMovies = await axios.get(`${backend_url}/favorites`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
+    if (favMovies.data.error) {
+      alert(favMovies.data.error);
     }
-
-    async function getWatchLaterMovies() {
-        const watchLaterMovies = await axios.get(`${Backend_url}/watchlater/list`, {
-              headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-
-        if (watchLaterMovies.data.error) {
-            alert(watchLaterMovies.data.error);
-        }
-        else if (watchLaterMovies.data.message) {
-            alert(watchLaterMovies.data.message)
-        }
-        else {
-            setWatchLaterMovies(watchLaterMovies.data.watchlaterMovies);
-        }
+    else if (favMovies.data.message) {
+      alert(favMovies.data.message)
     }
-
-    async function logout() {
-        const response = await axios.get(`${Backend_url}/user/signout`,  {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        localStorage.removeItem('token')
-        alert(response.data.message)
-        navigate("/")
+    else {
+      setFavMovies(favMovies.data.favoriteMovies)
     }
+  }
 
-    async function deleteAccount() {
-        const response = await axios.delete(`${Backend_url}/user/account`,{
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        localStorage.removeItem('token')
-        alert(response.data.message)
-        navigate("/")
+  async function getWatchLaterMovies() {
+    const watchLaterMovies = await axios.get(`${backend_url}/watchlater/list`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
+    if (watchLaterMovies.data.error) {
+      alert(watchLaterMovies.data.error);
     }
-    
-    return <>
+    else if (watchLaterMovies.data.message) {
+      alert(watchLaterMovies.data.message)
+    }
+    else {
+      setWatchLaterMovies(watchLaterMovies.data.watchlaterMovies);
+    }
+  }
+
+  async function logout() {
+    const response = await axios.get(`${backend_url}/user/signout`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    localStorage.removeItem('token')
+    alert(response.data.message)
+    navigate("/")
+  }
+
+  async function deleteAccount() {
+    const response = await axios.delete(`${backend_url}/user/account`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    localStorage.removeItem('token')
+    alert(response.data.message)
+    navigate("/")
+  }
+
+  return <>
     <div class="min-h-screen relative bg-[#0C0516] overflow-hidden flex items-center justify-center px-4 py-10">
       <div class="absolute inset-0 bg-gradient-to-br from-[#1a1338] via-[#0C0516] to-[#1c1c3b] animate-gradient-slow opacity-20 z-0" />
 
@@ -99,7 +100,7 @@ export function MyProfile() {
           </div>
           <div class="flex flex-wrap gap-5">
             {favMovies.map((movie) => (
-              <MovieList
+              <MovieCard
                 key={movie._id}
                 poster_path={movie.poster_path}
                 title={movie.title}
@@ -146,7 +147,7 @@ export function MyProfile() {
           </button>
         </div>
       </div>
-      <StarsBackground/>
+      <StarsBackground />
     </div>
-    </>
+  </>
 }
