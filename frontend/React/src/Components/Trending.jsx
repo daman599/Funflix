@@ -3,6 +3,7 @@ import { useFetch } from "../Custom-hook/useFetch"
 import { TextGenerateEffect } from "../Components/ui/text-generate-effect"
 const Backend_url = "https://funflix-backend-j5wb.onrender.com"
 import { SearchBar } from "./SearchBar1";
+import { Loader } from "./helper/Loader";
 
 export const Trending = () => {
   const { loading, isError, data: trendMovies } = useFetch(`${Backend_url}/movie/trending`);
@@ -21,10 +22,8 @@ export const Trending = () => {
       <SearchBar />
     </div>
 
-    {loading ?
-      <div class="min-h-screen flex justify-center items-center py-9">
-        <div class="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin border-[#373D90]"></div>
-      </div> :
+    {loading ? <Loader />
+      :
       <div className="flex flex-wrap justify-center gap-6 px-8 py-6 max-w-7xl sm:px-8 mx-auto">
         {trendMovies.map((movie) => {
           if (movie.poster_path) {

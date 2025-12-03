@@ -3,6 +3,8 @@ import { MovieCard } from "../Components/MovieDetailsCard"
 import { ErrorBoundary } from "../Components/helper/ErrorBoundary";
 import { useFetch } from "../Custom-hook/useFetch"
 import { BackgroundBeamsWithCollision } from "../Components/ui/background-beams-with-collision"
+import { Loader } from "../Components/helper/Loader";
+
 const Backend_url = "https://funflix-backend-j5wb.onrender.com"
 
 export function MovieDetails() {
@@ -36,11 +38,7 @@ function GetMovieDetails() {
 
   return <>
     <div class="relative overflow-hidden min-h-screen bg-[#0C0516] flex items-center justify-center">
-      {detailsLoading || streamingLoading ? (
-        <div class="flex justify-center items-center min-h-screen">
-          <div class="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin border-[#373D90]"></div>
-        </div>
-      ) : message !== "" ? (
+      {detailsLoading || streamingLoading ? <Loader /> : message !== "" ? (
         <p class="text-white text-2xl text-center">{message}</p>
       ) : (
         <BackgroundBeamsWithCollision>

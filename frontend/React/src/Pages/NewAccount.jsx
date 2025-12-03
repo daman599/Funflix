@@ -1,6 +1,8 @@
-import { useRef, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import axios from "axios"
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Loader } from "../Components/helper/Loader";
+
 const Backend_url = "https://funflix-backend-j5wb.onrender.com"
 
 export function NewAccount() {
@@ -55,13 +57,7 @@ function CreateNewAccount() {
 
   return (
     <>
-      {loading ? (
-        <div class="min-h-screen flex items-center justify-center bg-[#0C0516]">
-        <div class="min-h-screen flex justify-center items-center py-9">
-          <div class="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin border-[#373D90]"></div>
-        </div>
-      </div>
-      ) : (
+      {loading ? <Loader /> : (
         <div class="min-h-screen flex items-center justify-center bg-[#0C0516] px-4 py-12">
           <div class="w-full max-w-md p-8 rounded-2xl shadow-2xl border border-white/10 bg-white/5 backdrop-blur-md relative overflow-hidden">
 
