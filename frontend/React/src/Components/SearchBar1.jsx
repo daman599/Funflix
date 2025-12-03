@@ -1,11 +1,16 @@
 import { Search } from "lucide-react";
 import { useState } from "react";
+import { motion } from "motion/react";
 
 export const SearchBar = () => {
     const [movieName, setMovieName] = useState("");
 
     return (
-        <div className="relative min-w-[50px] md:max-w-[300px] lg:max-w-[380px] xl:max-w-[600px]">
+        <motion.div
+            initial={{ opacity: 0, y: 5, filter: "blur(3px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 1, ease: "easeIn" }}
+            className="relative min-w-[50px] md:max-w-[300px] lg:max-w-[380px] xl:max-w-[600px]">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-300 pointer-events-none" />
             <input
                 type="text"
@@ -16,6 +21,6 @@ export const SearchBar = () => {
                     rounded-md text-sm sm:text-base focus:outline-none focus:border-blue-500 transition-colors"
                 aria-label="Search movies"
             />
-        </div>
+        </motion.div>
     );
 }
