@@ -4,7 +4,7 @@ import { Loader } from "./helper/Loader";
 import { motion, stagger } from "motion/react";
 import { Error } from "./helper/Error";
 
-const backend_url = import.meta.env.backend_url;
+const backend_url = import.meta.env.VITE_backend_url;
 
 export const Trending = () => {
   const { loading, isError, data: trendMovies } = useFetch(`${backend_url}/movie/trending`);

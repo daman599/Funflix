@@ -5,9 +5,9 @@ import { MovieCard } from "../Components/MovieCard";
 import { useFetch } from "../Custom-hook/useFetch";
 import { StarsBackground } from "../Components/ui/stars-background";
 
-const backend_url = import.meta.env.backend_url;
+const backend_url = import.meta.env.VITE_backend_url;
 
-export function MyProfile() {
+export const MyProfile = () => {
   const navigate = useNavigate();
   const [favMovies, setFavMovies] = useState([])
   const [watchlaterMovies, setWatchLaterMovies] = useState([])

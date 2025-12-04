@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Loader } from "../Components/helper/Loader";
 
-const backend_url = import.meta.env.backend_url;
+const backend_url = import.meta.env.VITE_backend_url;
 
 export const CreateNewAccount = () => {
     const [loading, setLoading] = useState(false)

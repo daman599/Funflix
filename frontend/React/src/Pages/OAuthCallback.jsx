@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function OAuthCallback() {
+export const OAuthCallback = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -9,7 +9,7 @@ export function OAuthCallback() {
     const token = params.get("token");
     if (token) {
       localStorage.setItem("token", token);
-      navigate("/stream"); 
-  }
-}, [navigate]);
+      navigate("/stream");
+    }
+  }, [navigate]);
 }

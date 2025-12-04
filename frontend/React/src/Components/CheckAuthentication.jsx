@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { Loader } from "../Components/helper/Loader";
 
-const backend_url = import.meta.env.backend_url;
+const backend_url = import.meta.env.VITE_backend_url;
 
 export const CheckAuthentication = () => {
     const [loading, setLoading] = useState(false)

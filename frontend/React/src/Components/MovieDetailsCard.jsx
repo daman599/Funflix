@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-const backend_url = import.meta.env.backend_url;
+const backend_url = import.meta.env.VITE_backend_url;
 
 export function MovieCard({ poster_path, title, overview, rating, release_date, isTrending, streaming = [] }) {
 

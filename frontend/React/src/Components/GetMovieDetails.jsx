@@ -5,7 +5,7 @@ import { BackgroundBeamsWithCollision } from "../Components/ui/background-beams-
 import { Loader } from "../Components/helper/Loader";
 import { Error } from "../Components/helper/Error";
 
-const backend_url = import.meta.env.backend_url;
+const backend_url = import.meta.env.VITE_backend_url;
 
 export const GetMovieDetails = () => {
 

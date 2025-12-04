@@ -3,7 +3,7 @@ import { MovieCard } from "./MovieCard";
 import { useFetch } from "../Custom-hook/useFetch";
 import { Error } from "./helper/Error";
 
-const backend_url = import.meta.env.backend_url;
+const backend_url = import.meta.env.VITE_backend_url;
 
 export const SearchMovie = ({ movieName }) => {
   const [actualTitle, setTitle] = useState("");
