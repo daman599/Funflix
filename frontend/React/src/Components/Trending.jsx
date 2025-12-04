@@ -5,19 +5,19 @@ import { SearchBar } from "./SearchBar";
 import { Loader } from "./helper/Loader";
 import { motion, stagger } from "motion/react";
 import { useState } from "react";
+import { Error } from "./helper/Error";
 
-const backend_url = process.env.backend_url;
+const backend_url = import.meta.env.backend_url;
 
 export const Trending = () => {
   const { loading, isError, data: trendMovies } = useFetch(`${backend_url}/movie/trending`);
   const [movieName, setMovieName] = useState("");
 
   if (isError) {
-    throw new Error("Error");
+    return <Error />
   }
 
   return <div className="flex flex-col items-center justify-center mt-6 px-4 md:px-16 lg:px-24 xl:px-40">
-
     <div className="flex items-center justify-between w-full">
       <TextGenerateEffect
         className="text-blue-900 hidden md:inline-block text-base md:text-xl lg:text-2xl font-medium"
@@ -27,14 +27,14 @@ export const Trending = () => {
     </div>
 
     {loading ? <Loader /> :
-      <div className="flex flex-wrap justify-center gap-6 py-6 mx-auto">
-        {trendMovies.map((movie) => {
+      <div className="flex flex-wrap items-center justify-center gap-6 py-6 mx-auto">
+        {trendMovies ? (trendMovies.length > 0 && trendMovies.map((movie, i) => {
           if (movie.poster_path) {
             return (
               <motion.div
                 initial={{ opacity: 0, filter: "blur(2px)" }}
                 whileInView={{ opacity: 1, filter: "blur(0px)" }}
-                transition={{ duration: 1.5, ease: "easeInOut", dealy: stagger(0.05) }}
+                transition={{ duration: 1.5, ease: "easeInOut", dealy: stagger(i * 0.05) }}
                 viewport={{ once: true }}
                 key={movie._id}
               >
@@ -46,7 +46,8 @@ export const Trending = () => {
               </motion.div>
             )
           }
-        })
+        })) :
+          <Error />
         }
       </div>
     }

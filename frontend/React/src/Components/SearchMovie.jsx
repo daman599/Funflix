@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { MovieCard } from "./MovieCard";
 import { useFetch } from "../Custom-hook/useFetch";
-const backend_url = process.env.backend_url;
+import { Error } from "./helper/Error";
+
+const backend_url = import.meta.env.backend_url;
 
 export const SearchMovie = ({ movieName }) => {
   const [actualTitle, setTitle] = useState("");
@@ -21,7 +23,7 @@ export const SearchMovie = ({ movieName }) => {
     actualTitle !== ""
   )
   if (isError) {
-    throw new Error("error")
+    return <Error />
   }
 
   return (
