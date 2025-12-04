@@ -31,7 +31,7 @@ export const SearchMovie = ({ movieName }) => {
   return (
     <div class="relative z-10">
       {noMovieFound ? <NoMovieFound /> : loading ? <Loader /> : (
-        <div className="mt-10 mb-10 px-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-3 gap-y-6">
+        <div className="flex flex-wrap items-center justify-center gap-6 py-6 mx-auto">
           {movieList.map((movie) => {
             if (movie.poster_path) {
               <MovieCard
