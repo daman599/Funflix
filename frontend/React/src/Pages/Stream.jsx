@@ -2,6 +2,7 @@ import { Trending } from "../Components/Trending";
 import { useState } from "react";
 import { TextGenerateEffect } from "../Components/ui/text-generate-effect";
 import { SearchBar } from "../Components/SearchBar";
+import { SearchMovie } from "../Components/SearchMovie";
 
 export const Stream = () => {
     const [movieName, setMovieName] = useState("");
@@ -15,7 +16,8 @@ export const Stream = () => {
                 />
                 <SearchBar setMovieName={setMovieName} movieName={movieName} />
             </div>
-            <Trending />
+            {movieName == "" ? <Trending />
+                : <SearchMovie movieName={movieName} />}
         </div>
     );
 }
