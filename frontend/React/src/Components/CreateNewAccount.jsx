@@ -1,16 +1,28 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Loader } from "../Components/helper/Loader";
+import axios from "axios";
 
 const backend_url = import.meta.env.VITE_backend_url;
 
-export const CreateNewAccount = () => {
-    const [loading, setLoading] = useState(false)
+const InputField = ({ ref, type, placeholder }) => {
+    return (
+        <input
+            ref={ref}
+            type={type}
+            placeholder={placeholder}
+            className="w-full px-3 md:px-5 py-2.5 md:py-3 text-sm md:text-base rounded-lg bg-gray-800/50 text-white
+             placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-900 transition-all duration-300"
+        />
+    );
+}
 
-    const usernameRef = useRef(null)
-    const emailRef = useRef(null)
-    const passwordRef = useRef(null)
+export const CreateNewAccount = () => {
+    const [loading, setLoading] = useState(false);
+
+    const usernameRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
 
     const navigate = useNavigate();
 
@@ -51,49 +63,44 @@ export const CreateNewAccount = () => {
         setLoading(false);
     }
 
+    if (loading) {
+        return <Loader />
+    }
+
     return (
-        <>
-            {loading ? <Loader /> : (
-                <div class="min-h-screen flex items-center justify-center bg-[#0C0516] px-4 py-12">
-                    <div class="w-full max-w-md p-8 rounded-2xl shadow-2xl border border-white/10 bg-white/5 backdrop-blur-md relative overflow-hidden">
+        <div class="min-h-screen flex items-center justify-center px-4 py-12">
 
-                        <div class="absolute -top-16 -left-16 w-64 h-64 bg-[#441f93] rounded-full opacity-20 blur-3xl animate-pulse-slow" />
-                        <div class="absolute -bottom-16 -right-16 w-64 h-64 bg-indigo-600 rounded-full opacity-20 blur-3xl animate-pulse-slow" />
+            <div class="flex flex-col itmes-center justify-center w-full bg-blue-950/20
+            max-w-md p-4 md:p-8 rounded-xl border-1 border-gray-800">
 
-                        <h2 class="text-3xl font-bold text-white text-center mb-8 drop-shadow">
-                            Create Your Account
-                        </h2>
+                <h2 class="text-xl md:text-2xl font-medium text-white text-center mb-5 md:mb-8">
+                    Create Your Account
+                </h2>
 
-                        <div class="space-y-5">
-                            <input
-                                ref={usernameRef}
-                                type="text"
-                                placeholder="Username"
-                                class="w-full px-5 py-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#7064a7] transition-all"
-                            />
-                            <input
-                                ref={emailRef}
-                                type="email"
-                                placeholder="Email"
-                                class="w-full px-5 py-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#7064a7] transition-all"
-                            />
-                            <input
-                                ref={passwordRef}
-                                type="password"
-                                placeholder="Password"
-                                class="w-full px-5 py-3 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#7064a7] transition-all"
-                            />
-                        </div>
+                <div class="space-y-5">
+                    <InputField ref={usernameRef}
+                        type={"text"}
+                        placeholder={"Username"}
+                    />
 
-                        <button
-                            onClick={signup}
-                            class="mt-8 w-full py-3 bg-white/10 text-white font-semibold rounded-lg border border-white/10 hover:bg-white/20 transition duration-300 backdrop-blur-md"
-                        >
-                            Sign Up
-                        </button>
-                    </div>
+                    <InputField ref={emailRef}
+                        type={"email"}
+                        placeholder={"Email"}
+                    />
+
+                    <InputField ref={passwordRef}
+                        type={"password"}
+                        placeholder={"Password"}
+                    />
                 </div>
-            )}
-        </>
-    );
+
+                <button onClick={signup}
+                    className="cursor-pointer mt-5 md:mt-8 w-full py-2 md:py-3 bg-gray-800/50 text-white text-base font-bold rounded-lg 
+                    border border-white/10 hover:bg-white/50 hover:text-black transition-all duration-300"
+                >
+                    Sign Up
+                </button>
+            </div>
+        </div>
+    )
 }
