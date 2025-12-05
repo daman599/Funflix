@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../Components/helper/Loader";
 import axios from "axios";
+import { motion } from "motion/react";
 
 const backend_url = import.meta.env.VITE_backend_url;
 
@@ -68,16 +69,26 @@ export const CreateNewAccount = () => {
     }
 
     return (
-        <div class="min-h-screen flex items-center justify-center px-4 py-12">
-
-            <div class="flex flex-col itmes-center justify-center w-full bg-blue-950/20
+        <motion.div initial={{ opacity: 0, filter: "blur(2px)" }}
+            whileInView={{ opacity: 1, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="min-h-screen flex items-center justify-center px-4 py-12"
+        >
+            <div className="flex flex-col itmes-center justify-center w-full bg-blue-950/20
             max-w-md p-4 md:p-8 rounded-xl border-1 border-gray-800">
 
-                <h2 class="text-xl md:text-2xl font-medium text-white text-center mb-5 md:mb-8">
-                    Create Your Account
-                </h2>
+                <div className="relative mx-auto">
+                    <h2 className="text-xl md:text-2xl font-medium text-white text-center mb-8">
+                        Create Your Account
+                    </h2>
+                    <motion.div initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
+                        style={{ transformOrigin: "center" }}
+                        className="absolute left-1/2 -translate-x-1/2 bottom-6 w-full h-0.5 rounded-full bg-white/50"></motion.div>
+                </div>
 
-                <div class="space-y-5">
+                <div className="space-y-3 md:space-y-5">
                     <InputField ref={usernameRef}
                         type={"text"}
                         placeholder={"Username"}
@@ -101,6 +112,6 @@ export const CreateNewAccount = () => {
                     Sign Up
                 </button>
             </div>
-        </div>
+        </motion.div >
     )
 }
