@@ -131,7 +131,7 @@ export const MyProfile = () => {
             <h3 className="text-base md:text-xl font-medium text-white/90">Watch Later</h3>
 
             <button onClick={getWatchLaterMovies}
-              className="cursor-poniter px-3 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-medium
+              className="cursor-pointer px-3 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-medium
              border border-white/20 text-white/80 hover:text-white hover:shadow-[0_0_10px_#ffffff20] transition-all duration-200 bg-white/5"
             >
               Load Watch Later
