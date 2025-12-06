@@ -75,7 +75,7 @@ export const CreateNewAccount = () => {
             className="min-h-screen flex items-center justify-center px-4 py-12"
         >
             <div className="flex flex-col itmes-center justify-center w-full bg-blue-950/20
-            max-w-md p-4 md:p-8 rounded-xl border-1 border-gray-800">
+            max-w-md p-4 md:p-8 rounded-xl border-1 border-white/10">
 
                 <div className="relative mx-auto">
                     <h2 className="text-xl md:text-2xl font-medium text-white text-center mb-8">

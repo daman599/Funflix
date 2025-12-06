@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { MovieCard } from "../Components/MovieCard";
 import { useFetch } from "../Custom-hook/useFetch";
-import { StarsBackground } from "../Components/ui/stars-background";
 
 const backend_url = import.meta.env.VITE_backend_url;
 

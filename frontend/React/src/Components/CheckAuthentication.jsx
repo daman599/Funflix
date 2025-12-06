@@ -1,17 +1,28 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
-import axios from "axios";
 import { Loader } from "../Components/helper/Loader";
+import axios from "axios";
 
 const backend_url = import.meta.env.VITE_backend_url;
 
-export const CheckAuthentication = () => {
-    const [loading, setLoading] = useState(false)
-    const google_url = "https://i0.wp.com/9to5google.com/wp-content/uploads/sites/4/2025/05/Google-2025-G-logo.webp?strip=info&w=460&ssl=1"
+const InputField = ({ ref, type, placeholder }) => {
+    return (
+        <input
+            ref={ref}
+            type={type}
+            placeholder={placeholder}
+            className="w-full px-3 md:px-5 py-2.5 md:py-3 text-sm md:text-base rounded-lg bg-gray-800/50 text-white
+             placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-900 transition-all duration-300"
+        />
+    );
+}
 
-    const usernameRef = useRef(null)
-    const emailRef = useRef(null)
-    const passwordRef = useRef(null)
+export const CheckAuthentication = () => {
+    const [loading, setLoading] = useState(false);
+
+    const usernameRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
 
     const navigate = useNavigate();
 
@@ -37,64 +48,54 @@ export const CheckAuthentication = () => {
         setLoading(false);
     }
 
-    return <>
-        {loading ?
-            <Loader />
-            : (
-                <div class="min-h-screen flex items-center justify-center bg-[#0C0516]">
-                    <div class="w-[350px] p-8 rounded-3xl backdrop-blur-md bg-white/5 border border-white/10 shadow-xl text-white space-y-6">
-                        <h2 class="text-2xl font-bold text-center text-[#373D90]">
-                            Sign in to your Account
-                        </h2>
+    if (loading) {
+        return <Loader />
+    }
 
-                        <input
-                            type="text"
-                            ref={usernameRef}
-                            placeholder="Username"
-                            class="w-full px-4 py-2 bg-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#373D90] placeholder-white/70"
-                        />
-                        <input
-                            type="email"
-                            ref={emailRef}
-                            placeholder="Email"
-                            class="w-full px-4 py-2 bg-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#373D90] placeholder-white/70"
-                        />
-                        <input
-                            type="password"
-                            ref={passwordRef}
-                            placeholder="Password"
-                            class="w-full px-4 py-2 bg-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#373D90] placeholder-white/70"
-                        />
+    return <div className="min-h-screen flex items-center justify-center px-4 py-12">
 
-                        <button
-                            onClick={signin}
-                            class="w-full bg-[#373D90] hover:bg-[#31345b] transition-colors text-white py-2 rounded-lg font-semibold"
-                        >
-                            Sign in
-                        </button>
+        <div className="flex flex-col itmes-center justify-center gap-5 w-full bg-blue-950/20
+            max-w-md p-5 md:p-8 rounded-xl border-1 border-white/10">
 
-                        <div class="text-center text-sm">
-                            <p class="text-white/70">New user?</p>
-                            <Link
-                                to="/new-account"
-                                class="text-[#373D90] hover:underline font-medium"
-                            >
-                                Create your account
-                            </Link>
-                        </div>
+            <h2 className="text-lg md:text-xl font-medium text-center text-gray-300 my-2">
+                Sign in to your Account
+            </h2>
 
-                        <div class="text-center">
-                            <p class="text-white/70 mb-2">Sign in with</p>
-                            <a href={`${backend_url}/google/auth`}>
-                                <img
-                                    src={google_url}
-                                    alt="Google"
-                                    class="h-8 w-8 mx-auto cursor-pointer rounded-full"
-                                />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-    </>
+            <InputField ref={usernameRef}
+                type={"text"}
+                placeholder={"Username"}
+            />
+            <InputField ref={emailRef}
+                type={"email"}
+                placeholder={"Email"}
+            />
+            <InputField ref={passwordRef}
+                type={"password"}
+                placeholder={"Password"}
+            />
+
+            <button onClick={signin}
+                className="w-full cursor-pointer bg-blue-950 hover:bg-blue-900 transition-colors duration-300
+                 text-white py-1 md:py-2 rounded-lg font-semibold text-base">
+                Sign in
+            </button>
+
+            <div className="flex items-center justify-center text-xs md:text-sm">
+                <span className="text-white/70">New user?&nbsp;</span>
+                <Link to="/new-account">
+                    <span className="text-blue-800 hover:underline font-medium">Create your account</span>
+                </Link>
+            </div>
+
+            <div className="flex flex-col items-center justify-center gap-1 md:gap-2">
+                <span class="text-white/70 text-sm md:text-base">Sign in with</span>
+                <a href={`${backend_url}/google/auth`}>
+                    <img src={"/Google_logo.jpeg"}
+                        alt="Google logo"
+                        className="size-6 md:size-8 cursor-pointer rounded-full"
+                    />
+                </a>
+            </div>
+        </div>
+    </div>
 }
