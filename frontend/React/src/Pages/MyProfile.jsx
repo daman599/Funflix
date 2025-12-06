@@ -77,7 +77,6 @@ export const MyProfile = () => {
     <motion.div initial={{ opacity: 0, filter: "blur(3px)" }}
       whileInView={{ opacity: 1, filter: "blur(0px)" }}
       transition={{ duration: 1, ease: "easeInOut" }}
-      layout
       className="min-h-screen flex flex-col items-center justify-center px-4 py-10">
 
       <div className="w-full max-w-5xl bg-blue-950/50 rounded-xl flex flex-col items-center justify-center p-3 md:p-5 gap-2">
@@ -101,52 +100,55 @@ export const MyProfile = () => {
 
         <div className="w-full h-0.5 bg-gray-600/10 rounded-full "></div>
 
-        <div className="flex justify-between items-center w-full">
-          <h2 className="text-base md:text-xl font-medium text-white/90">Favorite Movies</h2>
+        <div className="flex felx-col items-start justify-center w-full">
+          <div className="flex justify-between items-center w-full">
+            <h2 className="text-base md:text-xl font-medium text-white/90">Favorite Movies</h2>
 
-          <button onClick={getFavMovies}
-            className="cursor-pointer px-3 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-medium
+            <button onClick={getFavMovies}
+              className="cursor-pointer px-3 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-medium
              border border-white/20 text-white/80 hover:text-white hover:shadow-[0_0_10px_#ffffff20] transition-all duration-200 bg-white/5"
-          >
-            Load Favorites
-          </button>
-        </div>
+            >
+              Load Favorites
+            </button>
+          </div>
 
-        <div className="flex flex-wrap items-start gap-3">
-          {favMovies.map((movie) => (
-            <MovieCard
-              key={movie._id}
-              poster_path={movie.poster_path}
-              title={movie.title}
-              tmdb_id={movie.tmdb_id}
-            />
-          ))}
+          <div className="flex flex-wrap items-start gap-3">
+            {favMovies.map((movie) => (
+              <MovieCard
+                key={movie._id}
+                poster_path={movie.poster_path}
+                title={movie.title}
+                tmdb_id={movie.tmdb_id}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="w-full h-0.5 bg-gray-600/10 rounded-full "></div>
 
-        <div className="flex justify-between items-center w-full">
-          <h3 className="text-base md:text-xl font-medium text-white/90">Watch Later</h3>
+        <div className="flex flex-col items-start justify-center w-full">
+          <div className="flex justify-between items-center w-full">
+            <h3 className="text-base md:text-xl font-medium text-white/90">Watch Later</h3>
 
-          <button onClick={getWatchLaterMovies}
-            className="cursor-poniter px-3 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-medium
+            <button onClick={getWatchLaterMovies}
+              className="cursor-poniter px-3 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-medium
              border border-white/20 text-white/80 hover:text-white hover:shadow-[0_0_10px_#ffffff20] transition-all duration-200 bg-white/5"
-          >
-            Load Watch Later
-          </button>
-        </div>
+            >
+              Load Watch Later
+            </button>
+          </div>
 
-        <div className="flex flex-wrap items-start gap-3">
-          {watchlaterMovies.map((movie) => (
-            <MovieCard
-              key={movie._id}
-              poster_path={movie.poster_path}
-              title={movie.title}
-              tmdb_id={movie.tmdb_id}
-            />
-          ))}
+          <div className="flex flex-wrap items-start gap-3">
+            {watchlaterMovies.map((movie) => (
+              <MovieCard
+                key={movie._id}
+                poster_path={movie.poster_path}
+                title={movie.title}
+                tmdb_id={movie.tmdb_id}
+              />
+            ))}
+          </div>
         </div>
-
       </div>
 
       <div className="flex items-center justify-end gap-4 pt-6 text-sm md:text-base font-medium">
