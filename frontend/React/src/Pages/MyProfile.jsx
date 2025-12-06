@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { MovieCard } from "../Components/MovieCard";
 import { useFetch } from "../Custom-hook/useFetch";
+import { motion } from "motion/react";
 
 const backend_url = import.meta.env.VITE_backend_url;
 
 export const MyProfile = () => {
   const navigate = useNavigate();
-  const [favMovies, setFavMovies] = useState([])
-  const [watchlaterMovies, setWatchLaterMovies] = useState([])
+  const [favMovies, setFavMovies] = useState([]);
+  const [watchlaterMovies, setWatchLaterMovies] = useState([]);
 
   const { userInfo } = useFetch(`${backend_url}/user/profile`)
   const token = localStorage.getItem('token');
@@ -73,22 +74,26 @@ export const MyProfile = () => {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center px-4 py-10">
+    <motion.div initial={{ opacity: 0, filter: "blur(3px)" }}
+      whileInView={{ opacity: 1, filter: "blur(0px)" }}
+      transition={{ duration: 1, ease: "easeInOut" }}
+      layout
+      className="min-h-screen flex flex-col items-center justify-center px-4 py-10">
 
       <div className="w-full max-w-5xl bg-blue-950/50 rounded-xl flex flex-col items-center justify-center p-3 md:p-5 gap-2">
 
         <div className="w-full text-lg md:text-2xl font-medium flex flex-col items-start justify-center ">
           <h2 className="text-gray-400">
-            Hi there!
+            Hi there!&nbsp;
             <span className="text-gray-300">{userInfo.username}</span>
           </h2>
 
           <div className="flex flex-col items-start justify-center text-gray-400 text-sm md:text-base gap-1 my-1">
-            <p>Username:
+            <p>Username:&nbsp;
               <span className="text-gray-600">{userInfo.username}</span>
             </p>
 
-            <p>Email:
+            <p>Email:&nbsp;
               <span className="text-gray-600">{userInfo.email}</span>
             </p>
           </div>
@@ -107,7 +112,7 @@ export const MyProfile = () => {
           </button>
         </div>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap items-start gap-3">
           {favMovies.map((movie) => (
             <MovieCard
               key={movie._id}
@@ -131,7 +136,7 @@ export const MyProfile = () => {
           </button>
         </div>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap items-start gap-3">
           {watchlaterMovies.map((movie) => (
             <MovieCard
               key={movie._id}
@@ -158,6 +163,6 @@ export const MyProfile = () => {
         </button>
       </div>
 
-    </div >
+    </motion.div>
   );
 }
