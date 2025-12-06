@@ -67,7 +67,8 @@ export const MyProfile = () => {
       alert(favMovies.data.message)
     }
     else {
-      setFavMovies(favMovies.data.favoriteMovies)
+      setFavMovies(favMovies.data.favoriteMovies);
+      setLoading1(false);
     }
   }
 
@@ -82,10 +83,11 @@ export const MyProfile = () => {
       alert(watchLaterMovies.data.error);
     }
     else if (watchLaterMovies.data.message) {
-      alert(watchLaterMovies.data.message)
+      alert(watchLaterMovies.data.message);
     }
     else {
       setWatchLaterMovies(watchLaterMovies.data.watchlaterMovies);
+      setLoading2(false);
     }
   }
 
