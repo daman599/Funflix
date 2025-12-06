@@ -1,10 +1,37 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../Components/helper/Loader";
-import axios from "axios";
 import { motion } from "motion/react";
+import axios from "axios";
 
 const backend_url = import.meta.env.VITE_backend_url;
+
+const containerVariants = {
+    hidden: { opacity: 0, filter: "blur(10px)" },
+    visible: {
+        opacity: 1,
+        filter: "blur(0px)",
+        transition: {
+            staggerChildren: 0.1,
+            delayChildren: 0.2,
+        }
+    }
+}
+
+const itemsVariants = {
+    hidden: { opacity: 0, filter: "blur(3px)", y: 30 },
+    visible: {
+        opacity: 1,
+        filter: "blur(0px)",
+        y: 0,
+        transition: {
+            type: "spring",
+            stiffness: 100,
+            damping: 15,
+        }
+
+    },
+}
 
 const InputField = ({ ref, type, placeholder }) => {
     return (
@@ -69,49 +96,49 @@ export const CreateNewAccount = () => {
     }
 
     return (
-        <motion.div initial={{ opacity: 0, filter: "blur(2px)" }}
-            whileInView={{ opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="min-h-screen flex items-center justify-center px-4 py-12"
-        >
-            <div className="flex flex-col itmes-center justify-center w-full bg-blue-950/20
-            max-w-md p-4 md:p-8 rounded-xl border-1 border-white/10">
+        <div className="min-h-screen flex items-center justify-center px-4 py-12">
+            <motion.div variants={containerVariants}
+                initial={"hidden"}
+                whileInView={"visible"}
+                transition={{ duration: 1, ease: "easeInOut" }}
+                className="flex flex-col itmes-center justify-center w-full bg-blue-950/20
+            max-w-md p-4 md:p-8 rounded-xl border-1 border-white/10 gap-5">
 
-                <div className="relative mx-auto">
-                    <h2 className="text-xl md:text-2xl font-medium text-white text-center mb-8">
-                        Create Your Account
-                    </h2>
-                    <motion.div initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
-                        style={{ transformOrigin: "center" }}
-                        className="absolute left-1/2 -translate-x-1/2 bottom-6 w-full h-0.5 rounded-full bg-white/50"></motion.div>
-                </div>
+                <motion.h2 initial={{ opacity: 0, scale: 0.95, filter: "blur(3px)" }}
+                    whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
+                    className="text-xl md:text-2xl font-medium text-white text-center">
+                    Create Your Account
+                </motion.h2>
 
-                <div className="space-y-3 md:space-y-5">
+                <motion.div variants={itemsVariants}>
                     <InputField ref={usernameRef}
                         type={"text"}
                         placeholder={"Username"}
                     />
+                </motion.div>
 
+                <motion.div variants={itemsVariants}>
                     <InputField ref={emailRef}
                         type={"email"}
                         placeholder={"Email"}
                     />
+                </motion.div>
 
+                <motion.div variants={itemsVariants}>
                     <InputField ref={passwordRef}
                         type={"password"}
                         placeholder={"Password"}
                     />
-                </div>
+                </motion.div>
 
                 <button onClick={signup}
-                    className="cursor-pointer mt-5 md:mt-8 w-full py-2 md:py-3 bg-gray-800/50 text-white text-base font-bold rounded-lg 
-                    border border-white/10 hover:bg-white/50 hover:text-black transition-all duration-300"
+                    className="cursor-pointer w-full py-2 bg-gray-800/50 text-white text-base font-bold rounded-lg 
+                    border border-white/10 hover:bg-blue-950 transition-all duration-300"
                 >
                     Sign Up
                 </button>
-            </div>
-        </motion.div >
+            </motion.div>
+        </div >
     )
 }
