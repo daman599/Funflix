@@ -111,7 +111,10 @@ export const MyProfile = () => {
         <div className="w-full text-lg md:text-2xl font-medium flex flex-col items-start justify-center ">
           <h2 className="text-gray-400">
             Hi there!&nbsp;
-            <span className="text-gray-300">{userInfo.username}</span>
+            <motion.span initial={{ opacity: 0, filter: "blur(2px)", y: -5 }}
+              whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+              transition={{ duration: 0.8, ease: "easeIn", type: "spring" }}
+              className="text-gray-300">{userInfo.username}</motion.span>
           </h2>
 
           <div className="flex flex-col items-start justify-center text-gray-400 text-sm md:text-base gap-1 my-1">
