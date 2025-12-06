@@ -15,6 +15,34 @@ export const MyProfile = () => {
   const { userInfo } = useFetch(`${backend_url}/user/profile`)
   const token = localStorage.getItem('token');
 
+  const MovieListSection = ({ title, buttonText, onLoad, movieArr }) => {
+    return (
+      <div className="flex flex-col items-start justify-center w-full">
+        <div className="flex justify-between items-center w-full">
+          <h2 className="text-base md:text-xl font-medium text-white/90">{title}</h2>
+
+          <button onClick={onLoad}
+            className="cursor-pointer px-3 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-medium
+             border border-white/20 text-white/80 hover:text-white hover:shadow-[0_0_10px_#ffffff20] transition-all duration-200 bg-white/5"
+          >
+            {buttonText}
+          </button>
+        </div>
+
+        <div className="flex flex-wrap items-start gap-3 my-2">
+          {movieArr.map((movie) => (
+            <MovieCard
+              key={movie._id}
+              poster_path={movie.poster_path}
+              title={movie.title}
+              tmdb_id={movie.tmdb_id}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   async function getFavMovies() {
     const favMovies = await axios.get(`${backend_url}/favorites`, {
       headers: {
@@ -80,7 +108,6 @@ export const MyProfile = () => {
       className="min-h-screen flex flex-col items-center justify-center px-4 py-10">
 
       <div className="w-full max-w-5xl bg-blue-950/50 rounded-xl flex flex-col items-center justify-center p-3 md:p-5 gap-2">
-
         <div className="w-full text-lg md:text-2xl font-medium flex flex-col items-start justify-center ">
           <h2 className="text-gray-400">
             Hi there!&nbsp;
@@ -100,55 +127,11 @@ export const MyProfile = () => {
 
         <div className="w-full h-0.5 bg-gray-600/10 rounded-full "></div>
 
-        <div className="flex flex-col items-start justify-center w-full">
-          <div className="flex justify-between items-center w-full">
-            <h2 className="text-base md:text-xl font-medium text-white/90">Favorite Movies</h2>
-
-            <button onClick={getFavMovies}
-              className="cursor-pointer px-3 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-medium
-             border border-white/20 text-white/80 hover:text-white hover:shadow-[0_0_10px_#ffffff20] transition-all duration-200 bg-white/5"
-            >
-              Load Favorites
-            </button>
-          </div>
-
-          <div className="flex flex-wrap items-start gap-3 my-2">
-            {favMovies.map((movie) => (
-              <MovieCard
-                key={movie._id}
-                poster_path={movie.poster_path}
-                title={movie.title}
-                tmdb_id={movie.tmdb_id}
-              />
-            ))}
-          </div>
-        </div>
+        <MovieListSection title={"Favorite Movies"} buttonText={"Load Favorites"} onLoad={getFavMovies} movieArr={favMovies} />
 
         <div className="w-full h-0.5 bg-gray-600/10 rounded-full "></div>
 
-        <div className="flex flex-col items-start justify-center w-full">
-          <div className="flex justify-between items-center w-full">
-            <h3 className="text-base md:text-xl font-medium text-white/90">Watch Later</h3>
-
-            <button onClick={getWatchLaterMovies}
-              className="cursor-pointer px-3 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-medium
-             border border-white/20 text-white/80 hover:text-white hover:shadow-[0_0_10px_#ffffff20] transition-all duration-200 bg-white/5"
-            >
-              Load Watch Later
-            </button>
-          </div>
-
-          <div className="flex flex-wrap items-start gap-3 my-2">
-            {watchlaterMovies.map((movie) => (
-              <MovieCard
-                key={movie._id}
-                poster_path={movie.poster_path}
-                title={movie.title}
-                tmdb_id={movie.tmdb_id}
-              />
-            ))}
-          </div>
-        </div>
+        <MovieListSection title={"Watch Later"} buttonText={"Load Watch Later"} onLoad={getWatchLaterMovies} movieArr={watchlaterMovies} />
       </div>
 
       <div className="flex items-center justify-end gap-4 pt-6 text-sm md:text-base font-medium">
@@ -164,7 +147,6 @@ export const MyProfile = () => {
           Delete Account
         </button>
       </div>
-
     </motion.div>
   );
 }
