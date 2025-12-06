@@ -100,7 +100,7 @@ export const MyProfile = () => {
 
         <div className="w-full h-0.5 bg-gray-600/10 rounded-full "></div>
 
-        <div className="flex felx-col items-start justify-center w-full">
+        <div className="flex flex-col items-start justify-center w-full">
           <div className="flex justify-between items-center w-full">
             <h2 className="text-base md:text-xl font-medium text-white/90">Favorite Movies</h2>
 
@@ -112,7 +112,7 @@ export const MyProfile = () => {
             </button>
           </div>
 
-          <div className="flex flex-wrap items-start gap-3">
+          <div className="flex flex-wrap items-start gap-3 my-2">
             {favMovies.map((movie) => (
               <MovieCard
                 key={movie._id}
@@ -138,7 +138,7 @@ export const MyProfile = () => {
             </button>
           </div>
 
-          <div className="flex flex-wrap items-start gap-3">
+          <div className="flex flex-wrap items-start gap-3 my-2">
             {watchlaterMovies.map((movie) => (
               <MovieCard
                 key={movie._id}
