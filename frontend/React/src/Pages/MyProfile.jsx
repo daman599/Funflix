@@ -18,41 +18,6 @@ export const MyProfile = () => {
   const [loading1, setLoading1] = useState(false);
   const [loading2, setLoading2] = useState(false);
 
-  const MovieListSection = ({ title, buttonText, onLoad, movieArr, loading, setLoading }) => {
-    return (
-      <div className="flex flex-col items-start justify-center w-full">
-        <div className="flex justify-between items-center w-full">
-          <h2 className="text-base md:text-xl font-medium text-white/90">{title}</h2>
-
-          <button onClick={() => {
-            onLoad;
-            setLoading(true);
-          }}
-            className="cursor-pointer px-3 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-medium
-             border border-white/20 text-white/80 hover:text-white hover:shadow-[0_0_10px_#ffffff20] transition-all duration-200 bg-white/5"
-          >
-            {buttonText}
-          </button>
-        </div>
-
-        {loading ? <LoadingSkeleton count={4} />
-          : (
-            <div className="flex flex-wrap items-start gap-3 my-2">
-              {movieArr.map((movie) => (
-                <MovieCard
-                  key={movie._id}
-                  poster_path={movie.poster_path}
-                  title={movie.title}
-                  tmdb_id={movie.tmdb_id}
-                />
-              ))}
-            </div>
-          )
-        }
-      </div>
-    );
-  }
-
   async function getFavMovies() {
     const favMovies = await axios.get(`${backend_url}/favorites`, {
       headers: {
@@ -113,11 +78,47 @@ export const MyProfile = () => {
     navigate("/")
   }
 
+
+  const MovieListSection = ({ title, buttonText, onLoad, movieArr, loading, setLoading }) => {
+    return (
+      <div className="flex flex-col items-start justify-center w-full">
+        <div className="flex justify-between items-center w-full ">
+          <h2 className="text-base md:text-xl font-medium text-white/90">{title}</h2>
+
+          <button onClick={() => {
+            onLoad;
+            setLoading(true);
+          }}
+            className="cursor-pointer px-3 py-1 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-medium
+             border border-white/20 text-white/80 hover:text-white hover:shadow-[0_0_10px_#ffffff20] transition-all duration-200 bg-white/5"
+          >
+            {buttonText}
+          </button>
+        </div>
+
+        {loading ? <LoadingSkeleton count={4} />
+          : (
+            <div className="flex flex-wrap items-start gap-3 my-2">
+              {movieArr.map((movie) => (
+                <MovieCard
+                  key={movie._id}
+                  poster_path={movie.poster_path}
+                  title={movie.title}
+                  tmdb_id={movie.tmdb_id}
+                />
+              ))}
+            </div>
+          )
+        }
+      </div>
+    );
+  }
+
   return (
     <motion.div initial={{ opacity: 0, filter: "blur(3px)" }}
       whileInView={{ opacity: 1, filter: "blur(0px)" }}
       transition={{ duration: 1, ease: "easeInOut" }}
-      className="min-h-screen flex flex-col items-center justify-center px-4 py-10">
+      className="min-h-screen flex flex-col items-center justify-center p-6 md:p-12">
 
       <div className="w-full max-w-5xl bg-blue-950/50 rounded-xl flex flex-col items-center justify-center p-3 md:p-5 gap-2">
 
