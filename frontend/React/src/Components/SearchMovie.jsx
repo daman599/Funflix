@@ -24,29 +24,36 @@ export const SearchMovie = ({ movieName }) => {
     { title: actualTitle },
     actualTitle !== ""
   )
+
   if (isError) {
     return <Error />
   }
 
+  if (loading) {
+    return <Loader />
+  }
+
   return (
-    <div class="relative z-10">
-      {noMovieFound ? <NoMovieFound /> : loading ? <Loader /> : (
-        <div className="flex flex-wrap items-center justify-center gap-6 py-6 mx-auto">
-          {movieList.map((movie) => {
-            if (movie.poster_path) {
-              <MovieCard
-                key={movie._id}
-                poster_path={movie.poster_path}
-                title={movie.title}
-                tmdb_id={movie.tmdb_id}
-                searched={true}
-              />
-            }
-          }
-          )}
-        </div>
-      )
+    <>
+      {
+        noMovieFound ? <NoMovieFound /> : (
+          <div className="flex flex-wrap items-center justify-center gap-6 py-6">
+            {movieList.map((movie) => {
+              if (movie.poster_path) {
+                return (
+                  < MovieCard
+                    key={movie._id}
+                    poster_path={movie.poster_path}
+                    title={movie.title}
+                    tmdb_id={movie.tmdb_id}
+                    searched={true}
+                  />
+                );
+              }
+            })}
+          </div>
+        )
       }
-    </div >
-  )
+    </>
+  );
 }
