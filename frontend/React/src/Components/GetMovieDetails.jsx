@@ -4,11 +4,11 @@ import { useFetch } from "../Custom-hook/useFetch"
 import { BackgroundBeamsWithCollision } from "../Components/ui/background-beams-with-collision"
 import { Loader } from "../Components/helper/Loader";
 import { Error } from "../Components/helper/Error";
+import { MovieNotAvailable } from "./helper/MovieNotAvailable";
 
 const backend_url = import.meta.env.VITE_backend_url;
 
 export const GetMovieDetails = () => {
-
     const { id } = useParams();
 
     const { loading: detailsLoading, data: movieDetails, isError } = useFetch(`${backend_url}/movie/details`, { movieId: id })
@@ -28,10 +28,14 @@ export const GetMovieDetails = () => {
         });
     })
 
+    if (detailsLoading || streamingLoading) {
+        return <Loader />
+    }
+
     return <>
-        <div class="relative overflow-hidden min-h-screen bg-[#0C0516] flex items-center justify-center">
-            {detailsLoading || streamingLoading ? <Loader /> : message !== "" ? (
-                <p class="text-white text-2xl text-center">{message}</p>
+        <div className="relative overflow-hidden min-h-screen bg-[#0C0516] flex items-center justify-center">
+            {message !== "" ? (
+                <MovieNotAvailable />
             ) : (
                 <BackgroundBeamsWithCollision>
                     <MovieDetailsCard
