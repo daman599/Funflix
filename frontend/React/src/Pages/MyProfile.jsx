@@ -37,7 +37,7 @@ export const MyProfile = () => {
           </button>
         </div>
 
-        {loading ? <LoadingSkeleton count={4} />
+        {loading ? <LoadingSkeleton count={2} />
           : (
             <div className="flex flex-wrap items-start gap-3 my-2">
               {movieArr.map((movie) => (

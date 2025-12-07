@@ -14,7 +14,11 @@ export const Trending = () => {
   }
 
   if (loading) {
-    return <LoadingSkeleton count={20} />
+    return (
+      <div className="flex-1 flex items-center justify-center">
+        <LoadingSkeleton count={20} />
+      </div>
+    );
   }
 
   return (
