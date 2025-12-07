@@ -9,7 +9,7 @@ export const MovieCard = ({ poster_path, title, tmdb_id, searched = false }) => 
 
             <div className="relative z-10 w-40 h-[250px] md:h-[280px] lg:h-[320px] md:w-48 lg:w-56 cursor-pointer
              bg-blue-950/50 rounded-2xl overflow-hidden shadow-md 
-            hover:scale-110 transition-all 
+            hover:scale-105 transition-all 
             duration-300 ease-in-out">
 
                 <img src={posterUrl}
