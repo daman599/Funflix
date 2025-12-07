@@ -29,7 +29,7 @@ export const Trending = () => {
             <motion.div
               initial={{ opacity: 0, filter: "blur(2px)" }}
               whileInView={{ opacity: 1, filter: "blur(0px)" }}
-              transition={{ duration: 1.5, ease: "easeInOut", dealy: stagger(i * 0.05) }}
+              transition={{ duration: 1, ease: "easeInOut", dealy: stagger(i * 0.05) }}
               viewport={{ once: true }}
               key={movie._id}
             >
