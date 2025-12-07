@@ -4,7 +4,7 @@ import axios from "axios";
 
 const backend_url = import.meta.env.VITE_backend_url;
 
-export function MovieCard({ poster_path, title, overview, rating, release_date, isTrending, streaming = [] }) {
+export const MovieDetailsCard = ({ poster_path, title, overview, rating, release_date, isTrending, streaming = [] }) => {
 
   const url = `https://image.tmdb.org/t/p/w500${poster_path}`;
   const { id } = useParams();

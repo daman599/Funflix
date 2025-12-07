@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { MovieCard } from "../Components/MovieDetailsCard"
+import { MovieDetailsCard } from "../Components/MovieDetailsCard"
 import { useFetch } from "../Custom-hook/useFetch"
 import { BackgroundBeamsWithCollision } from "../Components/ui/background-beams-with-collision"
 import { Loader } from "../Components/helper/Loader";
@@ -34,7 +34,7 @@ export const GetMovieDetails = () => {
                 <p class="text-white text-2xl text-center">{message}</p>
             ) : (
                 <BackgroundBeamsWithCollision>
-                    <MovieCard
+                    <MovieDetailsCard
                         poster_path={movieDetails.poster_path}
                         title={movieDetails.title}
                         overview={movieDetails.overview}

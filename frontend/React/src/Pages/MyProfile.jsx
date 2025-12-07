@@ -78,7 +78,6 @@ export const MyProfile = () => {
     navigate("/")
   }
 
-
   const MovieListSection = ({ title, buttonText, onLoad, movieArr, loading, setLoading }) => {
     return (
       <div className="flex flex-col items-start justify-center w-full">
@@ -96,7 +95,7 @@ export const MyProfile = () => {
           </button>
         </div>
 
-        {loading ? <LoadingSkeleton count={4} />
+        {loading ? <LoadingSkeleton count={2} />
           : (
             <div className="flex flex-wrap items-start gap-3 my-2">
               {movieArr.map((movie) => (
@@ -120,7 +119,7 @@ export const MyProfile = () => {
       transition={{ duration: 1, ease: "easeInOut" }}
       className="min-h-screen flex flex-col items-center justify-center p-6 md:p-12">
 
-      <div className="w-full max-w-5xl bg-blue-950/50 rounded-xl flex flex-col items-center justify-center p-3 md:p-5 gap-2">
+      <div className="border-1 border-white w-full max-w-5xl bg-blue-950/50 rounded-xl flex flex-col items-center justify-center p-3 md:p-5 gap-2">
 
         <div className="w-full text-lg md:text-2xl font-medium flex flex-col items-start justify-center ">
           <h2 className="text-gray-400">
@@ -168,6 +167,6 @@ export const MyProfile = () => {
           Delete Account
         </button>
       </div>
-    </motion.div>
+    </motion.div >
   );
 }
