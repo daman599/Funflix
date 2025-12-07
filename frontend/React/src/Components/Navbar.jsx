@@ -7,6 +7,7 @@ export const Navbar = ({ userLoggedin }) => {
             initial={{ opacity: 0, filter: "blur(3px)", y: -5 }}
             whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
             transition={{ duration: 0.5, ease: "easeIn" }}
+            viewport={{ once: true }}
             className="flex items-center justify-between px-4 py-2 sm:px-8 md:px-16 lg:px-24 xl:px-40 z-10 relative w-full">
             <span className="text-lg md:text-2xl font-medium text-gray-400 pointer-events-none">
                 Funflix
