@@ -11,9 +11,9 @@ export const MovieCard = ({ poster_path, title, tmdb_id, searched = false }) => 
              bg-blue-950/50 rounded-2xl overflow-hidden shadow-md 
             hover:scale-105 transition-all 
             duration-300 ease-in-out">
-                <img
-                    src={posterUrl}
-                    className="w-full h-64 object-cover rounded-t-2xl"
+
+                <img src={posterUrl}
+                    className={`w-full ${searched ? "h-64" : "h-full"} object-cover rounded-t-2xl`}
                     alt={title}
                 />
 
