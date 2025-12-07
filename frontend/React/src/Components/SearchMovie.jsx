@@ -12,7 +12,7 @@ export const SearchMovie = ({ movieName }) => {
 
   useEffect(() => {
     const delay = setTimeout(async () => {
-      setTitle(movieName);
+      setTitle(movieName.trim());
     }, 500)
 
     return () => {

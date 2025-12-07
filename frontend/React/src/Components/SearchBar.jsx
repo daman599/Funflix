@@ -14,7 +14,7 @@ export const SearchBar = ({ movieName, setMovieName }) => {
             <input
                 type="text"
                 value={movieName}
-                onChange={(e) => setMovieName(e.target.value.trim())}
+                onChange={(e) => setMovieName(e.target.value)}
                 placeholder="Search Movies..."
                 className="w-full pl-10 pr-4 py-1 text-white placeholder-gray-500 border-2 border-blue-900/90 
                     rounded-md text-sm sm:text-base focus:outline-none focus:border-blue-500 transition-colors"
