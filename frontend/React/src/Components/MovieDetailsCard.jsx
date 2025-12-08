@@ -133,7 +133,7 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
     <div className="max-w-6xl mx-auto p-4 bg-blue-900/10 rounded-xl shadow-xl
     flex flex-col md:flex-row gap-4 border-1 border-[#ffffff1a]">
 
-      <img src={"/Google_logo.jpeg"}
+      <img src={imageUrl}
         alt={title}
         className="w-full md:w-60 h-full rounded-lg object-cover shadow-md"
       />
@@ -164,7 +164,7 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
 
         <span className="text-white/80 text-sm md:text-base">{overview}</span>
 
-        <div className="text-white/60 text-xs md:text-sm flex flex-col items-start justify-center gap-1">
+        <div className="text-white/60 text-xs md:text-sm flex flex-col items-start justify-center gap-1 my-2">
           <div className="flex gap-2 items-center justify-center">
             <strong className="text-white font-medium">Rating:</strong>
             <Star color={"yellow"} size={15} />
@@ -176,14 +176,14 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
         </div>
 
         {streaming.length > 0 && (
-          <div className="flex flex-col items-start justify-center gap-2">
+          <div className="flex flex-col items-start justify-center gap-2 my-1">
             <h2 className="text-lg md:text-xl font-medium text-white/50">Available On :</h2>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {streaming.map((platform, index) => (
                 <div key={index}
-                  className="flex items-start justify-start gap-4 bg-blue-950
-                  backdrop-blur-sm border-1 border-[#ffffff1a] rounded-xl p-2 hover:scale-105
+                  className="flex items-start justify-start gap-6 bg-blue-950
+                  backdrop-blur-sm border-1 border-[#ffffff1a] rounded-xl p-2
                   hover:shadow-[0_0_5px_#373D90] transition duration-300"
                 >
                   <a href={platform.link} target="_blank" rel="noopener noreferrer">
@@ -198,11 +198,11 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
                     <span className="text-white text-base md:text-lg">{platform.serviceName}</span>
 
                     <div className="flex flex-wrap items-center justify-center gap-2 text-gray-300 text-xs md:text-sm">
-                      {platform.type && <span className="bg-blue-800/20 p-1 rounded-full">
+                      {platform.type && <span className="bg-blue-800/20 px-1 py-0.5 rounded-full">
                         {platform.type === "addon" ? "Subscription" : platform.type}
                       </span>}
 
-                      {platform.quality && <span className="bg-blue-800/20 p-1 rounded-full">
+                      {platform.quality && <span className="bg-blue-800/20 px-1 py-0.5 rounded-full">
                         {platform.quality}
                       </span>}
                     </div>
