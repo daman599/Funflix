@@ -130,7 +130,7 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
   ];
 
   return (
-    <div className="max-w-5xl p-4 pb-6 bg-blue-900/10 rounded-xl shadow-xl
+    <div className="max-w-6xl p-6 bg-blue-900/10 rounded-xl shadow-xl
   flex flex-col md:flex-row gap-4 border-1 border-[#ffffff1a]">
 
       <img src={imageUrl}
