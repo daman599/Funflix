@@ -116,10 +116,10 @@ export const MovieDetailsCard = ({ userLoggedin, poster_path, title, overview, r
 
       <img src={imageUrl}
         alt={title}
-        className="w-full md:w-60 h-auto rounded-lg object-cover shadow-md"
+        className="w-full md:w-48 lg:w-60 h-auto rounded-lg object-cover shadow-md"
       />
 
-      <div className="flex flex-col items-start justify-start gap-2 pb-4">
+      <div className="flex-1 flex-col items-start justify-start gap-2 pb-4">
 
         <div className="flex items-center justify-between w-full">
           <h1 className="text-xl md:text-3xl font-semibold text-white">{title}</h1>

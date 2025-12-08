@@ -33,7 +33,7 @@ export const MovieDetails = ({ userLoggedin }) => {
   })
 
   return <>
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center mx-auto p-12 md:p-10 lg:p-8">
       {message !== "" ? (
         <MovieNotAvailable />
       ) : (
