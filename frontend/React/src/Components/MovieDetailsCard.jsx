@@ -143,12 +143,12 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
         <div className="flex items-center justify-between w-full">
           <h1 className="text-xl md:text-3xl font-semibold text-white">{title}</h1>
 
-          <div className="relative z-20 flex items-center justify-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             {items.map((item) => {
               const Icon = item.icon;
               return (
                 <div className="group flex flex-col items-center justify-center">
-                  <span className="absolute bottom-full mb-2 text-xs md:text-sm text-white bg-blue-900 px-2 py-1 rounded shadow-xl 
+                  <span className="relative z-20 bottom-full mb-2 text-xs md:text-sm text-white bg-blue-900 px-2 py-1 rounded shadow-xl 
                 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                     {item.title}
                   </span>
