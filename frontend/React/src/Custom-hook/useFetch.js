@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export function useFetch(url, params = {}, shouldFetch = true) {
+export const useFetch = (url, params = {}, shouldFetch = true) => {
     const [loading, setLoading] = useState(false);
     const [isError, setError] = useState(false);
     const [data, setData] = useState([]);
@@ -19,11 +19,12 @@ export function useFetch(url, params = {}, shouldFetch = true) {
         setError(false);
         setNoMovieFound(false);
 
-        const response = await axios.get(url, { params,  headers: {
+        const response = await axios.get(url, {
+            params, headers: {
                 'Authorization': `Bearer ${token}`
-            } 
+            }
         });
-        
+
         if (response.data.error) {
             setError(true);
         }

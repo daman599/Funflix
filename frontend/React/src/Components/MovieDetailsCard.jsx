@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Heart, Plus, Star } from "lucide-react";
 import axios from "axios";
@@ -9,103 +9,16 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
 
   const imageUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
   const { id } = useParams();
-  const navigate = useNavigate();
   const [watchCount, setWatchCount] = useState(1);
   const [favsCount, setFavsCount] = useState(1);
 
   const token = localStorage.getItem('token');
 
   async function handleWatchlater() {
-    const isLoggedin = await axios.get(`${backend_url}/user/check-auth`,
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      }
-    )
-
-    if (isLoggedin.data.error) {
-      navigate("/auth")
-    }
-    else {
-      if (watchCount % 2 == 0) {
-        //api call to remove 
-        const ismovieRemoved = await axios.delete(`${backend_url}/watchlater/remove/movie`, {
-          data: { movieId: id }
-        }, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }
-        )
-
-        if (ismovieRemoved.data.Error) {
-          alert(ismovieRemoved.data.Error)
-        }
-        else {
-          setWatchLater("➕")
-          alert(ismovieRemoved.data.message)
-          return;
-        }
-      }
-
-      const ismovieAdded = await axios.post(`${backend_url}/watchlater/add/movie`, {
-        movieId: id
-      },
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }
-      )
-
-      if (ismovieAdded.data.message) {
-        setWatchLater("✔️")
-        alert(ismovieAdded.data.message);
-      }
-      else {
-        alert(ismovieAdded.data.Error);
-      }
-      setWatchCount(count => count + 1);
-    }
-  }
-
-  async function handleAddtoFavs() {
-    const isLoggedin = await axios.get(`${backend_url}/user/check-auth`,
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      }
-    )
-
-    if (isLoggedin.data.error) {
-      navigate("/auth")
-    }
-    else {
-      if (favsCount % 2 == 0) {
-        //api call to remove 
-        const ismovieRemoved = await axios.delete(`${backend_url}/favorites/movie`, {
-          data: { movieId: id }
-        }, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }
-        )
-
-        if (ismovieRemoved.data.Error) {
-          alert(ismovieRemoved.data.Error)
-        }
-        else {
-          setAddTofavs("❤️")
-          alert(ismovieRemoved.data.message)
-          setFavsCount(count => count + 1)
-          return;
-        }
-      }
-      const ismovieAdded = await axios.post(`${backend_url}/favorites/movie`, {
-        movieId: id
+    if (watchCount % 2 == 0) {
+      //api call to remove 
+      const ismovieRemoved = await axios.delete(`${backend_url}/watchlater/remove/movie`, {
+        data: { movieId: id }
       }, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -113,14 +26,71 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
       }
       )
 
-      if (ismovieAdded.data.message) {
-        setAddTofavs("✔️");
-        setFavsCount(count => count + 1);
-        alert(ismovieAdded.data.message);
+      if (ismovieRemoved.data.Error) {
+        alert(ismovieRemoved.data.Error);
       }
       else {
-        alert(ismovieAdded.data.Error);
+        alert(ismovieRemoved.data.message);
+        return;
       }
+    }
+
+    const ismovieAdded = await axios.post(`${backend_url}/watchlater/add/movie`, {
+      movieId: id
+    },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    )
+
+    if (ismovieAdded.data.message) {
+      alert(ismovieAdded.data.message);
+    }
+    else {
+      alert(ismovieAdded.data.Error);
+    }
+    setWatchCount(count => count + 1);
+  }
+
+  async function handleAddtoFavs() {
+    if (favsCount % 2 == 0) {
+      //api call to remove 
+      const ismovieRemoved = await axios.delete(`${backend_url}/favorites/movie`, {
+        data: { movieId: id }
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+      )
+
+      if (ismovieRemoved.data.Error) {
+        alert(ismovieRemoved.data.Error)
+      }
+      else {
+        setAddTofavs("❤️")
+        alert(ismovieRemoved.data.message)
+        setFavsCount(count => count + 1)
+        return;
+      }
+    }
+    const ismovieAdded = await axios.post(`${backend_url}/favorites/movie`, {
+      movieId: id
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+    )
+
+    if (ismovieAdded.data.message) {
+      setFavsCount(count => count + 1);
+      alert(ismovieAdded.data.message);
+    }
+    else {
+      alert(ismovieAdded.data.Error);
     }
   }
 
@@ -191,13 +161,13 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
                       <span className="text-gray-100 text-base md:text-lg">{platform.serviceName}</span>
 
                       <div className="flex flex-wrap items-start justify-start gap-2 text-gray-300 text-xs">
-                        {platform.type && <span className="bg-blue-950/20 px-1 py-0.5 rounded-full">
+                        {platform.type && <div className="bg-blue-900 px-1 py-0.5 rounded-full">
                           {platform.type === "addon" ? "Subscription" : platform.type}
-                        </span>}
+                        </div>}
 
-                        {platform.quality && <span className="bg-blue-950/20 px-1 py-0.5 rounded-full">
+                        {platform.quality && <div className="bg-blue-900 px-1 py-0.5 rounded-full">
                           {platform.quality}
-                        </span>}
+                        </div>}
                       </div>
                     </div>
                   </div>

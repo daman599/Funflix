@@ -26,6 +26,6 @@ export const Layout = () => {
 
     return <>
         <Navbar userLoggedin={userLoggedin} />
-        <Outlet />
+        <Outlet userLoggedin={userLoggedin} />
     </>
 }

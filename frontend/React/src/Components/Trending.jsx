@@ -1,5 +1,5 @@
 import { MovieCard } from "./MovieCard";
-import { useFetch } from "../Custom-hook/useFetch";
+import { useFetch } from "../custom-hook/useFetch";
 import { motion, stagger } from "motion/react";
 import { Error } from "./helper/Error";
 import { LoadingSkeleton } from "./helper/LoadingSkeleton";

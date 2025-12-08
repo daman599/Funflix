@@ -2,7 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { MovieCard } from "../Components/MovieCard";
-import { useFetch } from "../Custom-hook/useFetch";
+import { useFetch } from "../custom-hook/useFetch";
 import { motion } from "motion/react";
 import { LoadingSkeleton } from "../Components/helper/LoadingSkeleton";
 
