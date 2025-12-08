@@ -1,16 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { Heart, Plus, Star } from "lucide-react";
 import axios from "axios";
 
 const backend_url = import.meta.env.VITE_backend_url;
 
 export const MovieDetailsCard = ({ poster_path, title, overview, rating, release_date, isTrending, streaming = [] }) => {
 
-  const url = `https://image.tmdb.org/t/p/w500${poster_path}`;
+  const imageUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
   const { id } = useParams();
   const navigate = useNavigate();
-  const [watchLater, setWatchLater] = useState("➕");
-  const [addToFavs, setAddTofavs] = useState("❤️");
   const [watchCount, setWatchCount] = useState(1);
   const [favsCount, setFavsCount] = useState(1);
 
@@ -125,82 +124,87 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
     }
   }
 
+  const items = [
+    { title: "Watch Later", icon: Plus, handler: handleWatchlater, color: "white", size: 25 },
+    { title: "Add to Favs", icon: Heart, handler: handleAddtoFavs, color: "#FF4D6D", size: 20 }
+  ];
+
   return (
-    <div className="max-w-7xl mx-auto mt-2 mb-10 my-10 p-6 bg-[#0C0516] rounded-xl shadow-lg flex flex-col md:flex-row gap-6 border border-[#ffffff1a]">
-      <img src={url}
+    <div className="max-w-6xl mx-auto p-4 bg-blue-900/10 rounded-xl shadow-xl
+    flex flex-col md:flex-row gap-4 border-1 border-[#ffffff1a]">
+
+      <img src={"/Google_logo.jpeg"}
         alt={title}
-        className="w-full md:w-80 h-auto rounded-lg object-cover shadow-md"
+        className="w-full md:w-60 h-full rounded-lg object-cover shadow-md"
       />
 
-      <div className="flex-1 space-y-4">
-        <div className="flex justify-between items-start flex-wrap">
+      <div className="flex flex-col items-start justify-start md:gap-2 gap-4">
+        <div className="flex items-start justify-between w-full">
+          <h1 className="text-xl md:text-3xl font-semibold text-white">{title}</h1>
 
-          <h1 className="text-3xl font-bold text-white">{title}</h1>
+          <div className="flex items-center justify-center gap-2">
+            {items.map((item) => {
+              const Icon = item.icon;
 
-          <div className="flex gap-2 mt-2 md:mt-0">
-            <div className="flex gap-4">
-              <div className="relative group flex flex-col items-center">
+              return (
+                <div className="relative group flex flex-col items-center justify-center gap-4">
+                  <span className="absolute bottom-full mb-2 tex-xs md:text-sm text-white bg-blue-900 px-2 py-1 rounded shadow-xl 
+                    opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    {item.title}
+                  </span>
 
-                <span className="absolute bottom-full mb-2 text-sm text-white bg-[#373D90] px-2 py-1 rounded shadow opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                  Watch Later
-                </span>
-
-                <button className="text-2xl cursor-pointer text-white hover:text-[#4ADE80] transition"
-                  onClick={handleWatchlater}
-                >
-                  {watchLater}
-                </button>
-              </div>
-
-              <div className="relative group flex flex-col items-center">
-
-                <span className="absolute bottom-full mb-2 text-sm text-white bg-[#373D90] px-2 py-1 rounded shadow opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                  Add to Favs
-                </span>
-
-                <button className="text-2xl cursor-pointer text-white hover:text-[#FF4D6D] transition"
-                  onClick={handleAddtoFavs}
-                >
-                  {addToFavs}
-                </button>
-              </div>
-            </div>
-
+                  <button className="cursor-pointer" onClick={item.handler}>
+                    <Icon color={item.color} size={item.size} />
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        <p className="text-white/80 text-sm md:text-base">{overview}</p>
+        <span className="text-white/80 text-sm md:text-base">{overview}</span>
 
-        <div className="text-white/60 text-sm space-y-1">
-          <p><strong className="text-white">Rating:</strong> ⭐ {rating || "N/A"}</p>
-          <p><strong className="text-white">Release Date:</strong> {release_date || "Unknown"}</p>
-          <p><strong className="text-white">Trending:</strong> {isTrending ? "Yes" : "No"}</p>
+        <div className="text-white/60 text-xs md:text-sm flex flex-col items-start justify-center gap-1">
+          <div className="flex gap-2 items-center justify-center">
+            <strong className="text-white font-medium">Rating:</strong>
+            <Star color={"yellow"} size={15} />
+            {rating || "N/A"}
+          </div>
+
+          <span><strong className="text-white font-medium">Release Date:</strong> {release_date || "Unknown"}</span>
+          <span><strong className="text-white font-medium">Trending:</strong> {isTrending ? "Yes" : "Nope"}</span>
         </div>
 
         {streaming.length > 0 && (
-          <div className="mt-6">
-            <h3 className="text-2xl font-semibold text-white mb-4">Available On :</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+          <div className="flex flex-col items-start justify-center gap-2">
+            <h2 className="text-lg md:text-xl font-medium text-white/50">Available On :</h2>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {streaming.map((platform, index) => (
                 <div key={index}
-                  className="flex items-center gap-4 bg-[#151028]/80 backdrop-blur-sm border border-[#ffffff1a] rounded-xl p-4 hover:shadow-[0_0_10px_#373D90] transition duration-300"
+                  className="flex items-start justify-start gap-4 bg-blue-950
+                  backdrop-blur-sm border-1 border-[#ffffff1a] rounded-xl p-2 hover:scale-105
+                  hover:shadow-[0_0_5px_#373D90] transition duration-300"
                 >
                   <a href={platform.link} target="_blank" rel="noopener noreferrer">
                     <img
                       src={platform.logo_url}
                       alt={platform.serviceName}
-                      className="w-12 h-12 object-contain hover:scale-105 transition-transform"
+                      className="w-12 h-12 object-contain hover:scale-105 transition-transform duration-300"
                     />
                   </a>
-                  <div className="flex flex-col">
-                    <p className="text-white text-lg font-semibold">{platform.serviceName}</p>
-                    <div className="flex flex-wrap items-center gap-2 text-sm mt-1">
-                      <span className="bg-[#373D90]/30 text-white px-2 py-0.5 rounded-full text-xs font-medium">
+
+                  <div className="flex flex-col items-start justify-start gap-1 font-medium">
+                    <span className="text-white text-base md:text-lg">{platform.serviceName}</span>
+
+                    <div className="flex flex-wrap items-center justify-center gap-2 text-gray-300 text-xs md:text-sm">
+                      {platform.type && <span className="bg-blue-800/20 p-1 rounded-full">
                         {platform.type === "addon" ? "Subscription" : platform.type}
-                      </span>
-                      <span className="bg-[#373D90]/30 text-white px-2 py-0.5 rounded-full text-xs font-medium">
+                      </span>}
+
+                      {platform.quality && <span className="bg-blue-800/20 p-1 rounded-full">
                         {platform.quality}
-                      </span>
+                      </span>}
                     </div>
                   </div>
                 </div>
@@ -208,7 +212,8 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
             </div>
           </div>
         )}
+
       </div>
-    </div>
+    </div >
   );
 }

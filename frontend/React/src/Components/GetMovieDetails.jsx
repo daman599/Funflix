@@ -18,6 +18,10 @@ export const GetMovieDetails = () => {
         return <Error />
     }
 
+    if (detailsLoading || streamingLoading) {
+        return <Loader />
+    }
+
     const streamingOptions = streamingDetails.map((platform) => {
         return ({
             serviceName: platform.service.name,
@@ -28,12 +32,8 @@ export const GetMovieDetails = () => {
         });
     })
 
-    if (detailsLoading || streamingLoading) {
-        return <Loader />
-    }
-
     return <>
-        <div className="relative overflow-hidden min-h-screen bg-[#0C0516] flex items-center justify-center">
+        <div className="relative overflow-hidden min-h-screen flex items-center justify-center p-4">
             {message !== "" ? (
                 <MovieNotAvailable />
             ) : (
