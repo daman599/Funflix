@@ -33,7 +33,7 @@ export const GetMovieDetails = () => {
     })
 
     return <>
-        <div className="relative overflow-hidden min-h-screen flex items-center justify-center p-4">
+        <div className="relative min-h-screen flex items-center justify-center p-4">
             {message !== "" ? (
                 <MovieNotAvailable />
             ) : (

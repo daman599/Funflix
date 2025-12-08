@@ -135,7 +135,7 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
 
       <img src={imageUrl}
         alt={title}
-        className="w-full md:w-60 h-full rounded-lg object-cover shadow-md"
+        className="w-full lg:w-60 h-full rounded-lg object-cover shadow-md"
       />
 
       <div className="flex flex-col items-start justify-start md:gap-2 gap-4">
@@ -181,33 +181,27 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {streaming.map((platform, index) => (
-                <div key={index}
-                  className="flex items-start justify-start gap-6 bg-blue-950
+                <a key={index} href={platform.link} target="_blank" rel="noopener noreferrer">
+                  <div
+                    className="flex items-start justify-start gap-6 bg-blue-950
                   backdrop-blur-sm border-1 border-[#ffffff1a] rounded-xl p-2
                   hover:shadow-[0_0_5px_#373D90] transition duration-300"
-                >
-                  <a href={platform.link} target="_blank" rel="noopener noreferrer">
-                    <img
-                      src={platform.logo_url}
-                      alt={platform.serviceName}
-                      className="w-12 h-12 object-contain hover:scale-105 transition-transform duration-300"
-                    />
-                  </a>
+                  >
+                    <div className="flex flex-col items-start justify-start gap-1 font-medium">
+                      <span className="text-gray-100 text-base md:text-lg">{platform.serviceName}</span>
 
-                  <div className="flex flex-col items-start justify-start gap-1 font-medium">
-                    <span className="text-white text-base md:text-lg">{platform.serviceName}</span>
+                      <div className="flex flex-wrap items-start justify- gap-2 text-gray-300 text-xs">
+                        {platform.type && <span className="bg-blue-900/50 px-1 py-0.5 rounded-full">
+                          {platform.type === "addon" ? "Subscription" : platform.type}
+                        </span>}
 
-                    <div className="flex flex-wrap items-center justify-center gap-2 text-gray-300 text-xs md:text-sm">
-                      {platform.type && <span className="bg-blue-800/20 px-1 py-0.5 rounded-full">
-                        {platform.type === "addon" ? "Subscription" : platform.type}
-                      </span>}
-
-                      {platform.quality && <span className="bg-blue-800/20 px-1 py-0.5 rounded-full">
-                        {platform.quality}
-                      </span>}
+                        {platform.quality && <span className="bg-blue-900/50 px-1 py-0.5 rounded-full">
+                          {platform.quality}
+                        </span>}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
