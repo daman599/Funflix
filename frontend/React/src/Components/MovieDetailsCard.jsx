@@ -147,7 +147,7 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
               const Icon = item.icon;
 
               return (
-                <div className="relative group flex flex-col items-center justify-center gap-4">
+                <div className="relative z-10 group flex flex-col items-center justify-center gap-4">
                   <span className="absolute bottom-full mb-2 tex-xs md:text-sm text-white bg-blue-900 px-2 py-1 rounded shadow-xl 
                     opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                     {item.title}
@@ -184,18 +184,18 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
                 <a key={index} href={platform.link} target="_blank" rel="noopener noreferrer">
                   <div
                     className="flex items-start justify-start gap-6 bg-blue-950
-                  backdrop-blur-sm border-1 border-[#ffffff1a] rounded-xl p-2
+                  backdrop-blur-sm border-1 border-[#ffffff1a] rounded-xl px-3 py-2
                   hover:shadow-[0_0_5px_#373D90] transition duration-300"
                   >
-                    <div className="flex flex-col items-start justify-start gap-1 font-medium">
+                    <div className="flex flex-col items-start justify-start gap-2 font-medium">
                       <span className="text-gray-100 text-base md:text-lg">{platform.serviceName}</span>
 
-                      <div className="flex flex-wrap items-start justify- gap-2 text-gray-300 text-xs">
-                        {platform.type && <span className="bg-blue-900/50 px-1 py-0.5 rounded-full">
+                      <div className="flex flex-wrap items-start justify-start gap-2 text-gray-300 text-xs">
+                        {platform.type && <span className="bg-blue-950/20 px-1 py-0.5 rounded-full">
                           {platform.type === "addon" ? "Subscription" : platform.type}
                         </span>}
 
-                        {platform.quality && <span className="bg-blue-900/50 px-1 py-0.5 rounded-full">
+                        {platform.quality && <span className="bg-blue-950/20 px-1 py-0.5 rounded-full">
                           {platform.quality}
                         </span>}
                       </div>
