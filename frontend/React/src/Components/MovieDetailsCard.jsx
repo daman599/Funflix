@@ -147,9 +147,9 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
               const Icon = item.icon;
 
               return (
-                <div className="relative z-10 group flex flex-col items-center justify-center gap-4">
-                  <span className="absolute bottom-full mb-2 tex-xs md:text-sm text-white bg-blue-900 px-2 py-1 rounded shadow-xl 
-                    opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                <div className="relative z-10 group flex flex-col items-center justify-center pb-2">
+                  <span className="absolute bottom-full mb-2 text-xs md:text-sm text-white bg-blue-900 px-2 py-1 rounded shadow-xl 
+          opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                     {item.title}
                   </span>
 
@@ -191,11 +191,11 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
                       <span className="text-gray-100 text-base md:text-lg">{platform.serviceName}</span>
 
                       <div className="flex flex-wrap items-start justify-start gap-2 text-gray-300 text-xs">
-                        {platform.type && <span className="bg-blue-950/20 px-1 py-0.5 rounded-full">
+                        {platform.type && <span className="bg-blue-950 px-1 py-0.5 rounded-full">
                           {platform.type === "addon" ? "Subscription" : platform.type}
                         </span>}
 
-                        {platform.quality && <span className="bg-blue-950/20 px-1 py-0.5 rounded-full">
+                        {platform.quality && <span className="bg-blue-950 px-1 py-0.5 rounded-full">
                           {platform.quality}
                         </span>}
                       </div>
