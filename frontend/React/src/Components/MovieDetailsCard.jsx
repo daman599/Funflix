@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Heart, Plus, Star } from "lucide-react";
 import axios from "axios";
 
 const backend_url = import.meta.env.VITE_backend_url;
 
-export const MovieDetailsCard = ({ poster_path, title, overview, rating, release_date, isTrending, streaming = [] }) => {
+export const MovieDetailsCard = ({ userLoggedin, poster_path, title, overview, rating, release_date, isTrending, streaming = [] }) => {
 
+  const navigate = useNavigate();
   const imageUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
   const { id } = useParams();
   const [watchCount, setWatchCount] = useState(1);
@@ -15,6 +16,11 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
   const token = localStorage.getItem('token');
 
   async function handleWatchlater() {
+    if (!userLoggedin) {
+      navigate("/auth");
+      return;
+    }
+
     if (watchCount % 2 == 0) {
       //api call to remove 
       const ismovieRemoved = await axios.delete(`${backend_url}/watchlater/remove/movie`, {
@@ -55,6 +61,11 @@ export const MovieDetailsCard = ({ poster_path, title, overview, rating, release
   }
 
   async function handleAddtoFavs() {
+    if (!userLoggedin) {
+      navigate("/auth");
+      return;
+    }
+
     if (favsCount % 2 == 0) {
       //api call to remove 
       const ismovieRemoved = await axios.delete(`${backend_url}/favorites/movie`, {

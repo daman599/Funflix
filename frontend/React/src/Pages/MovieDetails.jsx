@@ -5,19 +5,10 @@ import { BackgroundBeamsWithCollision } from "../Components/ui/background-beams-
 import { Loader } from "../Components/helper/Loader";
 import { Error } from "../Components/helper/Error";
 import { MovieNotAvailable } from "../Components/helper/MovieNotAvailable";
-import { useNavigate } from "react-router-dom";
 
 const backend_url = import.meta.env.VITE_backend_url;
 
 export const MovieDetails = ({ userLoggedin }) => {
-
-  const navigate = useNavigate();
-
-  if (!userLoggedin) {
-    navigate("/auth");
-    return;
-  }
-
   const { id } = useParams();
 
   const { loading: detailsLoading, data: movieDetails, isError } = useFetch(`${backend_url}/movie/details`, { movieId: id })
@@ -47,7 +38,7 @@ export const MovieDetails = ({ userLoggedin }) => {
         <MovieNotAvailable />
       ) : (
         <BackgroundBeamsWithCollision>
-          <MovieDetailsCard
+          <MovieDetailsCard userLoggedin={userLoggedin}
             poster_path={movieDetails.poster_path}
             title={movieDetails.title}
             overview={movieDetails.overview}
