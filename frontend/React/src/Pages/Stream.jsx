@@ -1,8 +1,8 @@
-import { Trending } from "../Components/Trending";
+import { Trending } from "../components/Trending";
 import { useState } from "react";
-import { TextGenerateEffect } from "../Components/ui/text-generate-effect";
-import { SearchBar } from "../Components/SearchBar";
-import { SearchMovie } from "../Components/SearchMovie";
+import { TextGenerateEffect } from "../components/ui/text-generate-effect";
+import { SearchBar } from "../components/SearchBar";
+import { SearchMovie } from "../components/SearchMovie";
 
 export const Stream = () => {
     const [movieName, setMovieName] = useState("");

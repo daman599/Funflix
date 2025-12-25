@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { MovieCard } from "../Components/MovieCard";
-import { useFetch } from "../custom-hook/useFetch";
+import { MovieCard } from "../components/MovieCard";
+import { useFetch } from "../hooks/useFetch";
 import { motion } from "motion/react";
-import { LoadingSkeleton } from "../Components/helper/LoadingSkeleton";
+import { LoadingSkeleton } from "../components/helper/LoadingSkeleton";
 
 const backend_url = import.meta.env.VITE_backend_url;
 

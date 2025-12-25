@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { MovieCard } from "./MovieCard";
-import { useFetch } from "../custom-hook/useFetch";
+import { useFetch } from "../hooks/useFetch";
 import { Error } from "./helper/Error";
-import { Loader } from "../Components/helper/Loader";
-import { NoMovieFound } from "../Components/helper/NoMovieFound";
+import { Loader } from "../components/helper/Loader";
+import { NoMovieFound } from "../components/helper/NoMovieFound";
 
 const backend_url = import.meta.env.VITE_backend_url;
 

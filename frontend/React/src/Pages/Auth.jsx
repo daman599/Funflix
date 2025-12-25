@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
-import { Loader } from "../Components/helper/Loader";
+import { Loader } from "../components/helper/Loader";
 import { motion } from "motion/react";
 import axios from "axios";
 

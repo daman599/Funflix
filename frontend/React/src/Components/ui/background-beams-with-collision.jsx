@@ -1,4 +1,3 @@
-"use client";
 import { cn } from "../../lib/utils"
 import { motion, AnimatePresence } from "motion/react";
 import React, { useRef, useState, useEffect } from "react";
@@ -64,13 +63,13 @@ export const BackgroundBeamsWithCollision = ({
   ];
 
   return (
-   <div
-  ref={parentRef}
-  className={cn(
-    "relative inset-0 bg-gradient-to-b from-indigo-90 to-indigo-90 flex items-center justify-center overflow-hidden",
-    className
-  )}
->
+    <div
+      ref={parentRef}
+      className={cn(
+        "relative inset-0 bg-gradient-to-b from-indigo-90 to-indigo-90 flex items-center justify-center overflow-hidden",
+        className
+      )}
+    >
 
       {beams.map((beam) => (
         <CollisionMechanism

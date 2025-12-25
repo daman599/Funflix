@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom"
-import { MovieDetailsCard } from "../Components/MovieDetailsCard"
-import { useFetch } from "../custom-hook/useFetch"
-import { BackgroundBeamsWithCollision } from "../Components/ui/background-beams-with-collision"
-import { Loader } from "../Components/helper/Loader";
-import { Error } from "../Components/helper/Error";
-import { MovieNotAvailable } from "../Components/helper/MovieNotAvailable";
+import { MovieDetailsCard } from "../components/MovieDetailsCard"
+import { useFetch } from "../hooks/useFetch"
+import { BackgroundBeamsWithCollision } from "../components/ui/background-beams-with-collision"
+import { Loader } from "../components/helper/Loader";
+import { Error } from "../components/helper/Error";
+import { MovieNotAvailable } from "../components/helper/MovieNotAvailable";
 
 const backend_url = import.meta.env.VITE_backend_url;
 
