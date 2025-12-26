@@ -1,13 +1,15 @@
 const express = require('express');
 const googleAuthRouter = express.Router();
-const { OAuth2Client } = require('google-auth-library')
-const axios = require('axios')
-require('dotenv').config()
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
-const REDIRECT_URI = process.env.REDIRECT_URI
+const { OAuth2Client } = require('google-auth-library');
+const axios = require('axios');
 
-const { UserModel } = require("../db")
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const REDIRECT_URI = process.env.REDIRECT_URI;
+
+require('dotenv').config();
+
+const { UserModel } = require("../db");
 const jwt = require('jsonwebtoken');
 const JWT_KEY = process.env.JWT_KEY;
 
@@ -35,6 +37,7 @@ googleAuthRouter.get('/auth/callback', async (req, res) => {
             Authorization: `Bearer ${access_token}`
         }
     })
+
     const name = userInfo.data.name;
     const email = userInfo.data.email;
 
@@ -52,16 +55,15 @@ googleAuthRouter.get('/auth/callback', async (req, res) => {
             email: email
         })
     }
+
     token = jwt.sign({
         "userId": user._id
     }, JWT_KEY);
 
-   res.redirect(`https://funflix-frontend.onrender.com/oauth?token=${token}`);
+    res.redirect(`https://funflix-frontend.onrender.com/oauth?token=${token}`);
 })
 
-module.exports = {
-    googleAuthRouter: googleAuthRouter
-}
+module.exports = { googleAuthRouter }
 
 
 
