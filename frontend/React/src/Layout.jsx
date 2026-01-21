@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Navbar } from "./Components/Navbar";
 
-const Backend_url = "https://funflix-backend-j5wb.onrender.com";
+const backend_url = import.meta.env.VITE_backend_url;
 
 export const Layout = () => {
     const [userLoggedin, setUserLoggedin] = useState(false);
@@ -12,7 +12,7 @@ export const Layout = () => {
         async function checkUserAuth() {
             const token = localStorage.getItem('token');
 
-            const isuserLoggedin = await axios.get(`${Backend_url}/user/check-auth`, {
+            const isuserLoggedin = await axios.get(`${backend_url}/user/check-auth`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
